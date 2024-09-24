@@ -8,9 +8,6 @@ import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -44,14 +41,10 @@ public class MenuScreen extends Screen {
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
 
-        // Load the image (PNG) file for the menu screen
-        try {
-            overlayImage = ImageIO.read(new File("C:\\Users\\cmbrookschapman\\Downloads\\SERCLASS\\SER-225-Game-Platformer\\Resources\\hellmenu.png "));
-            if (overlayImage == null) {
-                System.out.println("Image not loaded correctly.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Load the image from the resources folder using ImageLoader
+        overlayImage = ImageLoader.load("hellmenu.png");
+        if (overlayImage == null) {
+            System.out.println("Image not loaded correctly.");
         }
     }
 
