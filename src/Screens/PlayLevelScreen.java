@@ -117,7 +117,7 @@ private void drawLevelTimer(GraphicsHandler graphicsHandler) {
     Color timerColor = Color.WHITE;
 
     // Draw the timer on the screen at position (20, 50)
-    graphicsHandler.drawString("Time: " + timeString, 20, 50, timerFont, timerColor);
+    graphicsHandler.drawString("Time: " + timeString, 650, 50, timerFont, timerColor);
 }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
