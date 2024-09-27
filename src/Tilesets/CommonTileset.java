@@ -185,7 +185,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder treeTrunkHoleBottomTile = new MapTileBuilder(treeTrunkHoleBottomFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(treeTrunkHoleBottomTile);
 

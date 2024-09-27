@@ -28,8 +28,17 @@ public class TestMap extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
+        BugEnemy bugEnemy1 = new BugEnemy(getMapTile(40, 12).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy1);
+
+        BugEnemy bugEnemy2 = new BugEnemy(getMapTile(56, 8).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy2);
+
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
+
+        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(63, 10).getLocation().addY(2), getMapTile(65, 10).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy2);
 
         return enemies;
     }
@@ -48,6 +57,29 @@ public class TestMap extends Map {
                 Direction.RIGHT
         );
         enhancedMapTiles.add(hmp);
+
+        HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
+            ImageLoader.load("GreenPlatform.png"),
+            getMapTile(154, 4).getLocation(),
+            getMapTile(158, 4).getLocation(),
+            TileType.JUMP_THROUGH_PLATFORM,
+            3,
+            new Rectangle(0, 6,16,4),
+            Direction.RIGHT
+    );
+    enhancedMapTiles.add(hmp1);
+
+    HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
+        ImageLoader.load("GreenPlatform.png"),
+        getMapTile(162, 4).getLocation(),
+        getMapTile(166, 4).getLocation(),
+        TileType.JUMP_THROUGH_PLATFORM,
+        3,
+        new Rectangle(0, 6,16,4),
+        Direction.LEFT
+);
+enhancedMapTiles.add(hmp2);
+
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
         enhancedMapTiles.add(endLevelBox);
