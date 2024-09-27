@@ -15,11 +15,11 @@ import java.util.HashMap;
 public class prof extends Player {
     public prof(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("profsheet.png"), 24, 24), x, y, "STAND_RIGHT");
-        gravity = .5f;
+        gravity = .8f;
         terminalVelocityY = 6f;
         jumpHeight = 14.5f;
         jumpDegrade = .5f;
-        walkSpeed = 2.3f;
+        walkSpeed = 5f;
         momentumYIncrease = .5f;
     }
 

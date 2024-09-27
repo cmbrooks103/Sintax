@@ -255,7 +255,7 @@ public abstract class Player extends GameObject {
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                levelState = LevelState.PLAYER_DEAD;;
             }
         }
         else if (playerState == PlayerState.WALKING) {

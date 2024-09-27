@@ -8,6 +8,7 @@ import Utils.Point;
 // it is used by the game object class to determine if and where a collision occurred
 public class MapCollisionHandler {
 
+    
     // x axis collision logic
     // determines if a collision occurred with another entity on the map, and calculates where gameobject should be placed to resolve the collision
     public static MapCollisionCheckResult getAdjustedPositionAfterCollisionCheckX(GameObject gameObject, Map map, Direction direction) {
@@ -334,3 +335,5 @@ public class MapCollisionHandler {
         return new MapCollisionCheckResult(null, null);
     }
 }
+
+
