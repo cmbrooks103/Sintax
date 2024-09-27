@@ -40,6 +40,9 @@ public class TestMap extends Map {
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(63, 10).getLocation().addY(2), getMapTile(65, 10).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy2);
 
+        DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(81, 6).getLocation().addY(2), getMapTile(82, 6).getLocation().addY(2), Direction.RIGHT);
+        enemies.add(dinosaurEnemy3);
+
         return enemies;
     }
 
