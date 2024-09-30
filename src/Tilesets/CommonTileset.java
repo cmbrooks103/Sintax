@@ -108,6 +108,7 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(treeTrunkTile);
 
+
         // tree top leaves
         Frame treeTopLeavesFrame = new FrameBuilder(getSubImage(1, 1))
                 .withScale(tileScale)
@@ -261,6 +262,60 @@ public class CommonTileset extends Tileset {
                 .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(leftStairsTopTile);
+
+         // new endgrass tile
+         Frame endgrassFrame = new FrameBuilder(getSubImage(4, 2))  
+         .withScale(tileScale)
+         .build();
+ 
+         MapTileBuilder endgrass = new MapTileBuilder(endgrassFrame)
+         .withTileType(TileType.NOT_PASSABLE);  // Define its type
+ 
+         mapTiles.add(endgrass);
+
+         // new enddirt tile
+         Frame enddirtFrame = new FrameBuilder(getSubImage(4, 3))  
+         .withScale(tileScale)
+         .build();
+ 
+         MapTileBuilder enddirt = new MapTileBuilder(enddirtFrame)
+         .withTileType(TileType.NOT_PASSABLE);  // Define its type
+ 
+         mapTiles.add(enddirt);
+
+         // left 45 degree slope end
+        Frame leftSlopeendFrame = new FrameBuilder(getSubImage(4, 4))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder leftSlopeendTile = new MapTileBuilder(leftSlopeendFrame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(leftSlopeendTile);
+
+        // right 45 degree slope
+        Frame rightSlopeendFrame = new FrameBuilder(getSubImage(4, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightSlopeendTile = new MapTileBuilder(rightSlopeendFrame)
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(rightSlopeendTile);
+
+        // new end flower tile
+        Frame endflowerFrame = new FrameBuilder(getSubImage(3, 5))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder endflower = new MapTileBuilder(endflowerFrame)
+        .withTileType(TileType.PASSABLE);  // Define its type
+
+        mapTiles.add(endflower);
+ 
+ 
 
         return mapTiles;
     }
