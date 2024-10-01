@@ -37,7 +37,7 @@ public class TestMap extends Map {
         BugEnemy bugEnemy3 = new BugEnemy(getMapTile(261, 11).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy3);
 
-        BugEnemy bugEnemy4 = new BugEnemy(getMapTile(208, 9).getLocation().subtractY(25), Direction.LEFT);
+        BugEnemy bugEnemy4 = new BugEnemy(getMapTile(267, 8).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy4);
 
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
@@ -87,12 +87,12 @@ public class TestMap extends Map {
 
     HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
         ImageLoader.load("GreenPlatform.png"),
-        getMapTile(162, 4).getLocation(),
+        getMapTile(160, 4).getLocation(),
         getMapTile(166, 4).getLocation(),
         TileType.JUMP_THROUGH_PLATFORM,
         3,
         new Rectangle(0, 6,16,4),
-        Direction.LEFT
+        Direction.RIGHT
 );
 enhancedMapTiles.add(hmp2);
 

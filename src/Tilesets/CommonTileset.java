@@ -315,7 +315,15 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(endflower);
  
- 
+        // new end brick tile
+        Frame brickFrame = new FrameBuilder(getSubImage(0, 6))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder bricktile = new MapTileBuilder(brickFrame)
+        .withTileType(TileType.NOT_PASSABLE);  // Define its type
+
+        mapTiles.add(bricktile);
 
         return mapTiles;
     }
