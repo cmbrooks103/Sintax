@@ -1,5 +1,6 @@
 package Maps;
 
+import Enemies.DemonEnemy;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
@@ -34,11 +35,14 @@ public class TestMap extends Map {
         BugEnemy bugEnemy2 = new BugEnemy(getMapTile(56, 8).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy2);
 
-        BugEnemy bugEnemy3 = new BugEnemy(getMapTile(261, 11).getLocation().subtractY(25), Direction.LEFT);
-        enemies.add(bugEnemy3);
+        DemonEnemy DemonEnemy = new DemonEnemy(getMapTile(260, 13).getLocation().subtractY(25), Direction.DOWN);
+        enemies.add(DemonEnemy);
 
         BugEnemy bugEnemy4 = new BugEnemy(getMapTile(267, 8).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy4);
+
+        DemonEnemy DemonEnemy1 = new DemonEnemy(getMapTile(267, 8).getLocation().subtractY(25), Direction.DOWN);
+        enemies.add(DemonEnemy1);
 
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
