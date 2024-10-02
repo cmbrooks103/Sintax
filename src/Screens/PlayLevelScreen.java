@@ -9,10 +9,15 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
 import Players.prof;
-import Utils.Point;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.Color;
 import java.awt.Font;
-
+import java.io.File;
+import java.io.IOException;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
@@ -29,11 +34,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected int levelTimer; // Timer counts in frames
     protected int framesPerSecond = 60; // Assuming game runs at 60 FPS
 
+    // Audio variables
+    private Clip backgroundClip;
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
+        // Play background music for the level
+        playBackgroundMusic("src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav");
+
         // define/setup map
         this.map = new TestMap();
 
@@ -54,7 +65,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
-            // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
                 map.update(player);
@@ -62,7 +72,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 // Increment the level timer (counts in frames)
                 levelTimer++;
                 break;
-            // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 if (levelCompletedStateChangeStart) {
                     screenTimer = 130;
@@ -71,24 +80,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     levelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
+                        stopBackgroundMusic();
                         goBackToMenu();
                     }
                 }
                 break;
-            // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
+                stopBackgroundMusic(); // Stop music when player loses
                 break;
         }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
-                
+
                 // Draw the timer on the screen
                 drawLevelTimer(graphicsHandler);
                 break;
@@ -102,23 +111,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     // Method to draw the level timer on the screen
-private void drawLevelTimer(GraphicsHandler graphicsHandler) {
-    // Convert level timer from frames to seconds
-    int secondsElapsed = levelTimer / framesPerSecond;
-    int minutes = secondsElapsed / 60;
-    int seconds = secondsElapsed % 60;
+    private void drawLevelTimer(GraphicsHandler graphicsHandler) {
+        int secondsElapsed = levelTimer / framesPerSecond;
+        int minutes = secondsElapsed / 60;
+        int seconds = secondsElapsed % 60;
 
-    // Format the timer as MM:SS
-    String timeString = String.format("%02d:%02d", minutes, seconds);
+        String timeString = String.format("%02d:%02d", minutes, seconds);
+        Font timerFont = new Font("Arial", Font.PLAIN, 24);
+        Color timerColor = Color.WHITE;
 
-    // Use the drawString method from GraphicsHandler to draw the timer
-    // Define a font and color for the timer text
-    Font timerFont = new Font("Arial", Font.PLAIN, 24);
-    Color timerColor = Color.WHITE;
-
-    // Draw the timer on the screen at position (20, 50)
-    graphicsHandler.drawString("Time: " + timeString, 650, 50, timerFont, timerColor);
-}
+        graphicsHandler.drawString("Time: " + timeString, 650, 50, timerFont, timerColor);
+    }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
@@ -129,6 +132,7 @@ private void drawLevelTimer(GraphicsHandler graphicsHandler) {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
+            stopBackgroundMusic(); // Stop the music when level is completed
         }
     }
 
@@ -136,6 +140,7 @@ private void drawLevelTimer(GraphicsHandler graphicsHandler) {
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+            stopBackgroundMusic(); // Stop the music when the player dies
         }
     }
 
@@ -145,6 +150,30 @@ private void drawLevelTimer(GraphicsHandler graphicsHandler) {
 
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
+    }
+
+    // Method to load and play the WAV file
+    private void playBackgroundMusic(String filepath) {
+        try {
+            File musicPath = new File(filepath);
+            if (musicPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                backgroundClip = AudioSystem.getClip();
+                backgroundClip.open(audioInput);
+                backgroundClip.start(); // Play music once
+            } else {
+                System.out.println("WAV file not found: " + filepath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to stop the background music
+    private void stopBackgroundMusic() {
+        if (backgroundClip != null && backgroundClip.isRunning()) {
+            backgroundClip.stop();
+        }
     }
 
     // This enum represents the different states this screen can be in
