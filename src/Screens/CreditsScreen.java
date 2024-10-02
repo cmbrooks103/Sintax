@@ -16,6 +16,8 @@ public class CreditsScreen extends Screen {
     protected SpriteFont creditsLabel;
     protected SpriteFont createdByLabel;
     protected SpriteFont returnInstructionsLabel;
+    protected SpriteFont additionalTutorialLabel;  // New tutorial text
+    protected SpriteFont newTutorialLabel;         // Another new tutorial text
 
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -29,6 +31,9 @@ public class CreditsScreen extends Screen {
         creditsLabel = new SpriteFont("Tutorial", 15, 7, "Times New Roman", 30, Color.red);
         createdByLabel = new SpriteFont("Use < > keys to move left and right. Use ^ key to jump.", 130, 121, "Times New Roman", 20, Color.red);
         returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.red);
+        additionalTutorialLabel = new SpriteFont("Lava can kill you but Fire cannot at the moment", 130, 160, "Times New Roman", 20, Color.red);  // New label
+        newTutorialLabel = new SpriteFont("Avoid all enemies!!!", 130, 200, "Times New Roman", 20, Color.red);  // Another new label
+
         keyLocker.lockKey(Key.SPACE);
     }
 
@@ -50,5 +55,7 @@ public class CreditsScreen extends Screen {
         creditsLabel.draw(graphicsHandler);
         createdByLabel.draw(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
+        additionalTutorialLabel.draw(graphicsHandler);  // Draw new label
+        newTutorialLabel.draw(graphicsHandler);         // Draw another new label
     }
 }
