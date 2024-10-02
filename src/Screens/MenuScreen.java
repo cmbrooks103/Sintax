@@ -8,6 +8,13 @@ import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -22,6 +29,7 @@ public class MenuScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     protected BufferedImage overlayImage; // This will hold the PNG image
     protected boolean showImage = true; // Used to control when the image is visible
+    private Clip backgroundMusicClip; // To hold the music clip
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -45,6 +53,40 @@ public class MenuScreen extends Screen {
         overlayImage = ImageLoader.load("hellmenu.png");
         if (overlayImage == null) {
             System.out.println("Image not loaded correctly.");
+        }
+
+        // Load and play the background music
+        loadBackgroundMusic("src/Sounds/Don Toliver - Crossfaded (Instrumental) (online-audio-converter.com).wav");
+        playBackgroundMusic();
+    }
+
+    // Method to load background music
+    private void loadBackgroundMusic(String filepath) {
+        try {
+            File musicFile = new File(filepath);
+            if (musicFile.exists()) {
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
+                backgroundMusicClip = AudioSystem.getClip();
+                backgroundMusicClip.open(audioStream);
+            } else {
+                System.out.println("Music file not found.");
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to play background music
+    private void playBackgroundMusic() {
+        if (backgroundMusicClip != null) {
+            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY); // Play in a loop
+        }
+    }
+
+    // Method to stop background music
+    private void stopBackgroundMusic() {
+        if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {
+            backgroundMusicClip.stop();
         }
     }
 
@@ -92,6 +134,7 @@ public class MenuScreen extends Screen {
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             showImage = false; // Hide the image once the user selects an option
+            stopBackgroundMusic(); // Stop music when a menu item is selected
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
