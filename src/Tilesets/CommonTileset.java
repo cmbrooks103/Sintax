@@ -345,6 +345,89 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(blueFire);
 
+         // new biome tile
+         Frame greenskyFrame = new FrameBuilder(getSubImage(0, 7))  
+         .withScale(tileScale)
+         .build();
+ 
+         MapTileBuilder greensky = new MapTileBuilder(greenskyFrame)
+         .withTileType(TileType.PASSABLE);  // Define its type
+ 
+         mapTiles.add(greensky);
+
+         // new biome tile
+         Frame columnFrame = new FrameBuilder(getSubImage(1, 7))  
+         .withScale(tileScale)
+         .build();
+ 
+         MapTileBuilder column = new MapTileBuilder(columnFrame)
+         .withTileType(TileType.NOT_PASSABLE);  // Define its type
+ 
+         mapTiles.add(column);
+
+          // right 45 degree slope
+        Frame rightgreenslopeFrame = new FrameBuilder(getSubImage(3, 6))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder rightgreenslope = new MapTileBuilder(rightgreenslopeFrame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(rightgreenslope);
+
+        // left 45 degree slope
+        Frame leftgreenslopeFrame = new FrameBuilder(getSubImage(4, 6))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder leftgreenslope = new MapTileBuilder(leftgreenslopeFrame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(leftgreenslope);
+
+        // new biome tile
+        Frame quartzFrame = new FrameBuilder(getSubImage(2, 7))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder quartz = new MapTileBuilder(quartzFrame)
+        .withTileType(TileType.NOT_PASSABLE);  // Define its type
+
+        mapTiles.add(quartz);
+
+        // new biome tile
+        Frame quartzfloorFrame = new FrameBuilder(getSubImage(3, 7))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder quartzfloor = new MapTileBuilder(quartzfloorFrame)
+        .withTileType(TileType.NOT_PASSABLE);  // Define its type
+
+        mapTiles.add(quartzfloor);
+
+        // new biome green fire tile
+        Frame greenflameFrame = new FrameBuilder(getSubImage(4, 7))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder greenflame = new MapTileBuilder(greenflameFrame)
+        .withTileType(TileType.PASSABLE);  // Define its type
+
+        mapTiles.add(greenflame);
+
+        // green lava
+        Frame glavaFrame = new FrameBuilder(getSubImage(0, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder glava = new MapTileBuilder(glavaFrame)
+                .withTileType(TileType.WATER);
+
+        mapTiles.add(glava);
+
+
         return mapTiles;
     }
 }
