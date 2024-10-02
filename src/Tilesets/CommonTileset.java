@@ -427,6 +427,36 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(glava);
 
+        // green biome gold blocks
+        Frame goldenFrame = new FrameBuilder(getSubImage(1, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder golden = new MapTileBuilder(goldenFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(golden);
+
+        // green biome chains hanging
+        Frame chainFrame = new FrameBuilder(getSubImage(2, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder chain = new MapTileBuilder(chainFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(chain);
+
+        // green biome chains hanging
+        Frame skullchainFrame = new FrameBuilder(getSubImage(3, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder skullchain = new MapTileBuilder(skullchainFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(skullchain);
+
 
         return mapTiles;
     }
