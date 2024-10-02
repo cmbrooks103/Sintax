@@ -35,15 +35,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected int framesPerSecond = 60; // Assuming game runs at 60 FPS
 
     // Audio variables
-    private Clip backgroundClip;
+    private static Clip backgroundClip;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
-        // Play background music for the level
-        playBackgroundMusic("src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav");
+        // Play background music for the level only if it's not already playing
+        if (backgroundClip == null || !backgroundClip.isRunning()) {
+            playBackgroundMusic("src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav");
+        }
 
         // define/setup map
         this.map = new TestMap();
@@ -80,14 +82,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     levelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        stopBackgroundMusic();
                         goBackToMenu();
                     }
                 }
                 break;
             case LEVEL_LOSE:
                 levelLoseScreen.update();
-                stopBackgroundMusic(); // Stop music when player loses
                 break;
         }
     }
@@ -152,7 +152,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // Method to load and play the WAV file
+    // Method to load and play the background music
     private void playBackgroundMusic(String filepath) {
         try {
             File musicPath = new File(filepath);
@@ -161,6 +161,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 backgroundClip = AudioSystem.getClip();
                 backgroundClip.open(audioInput);
                 backgroundClip.start(); // Play music once
+                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music
             } else {
                 System.out.println("WAV file not found: " + filepath);
             }
