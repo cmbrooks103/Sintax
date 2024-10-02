@@ -35,7 +35,7 @@ public class TestMap extends Map {
         BugEnemy bugEnemy2 = new BugEnemy(getMapTile(56, 8).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy2);
 
-        DemonEnemy DemonEnemy = new DemonEnemy(getMapTile(260, 13).getLocation().subtractY(25), Direction.DOWN);
+        DemonEnemy DemonEnemy = new DemonEnemy(getMapTile(260, 6).getLocation().subtractY(25), Direction.DOWN);
         enemies.add(DemonEnemy);
 
         BugEnemy bugEnemy4 = new BugEnemy(getMapTile(267, 8).getLocation().subtractY(25), Direction.LEFT);
@@ -55,9 +55,6 @@ public class TestMap extends Map {
 
         DinosaurEnemy dinosaurEnemy4 = new DinosaurEnemy(getMapTile(277, 7).getLocation().addY(2), getMapTile(279, 7).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy4);
-
-        DinosaurEnemy dinosaurEnemy5 = new DinosaurEnemy(getMapTile(141, 11).getLocation().addY(2), getMapTile(138, 7).getLocation().addY(2), Direction.RIGHT);
-        enemies.add(dinosaurEnemy5);
 
 
         return enemies;

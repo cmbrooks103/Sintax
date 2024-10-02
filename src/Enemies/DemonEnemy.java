@@ -17,14 +17,14 @@ import java.util.HashMap;
 // Demon enemy, floats up and down
 public class DemonEnemy extends Enemy {
 
-    private float movementSpeed = 1.2f;
+    private float movementSpeed = 2f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
     
     // New variables for vertical movement tracking
     private float verticalMoveAmount = 0;
-    private final float maxVerticalMovement = 64; // 4 tiles = 64 pixels
+    private final float maxVerticalMovement = 140; // 4 tiles = 64 pixels
 
     public DemonEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("DemonEnemy.png"), 22, 15), "FLOAT_DOWN");

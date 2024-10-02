@@ -325,6 +325,26 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(bricktile);
 
+        // new vines tile
+        Frame VinesFrame = new FrameBuilder(getSubImage(1, 6))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder Vines = new MapTileBuilder(VinesFrame)
+        .withTileType(TileType.PASSABLE);  // Define its type
+
+        mapTiles.add(Vines);
+
+        // new blue fire tile
+        Frame blueFireFrame = new FrameBuilder(getSubImage(2, 6))  
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder blueFire = new MapTileBuilder(blueFireFrame)
+        .withTileType(TileType.PASSABLE);  // Define its type
+
+        mapTiles.add(blueFire);
+
         return mapTiles;
     }
 }
