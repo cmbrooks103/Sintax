@@ -1,6 +1,7 @@
 package Maps;
 
 import Enemies.DemonEnemy;
+import Enemies.GuardianEnemy;
 import Enemies.PhantomEnemy;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
@@ -56,6 +57,19 @@ public class TestMap extends Map {
 
         DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(81, 6).getLocation().addY(2), getMapTile(82, 6).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy3);
+
+        GuardianEnemy GuardianEnemy = new GuardianEnemy(getMapTile(471, 6).getLocation().addY(0), getMapTile(473, 6).getLocation().addY(0), Direction.LEFT);
+        enemies.add(GuardianEnemy);
+
+        GuardianEnemy GuardianEnemy2 = new GuardianEnemy(getMapTile(528, 10).getLocation().addY(0), getMapTile(530, 10).getLocation().addY(0), Direction.LEFT);
+        enemies.add(GuardianEnemy2);
+
+        GuardianEnemy GuardianEnemy3 = new GuardianEnemy(getMapTile(528, 6).getLocation().addY(6), getMapTile(526, 2).getLocation().addY(2), Direction.LEFT);
+        enemies.add(GuardianEnemy3);
+
+        GuardianEnemy GuardianEnemy4 = new GuardianEnemy(getMapTile(540, 10).getLocation().addY(2), getMapTile(538, 10).getLocation().addY(2), Direction.LEFT);
+        enemies.add(GuardianEnemy4);
+
 
 
         return enemies;

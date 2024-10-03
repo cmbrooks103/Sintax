@@ -457,7 +457,29 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(skullchain);
 
+         // green biome chains hanging
+         Frame newflame1Frame = new FrameBuilder(getSubImage(0, 9))
+         .withScale(tileScale)
+         .build();
 
+ MapTileBuilder newflame1 = new MapTileBuilder(newflame1Frame)
+         .withTileType(TileType.WATER);
+
+ mapTiles.add(newflame1);
+
+                 // green biome chains hanging
+         Frame newflame2Frame = new FrameBuilder(getSubImage(4, 8))
+         .withScale(tileScale)
+         .build();
+
+ MapTileBuilder newflame2 = new MapTileBuilder(newflame2Frame)
+         .withTileType(TileType.WATER);
+
+ mapTiles.add(newflame2);
+
+
+
+//4,8 and 0,9 for fire tiles. 0,9 is bottom flame, 4,8 is top flame
         return mapTiles;
     }
 }
