@@ -8,6 +8,8 @@ import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.PuzzlePlatform;
+import EnhancedMapTiles.PuzzleTile;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
@@ -21,7 +23,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(307, 6).getLocation();
+        this.playerStartPosition = getMapTile(541, 10).getLocation();
     }
 
     @Override
@@ -67,8 +69,7 @@ public class TestMap extends Map {
         GuardianEnemy GuardianEnemy3 = new GuardianEnemy(getMapTile(528, 6).getLocation().addY(6), getMapTile(526, 2).getLocation().addY(2), Direction.LEFT);
         enemies.add(GuardianEnemy3);
 
-        GuardianEnemy GuardianEnemy4 = new GuardianEnemy(getMapTile(540, 10).getLocation().addY(2), getMapTile(538, 10).getLocation().addY(2), Direction.LEFT);
-        enemies.add(GuardianEnemy4);
+       
 
 
 
@@ -113,6 +114,41 @@ public class TestMap extends Map {
 enhancedMapTiles.add(hmp2);
 
 
+        // First set of PuzzlePlatform and PuzzleTile
+PuzzlePlatform pp = new PuzzlePlatform(
+    ImageLoader.load("PuzzlePlatform.png"),
+    getMapTile(553, 9).getLocation(),
+    getMapTile(547, 9).getLocation(),
+    TileType.JUMP_THROUGH_PLATFORM,
+    3,
+    new Rectangle(0, 6, 16, 4),
+    Direction.RIGHT
+);
+enhancedMapTiles.add(pp);
+
+PuzzleTile pt = new PuzzleTile(getMapTile(544, 7).getLocation());
+pt.setPuzzlePlatform(pp); // Link the puzzle platform to the tile
+enhancedMapTiles.add(pt);
+
+// Second set of PuzzlePlatform and PuzzleTile
+PuzzlePlatform pp1 = new PuzzlePlatform(
+    ImageLoader.load("PuzzlePlatform.png"),
+    getMapTile(555, 9).getLocation(),
+    getMapTile(550, 9).getLocation(),
+    TileType.JUMP_THROUGH_PLATFORM,
+    3,
+    new Rectangle(0, 6, 16, 4),
+    Direction.RIGHT
+);
+enhancedMapTiles.add(pp1);
+
+PuzzleTile pt1 = new PuzzleTile(getMapTile(546, 2).getLocation());
+pt1.setPuzzlePlatform(pp1); // Link the puzzle platform to the tile
+enhancedMapTiles.add(pt1);
+
+       
+
+//end level
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
