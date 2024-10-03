@@ -1,6 +1,7 @@
 package Maps;
 
 import Enemies.DemonEnemy;
+import Enemies.PhantomEnemy;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
@@ -19,7 +20,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 11).getLocation();
+        this.playerStartPosition = getMapTile(307, 6).getLocation();
     }
 
     @Override
@@ -29,6 +30,12 @@ public class TestMap extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
+        PhantomEnemy PhantomEnemy = new PhantomEnemy(getMapTile(278, 4).getLocation().addY(0), getMapTile(278, 4).getLocation().addY(0), Direction.LEFT);
+        enemies.add(PhantomEnemy);
+
+        PhantomEnemy PhantomEnemy2 = new PhantomEnemy(getMapTile(316, 5).getLocation().addY(2), getMapTile(320, 5).getLocation().addY(2), Direction.LEFT);
+        enemies.add(PhantomEnemy2);
+
         BugEnemy bugEnemy1 = new BugEnemy(getMapTile(40, 12).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy1);
 
@@ -37,9 +44,6 @@ public class TestMap extends Map {
 
         DemonEnemy DemonEnemy = new DemonEnemy(getMapTile(260, 6).getLocation().subtractY(25), Direction.DOWN);
         enemies.add(DemonEnemy);
-
-        BugEnemy bugEnemy4 = new BugEnemy(getMapTile(267, 8).getLocation().subtractY(25), Direction.LEFT);
-        enemies.add(bugEnemy4);
 
         DemonEnemy DemonEnemy1 = new DemonEnemy(getMapTile(267, 8).getLocation().subtractY(25), Direction.DOWN);
         enemies.add(DemonEnemy1);
@@ -52,9 +56,6 @@ public class TestMap extends Map {
 
         DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(81, 6).getLocation().addY(2), getMapTile(82, 6).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy3);
-
-        DinosaurEnemy dinosaurEnemy4 = new DinosaurEnemy(getMapTile(277, 7).getLocation().addY(2), getMapTile(279, 7).getLocation().addY(2), Direction.RIGHT);
-        enemies.add(dinosaurEnemy4);
 
 
         return enemies;
