@@ -149,7 +149,7 @@ enhancedMapTiles.add(pt1);
        
 
 //end level
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(542, 8).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;

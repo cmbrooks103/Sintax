@@ -102,6 +102,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 drawLevelTimer(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
+                levelClearedScreen.setTime(levelTimer);
                 levelClearedScreen.draw(graphicsHandler);
                 break;
             case LEVEL_LOSE:
