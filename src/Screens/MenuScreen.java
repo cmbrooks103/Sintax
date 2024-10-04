@@ -16,13 +16,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
-// This is the class for the main menu screen
 public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
     protected SpriteFont playGame;
     protected SpriteFont credits;
+    protected SpriteFont playerSelect; // New Player Select button
     protected Map background;
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
@@ -43,6 +43,10 @@ public class MenuScreen extends Screen {
         credits = new SpriteFont("Tutorial", 200, 223, "Arial", 35, new Color(198, 49, 17));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
+        playerSelect = new SpriteFont("Player Select", 200, 323, "Arial", 35, new Color(198, 49, 17));
+        playerSelect.setOutlineColor(Color.black);
+        playerSelect.setOutlineThickness(3);
+
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         keyPressTimer = 0;
@@ -108,23 +112,31 @@ public class MenuScreen extends Screen {
         }
 
         // Loop the selection back around if necessary
-        if (currentMenuItemHovered > 1) {
+        if (currentMenuItemHovered > 2) {  // Adjusted for 3 items
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
-            currentMenuItemHovered = 1;
+            currentMenuItemHovered = 2;
         }
 
         // Set color for selected menu item and update pointer location
         if (currentMenuItemHovered == 0) {
             playGame.setColor(new Color(225, 136, 67));
             credits.setColor(new Color(198, 49, 17));
+            playerSelect.setColor(new Color(198, 49, 17));
             pointerLocationX = 170;
             pointerLocationY = 130;
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(198, 49, 17));
             credits.setColor(new Color(225, 136, 67));
+            playerSelect.setColor(new Color(198, 49, 17));
             pointerLocationX = 170;
             pointerLocationY = 230;
+        } else if (currentMenuItemHovered == 2) {
+            playGame.setColor(new Color(198, 49, 17));
+            credits.setColor(new Color(198, 49, 17));
+            playerSelect.setColor(new Color(225, 136, 67));
+            pointerLocationX = 170;
+            pointerLocationY = 330;
         }
 
         // If SPACE is pressed, select the menu item
@@ -139,6 +151,8 @@ public class MenuScreen extends Screen {
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);
+            } else if (menuItemSelected == 2) {
+                screenCoordinator.setGameState(GameState.PLAYER_SELECT);
             }
         }
     }
@@ -155,6 +169,7 @@ public class MenuScreen extends Screen {
         // Draw the menu text and UI elements
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
+        playerSelect.draw(graphicsHandler); // Draw Player Select button
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(255, 0, 0), Color.black, 2);
     }
 }
