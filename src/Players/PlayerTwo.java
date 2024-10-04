@@ -10,11 +10,11 @@ import Level.Player;
 
 import java.util.HashMap;
 
-// Class representing Player One
-public class prof extends Player {
-    // Constructor for Player One
-    public prof(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("profsheet.png"), 24, 24), x, y, "STAND_RIGHT");
+// Class representing Player Two
+public class PlayerTwo extends Player {
+    // Constructor for Player Two
+    public PlayerTwo(float x, float y) {
+        super(new SpriteSheet(ImageLoader.load("cat.png"), 24, 24), x, y, "STAND_RIGHT");
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15; // Cast to int directly

@@ -4,6 +4,10 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import SpriteFont.SpriteFont;
+import Players.prof;
+import Players.PlayerTwo;
+import Level.Player; // Ensure Player is imported here
+import Players.PlayerType; // Import PlayerType for selecting character type
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +21,7 @@ public class CharacterSelectScreen extends Screen {
     private KeyLocker keyLocker = new KeyLocker();
     private int keyPressTimer = 0;
     private BufferedImage characterSelectImage; // To hold the character select image
+    private PlayerType selectedPlayerType; // Use PlayerType to determine selected player
 
     // New variables for image size and position
     private int imageWidth = 1200; // Default width of the image
@@ -26,15 +31,16 @@ public class CharacterSelectScreen extends Screen {
 
     public CharacterSelectScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+        this.selectedPlayerType = PlayerType.PROF; // Assign PROF by default
     }
 
     @Override
     public void initialize() {
-        character1 = new SpriteFont("Character 1", 200, 200, "Arial", 35, new Color(198, 49, 17));
+        character1 = new SpriteFont("Professor Oneil: Speed!", 200, 200, "Arial", 35, new Color(198, 49, 17));
         character1.setOutlineColor(Color.black);
         character1.setOutlineThickness(3);
 
-        character2 = new SpriteFont("Character 2", 200, 300, "Arial", 35, new Color(198, 49, 17));
+        character2 = new SpriteFont("Professor Alex: Double Jump!", 200, 300, "Arial", 35, new Color(198, 49, 17));
         character2.setOutlineColor(Color.black);
         character2.setOutlineThickness(3);
 
@@ -80,11 +86,14 @@ public class CharacterSelectScreen extends Screen {
 
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             if (currentOptionHovered == 0) {
-                // Logic to select Character 1
+                // Select Character 1 (prof)
+                selectedPlayerType = PlayerType.PROF; // Set to PROF
             } else if (currentOptionHovered == 1) {
-                // Logic to select Character 2
+                // Select Character 2 (PlayerTwo)
+                selectedPlayerType = PlayerType.PLAYER_TWO; // Set to PLAYER_TWO
             }
-            screenCoordinator.setGameState(GameState.MENU);
+            screenCoordinator.setSelectedPlayer(selectedPlayerType); // Set the selected player in ScreenCoordinator
+            screenCoordinator.setGameState(GameState.LEVEL); // Proceed to the level
         }
     }
 
@@ -100,14 +109,18 @@ public class CharacterSelectScreen extends Screen {
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(255, 0, 0), Color.black, 2);
     }
 
+    public PlayerType getSelectedPlayerType() {
+        return selectedPlayerType; // Return the selected player type
+    }
+
     // New methods to set image size and position
     public void setImagePosition(int x, int y) {
-        this.imageX = 0;
-        this.imageY = -100;
+        this.imageX = x; // Set X position
+        this.imageY = y; // Set Y position
     }
 
     public void setImageSize(int width, int height) {
-        this.imageWidth = 1200;
-        this.imageHeight = 1200;
+        this.imageWidth = width; // Set width
+        this.imageHeight = height; // Set height
     }
 }

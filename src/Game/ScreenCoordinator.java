@@ -3,6 +3,8 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Players.PlayerType; // Make sure to import PlayerType
+import Players.prof;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
@@ -17,12 +19,14 @@ public class ScreenCoordinator extends Screen {
     // keep track of gameState so ScreenCoordinator knows which Screen to show
     protected GameState gameState;
     protected GameState previousGameState;
+    
+    // Store the selected player type
+    private PlayerType selectedPlayer;
 
     public GameState getGameState() {
         return gameState;
     }
 
-    // Other Screens can set the gameState of this class to force it to change the currentScreen
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
@@ -31,6 +35,7 @@ public class ScreenCoordinator extends Screen {
     public void initialize() {
         // start game off with Menu Screen
         gameState = GameState.MENU;
+        selectedPlayer = PlayerType.PROF; // Set the default player type
     }
 
     @Override
@@ -66,5 +71,15 @@ public class ScreenCoordinator extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         // call the draw method for the currentScreen
         currentScreen.draw(graphicsHandler);
+    }
+
+    // Method to get the selected player type
+    public PlayerType getSelectedPlayer() {
+        return selectedPlayer;
+    }
+
+    // Method to set the selected player type
+    public void setSelectedPlayer(PlayerType selectedPlayer) {
+        this.selectedPlayer = selectedPlayer;
     }
 }

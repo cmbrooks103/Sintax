@@ -9,6 +9,9 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
 import Players.prof;
+import Players.PlayerTwo;
+import Players.PlayerType;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -49,11 +52,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         // define/setup map
         this.map = new TestMap();
-
-        // setup player
-        this.player = new prof(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-        this.player.setMap(map);
-        this.player.addListener(this);
+       
+        // Setup player based on selected player type
+        PlayerType selectedPlayerType = screenCoordinator.getSelectedPlayer();
+        
+        if (selectedPlayerType == PlayerType.PROF) {
+            this.player = new prof(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        } else if (selectedPlayerType == PlayerType.PLAYER_TWO) {
+            this.player = new PlayerTwo(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        }
+        
+        // Common setup for both player types
+        if (this.player != null) {
+            this.player.setMap(map);
+            this.player.addListener(this);
+        }
 
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);

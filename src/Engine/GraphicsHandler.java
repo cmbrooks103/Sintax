@@ -123,4 +123,9 @@ public class GraphicsHandler {
         g.setStroke(originalStroke);
         g.setRenderingHints(originalHints);
     }
+
+    public void drawString(String string, int i, int j, Color black) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawString'");
+    }
 }

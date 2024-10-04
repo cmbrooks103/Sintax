@@ -7,6 +7,7 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Utils.Point;
 
 import java.util.ArrayList;
 
@@ -388,6 +389,11 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+
+    public void setLocation(Point playerStartPosition) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setLocation'");
     }
     
 
