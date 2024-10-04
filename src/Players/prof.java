@@ -19,7 +19,7 @@ public class prof extends Player {
         terminalVelocityY = 6f;
         jumpHeight = 15; // Cast to int directly
         jumpDegrade = 0.5f;
-        walkSpeed = 5f;
+        walkSpeed = 5.4f;
         momentumYIncrease = 0.5f;
     }
 

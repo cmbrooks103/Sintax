@@ -36,19 +36,19 @@ public class CharacterSelectScreen extends Screen {
 
     @Override
     public void initialize() {
-        character1 = new SpriteFont("Professor Oneil: Speed!", 200, 200, "Arial", 35, new Color(198, 49, 17));
+        character1 = new SpriteFont("Professor Oneil: Run Faster!", 100, 50, "Arial", 35, new Color(198, 49, 17));
         character1.setOutlineColor(Color.black);
         character1.setOutlineThickness(3);
 
-        character2 = new SpriteFont("Professor Alex: Double Jump!", 200, 300, "Arial", 35, new Color(198, 49, 17));
+        character2 = new SpriteFont("Professor Alex: Jump Higher!", 100, 150, "Arial", 35, new Color(198, 49, 17));
         character2.setOutlineColor(Color.black);
         character2.setOutlineThickness(3);
 
-        pointerLocationX = 170;
-        pointerLocationY = 210;
+        pointerLocationX = 60;
+        pointerLocationY = 60;
 
         // Load the character select image
-        characterSelectImage = ImageLoader.load("characterselect.png"); // Ensure the image path is correct
+        characterSelectImage = ImageLoader.load("hellish.png"); // Ensure the image path is correct
         if (characterSelectImage == null) {
             System.out.println("Character select image not loaded correctly.");
         }
@@ -60,11 +60,11 @@ public class CharacterSelectScreen extends Screen {
         if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
             keyPressTimer = 14;
             currentOptionHovered = 1;
-            pointerLocationY = 310;
+            pointerLocationY = 160;
         } else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
             keyPressTimer = 14;
             currentOptionHovered = 0;
-            pointerLocationY = 210;
+            pointerLocationY = 60;
         } else {
             if (keyPressTimer > 0) {
                 keyPressTimer--;

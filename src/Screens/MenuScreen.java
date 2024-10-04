@@ -37,13 +37,13 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("ESCAPE FROM HELL!", 200, 123, "Arial", 35, new Color(198, 49, 17));
+        playGame = new SpriteFont("PLAY", 100, 315, "Arial", 35, new Color(198, 49, 17));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("Tutorial", 200, 223, "Arial", 35, new Color(198, 49, 17));
+        credits = new SpriteFont("HOW TO PLAY", 100, 393, "Arial", 35, new Color(198, 49, 17));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
-        playerSelect = new SpriteFont("Player Select", 200, 323, "Arial", 35, new Color(198, 49, 17));
+        playerSelect = new SpriteFont("PROFESSOR SELECT", 100, 473, "Arial", 35, new Color(198, 49, 17));
         playerSelect.setOutlineColor(Color.black);
         playerSelect.setOutlineThickness(3);
 
@@ -54,7 +54,7 @@ public class MenuScreen extends Screen {
         keyLocker.lockKey(Key.SPACE);
 
         // Load the image from the resources folder using ImageLoader
-        overlayImage = ImageLoader.load("hellmenu.png");
+        overlayImage = ImageLoader.load("characterselect.png");
         if (overlayImage == null) {
             System.out.println("Image not loaded correctly.");
         }
@@ -123,20 +123,20 @@ public class MenuScreen extends Screen {
             playGame.setColor(new Color(225, 136, 67));
             credits.setColor(new Color(198, 49, 17));
             playerSelect.setColor(new Color(198, 49, 17));
-            pointerLocationX = 170;
-            pointerLocationY = 130;
+            pointerLocationX = 70;
+            pointerLocationY = 318;
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(198, 49, 17));
             credits.setColor(new Color(225, 136, 67));
             playerSelect.setColor(new Color(198, 49, 17));
-            pointerLocationX = 170;
-            pointerLocationY = 230;
+            pointerLocationX = 70;
+            pointerLocationY = 400;
         } else if (currentMenuItemHovered == 2) {
             playGame.setColor(new Color(198, 49, 17));
             credits.setColor(new Color(198, 49, 17));
             playerSelect.setColor(new Color(225, 136, 67));
-            pointerLocationX = 170;
-            pointerLocationY = 330;
+            pointerLocationX = 70;
+            pointerLocationY = 480;
         }
 
         // If SPACE is pressed, select the menu item
@@ -163,7 +163,12 @@ public class MenuScreen extends Screen {
 
         // Draw the overlay image (if it should be shown)
         if (showImage && overlayImage != null) {
-            graphicsHandler.drawImage(overlayImage, 0, 0); // Adjust position to where you want the image displayed
+            // Adjust the position and size of the overlay image
+            int overlayX = 0; // X position
+            int overlayY = 0; // Y position
+            int overlayWidth = 1200; // Desired width
+            int overlayHeight = 800; // Desired height
+            graphicsHandler.drawImage(overlayImage, overlayX, overlayY, overlayWidth, overlayHeight);
         }
 
         // Draw the menu text and UI elements

@@ -14,13 +14,13 @@ import java.util.HashMap;
 public class PlayerTwo extends Player {
     // Constructor for Player Two
     public PlayerTwo(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("cat.png"), 24, 24), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("prof2.png"), 24, 24), x, y, "STAND_RIGHT");
         gravity = 0.6f;
         terminalVelocityY = 6f;
-        jumpHeight = 15; // Cast to int directly
+        jumpHeight = 16f; // Cast to int directly
         jumpDegrade = 0.5f;
-        walkSpeed = 5f;
-        momentumYIncrease = 0.5f;
+        walkSpeed = 4.5f;
+        momentumYIncrease = 0.4f;
     }
 
     @Override
