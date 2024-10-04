@@ -45,11 +45,14 @@ public class LevelClearedScreen extends Screen {
         graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
         
         try{
+            //read the file for the record time
             File file = new File("C:\\\\Users\\\\thoma\\\\Desktop\\\\Sintax\\\\PlayerData\\\\highscore.txt");
             Scanner sc = new Scanner(file);
             recordRun = sc.nextInt();
             sc.close();
+            // if current time is faster, then update the fastest time in the txt file
             if (recordRun>currentRun){
+                recordRun = currentRun;
                 FileWriter fWriter = new FileWriter("C:\\\\Users\\\\thoma\\\\Desktop\\\\Sintax\\\\PlayerData\\\\highscore.txt", false);
                 fWriter.write(String.valueOf(currentRun));
                 fWriter.close();
@@ -62,25 +65,28 @@ public class LevelClearedScreen extends Screen {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        //convert record time for display
         int minutesR = Math.round(recordRun/60);
         int secondsR = recordRun%60;
         String sMinutesR = String.format("%02d", minutesR);
         String sSecondsR = String.format("%02d", secondsR);
 
         RecordTime = new SpriteFont("Record Time: " + sMinutesR + ":" + sSecondsR , 265, 229, "Times New Roman", 30, Color.red);
-
+        
+        //convert current time for display
         int minutesC = Math.round(currentRun/60);
         int secondsC = currentRun%60;
         String sMinutesC = String.format("%02d", minutesC);
         String sSecondsC = String.format("%02d", secondsC);
 
         CurrentTime = new SpriteFont("Current Time: " + sMinutesC + ":" + sSecondsC , 265, 279, "Times New Roman", 30, Color.green);
-    
+        // display the times and the win messages
         winMessage.draw(graphicsHandler);
         RecordTime.draw(graphicsHandler);
         CurrentTime.draw(graphicsHandler);
     }
     
+    //set the time for the current attempt and convert it to seconds
     public void setTime(int time){
         currentRun = time/60;
     }

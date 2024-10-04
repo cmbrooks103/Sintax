@@ -76,7 +76,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
             case LEVEL_COMPLETED:
                 if (levelCompletedStateChangeStart) {
-                    screenTimer = 130;
+                    screenTimer = 200;
                     levelCompletedStateChangeStart = false;
                 } else {
                     levelClearedScreen.update();
@@ -102,6 +102,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 drawLevelTimer(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
+                //Tell the LevelClearedScreen how much time the player toook 
                 levelClearedScreen.setTime(levelTimer);
                 levelClearedScreen.draw(graphicsHandler);
                 break;
