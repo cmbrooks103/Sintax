@@ -6,6 +6,7 @@ import Game.ScreenCoordinator;
 import SpriteFont.SpriteFont;
 import Players.PlayerThree;
 import Players.PlayerTwo;
+import Players.PlayerFour; // Import PlayerFour
 import Level.Player;
 import Players.PlayerType;
 
@@ -17,6 +18,7 @@ public class CharacterSelectScreen extends Screen {
     private SpriteFont character1;
     private SpriteFont character2;
     private SpriteFont character3; // New option for PlayerThree
+    private SpriteFont character4; // New option for PlayerFour
     private int currentOptionHovered = 0;
     private int pointerLocationX, pointerLocationY;
     private KeyLocker keyLocker = new KeyLocker();
@@ -48,6 +50,10 @@ public class CharacterSelectScreen extends Screen {
         character3.setOutlineColor(Color.black);
         character3.setOutlineThickness(3);
 
+        character4 = new SpriteFont("Professor Alex Variant: Dracula!", 100, 350, "Arial", 35, new Color(198, 49, 17)); // New fourth option
+        character4.setOutlineColor(Color.black);
+        character4.setOutlineThickness(3);
+
         pointerLocationX = 60;
         pointerLocationY = 60;
 
@@ -58,9 +64,9 @@ public class CharacterSelectScreen extends Screen {
     public void update() {
         if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
             keyPressTimer = 14;
-            if (currentOptionHovered < 2) {
+            if (currentOptionHovered < 3) { // Adjusted to allow for the fourth option
                 currentOptionHovered++;
-                pointerLocationY += 100; // Adjusted to move to the third option
+                pointerLocationY += 100; // Adjusted to move to the fourth option
             }
         } else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
             keyPressTimer = 14;
@@ -78,6 +84,7 @@ public class CharacterSelectScreen extends Screen {
         character1.setColor(currentOptionHovered == 0 ? new Color(225, 136, 67) : new Color(198, 49, 17));
         character2.setColor(currentOptionHovered == 1 ? new Color(225, 136, 67) : new Color(198, 49, 17));
         character3.setColor(currentOptionHovered == 2 ? new Color(225, 136, 67) : new Color(198, 49, 17)); // Color update for third option
+        character4.setColor(currentOptionHovered == 3 ? new Color(225, 136, 67) : new Color(198, 49, 17)); // Color update for fourth option
 
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
@@ -94,6 +101,9 @@ public class CharacterSelectScreen extends Screen {
                 case 2:
                     selectedPlayerType = PlayerType.PLAYER_THREE; // Handle the third option
                     break;
+                case 3:
+                    selectedPlayerType = PlayerType.PLAYER_FOUR; // Handle the fourth option
+                    break;
             }
             screenCoordinator.setSelectedPlayer(selectedPlayerType);
             screenCoordinator.setGameState(GameState.LEVEL);
@@ -107,6 +117,7 @@ public class CharacterSelectScreen extends Screen {
         character1.draw(graphicsHandler);
         character2.draw(graphicsHandler);
         character3.draw(graphicsHandler); // Draw third option
+        character4.draw(graphicsHandler); // Draw fourth option
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(255, 0, 0), Color.black, 2);
     }
 }

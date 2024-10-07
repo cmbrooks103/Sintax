@@ -11,6 +11,7 @@ import Maps.TestMap;
 import Players.prof;
 import Players.PlayerTwo;
 import Players.PlayerThree; // Import PlayerThree class
+import Players.PlayerFour; // Import PlayerFour class
 import Players.PlayerType;
 
 import javax.sound.sampled.AudioInputStream;
@@ -45,6 +46,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.screenCoordinator = screenCoordinator;
     }
 
+    public PlayLevelScreen(ScreenCoordinator screenCoordinator2, PlayerType selectedPlayer) {
+        //TODO Auto-generated constructor stub
+    }
+
     public void initialize() {
         // Play background music for the level only if it's not already playing
         if (backgroundClip == null || !backgroundClip.isRunning()) {
@@ -53,18 +58,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         // Define/setup map
         this.map = new TestMap();
-       
+
         // Setup player based on selected player type
         PlayerType selectedPlayerType = screenCoordinator.getSelectedPlayer();
-        
+
         if (selectedPlayerType == PlayerType.PROF) {
             this.player = new prof(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         } else if (selectedPlayerType == PlayerType.PLAYER_TWO) {
             this.player = new PlayerTwo(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         } else if (selectedPlayerType == PlayerType.PLAYER_THREE) { // Added for PlayerThree
             this.player = new PlayerThree(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        } else if (selectedPlayerType == PlayerType.PLAYER_FOUR) { // Added for PlayerFour
+            this.player = new PlayerFour(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         }
-        
+
         // Common setup for player
         if (this.player != null) {
             this.player.setMap(map);

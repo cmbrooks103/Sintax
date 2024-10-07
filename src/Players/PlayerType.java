@@ -1,9 +1,11 @@
 package Players;
 
+// Enum representing different player types
 public enum PlayerType {
-    PROF,       // Represents the first player type (prof)
-    PLAYER_TWO, // Represents the second player type (PlayerTwo)
-    PLAYER_THREE; // Represents the third player type (PlayerThree)
+    PROF,          // Player type for Professor Oneil
+    PLAYER_TWO,    // Player type for Professor Alex
+    PLAYER_THREE,  // Player type for Professor Oneil Variant
+    PLAYER_FOUR;   // New player type for Professor Four
 
-    // You can add additional player types here if needed in the future
+    // Add any additional methods or properties if needed
 }

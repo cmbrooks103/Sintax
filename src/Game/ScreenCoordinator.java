@@ -7,6 +7,7 @@ import Players.PlayerType;
 import Players.prof;
 import Players.PlayerTwo;
 import Players.PlayerThree; // Import the new PlayerThree class
+import Players.PlayerFour;  // Import the new PlayerFour class
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
@@ -15,13 +16,13 @@ import Screens.CharacterSelectScreen;
 // Based on the current game state, this class determines which Screen should be shown
 // There can only be one "currentScreen", although screens can have "nested" screens
 public class ScreenCoordinator extends Screen {
-    // currently shown Screen
+    // Currently shown Screen
     protected Screen currentScreen = new DefaultScreen();
 
-    // keep track of gameState so ScreenCoordinator knows which Screen to show
+    // Keep track of gameState so ScreenCoordinator knows which Screen to show
     protected GameState gameState;
     protected GameState previousGameState;
-    
+
     // Store the selected player type
     private PlayerType selectedPlayer;
 
@@ -35,7 +36,7 @@ public class ScreenCoordinator extends Screen {
 
     @Override
     public void initialize() {
-        // start game off with Menu Screen
+        // Start game off with Menu Screen
         gameState = GameState.MENU;
         selectedPlayer = PlayerType.PROF; // Set the default player type
     }
@@ -43,8 +44,8 @@ public class ScreenCoordinator extends Screen {
     @Override
     public void update() {
         do {
-            // if previousGameState does not equal gameState, it means there was a change in gameState
-            // this triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
+            // If previousGameState does not equal gameState, it means there was a change in gameState
+            // This triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
             if (previousGameState != gameState) {
                 switch (gameState) {
                     case MENU:
@@ -64,14 +65,14 @@ public class ScreenCoordinator extends Screen {
             }
             previousGameState = gameState;
 
-            // call the update method for the currentScreen
+            // Call the update method for the currentScreen
             currentScreen.update();
         } while (previousGameState != gameState);
     }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        // call the draw method for the currentScreen
+        // Call the draw method for the currentScreen
         currentScreen.draw(graphicsHandler);
     }
 
