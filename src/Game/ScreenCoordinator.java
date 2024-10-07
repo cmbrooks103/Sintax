@@ -3,8 +3,10 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
-import Players.PlayerType; // Make sure to import PlayerType
+import Players.PlayerType;
 import Players.prof;
+import Players.PlayerTwo;
+import Players.PlayerThree; // Import the new PlayerThree class
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;

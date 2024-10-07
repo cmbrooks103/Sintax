@@ -4,10 +4,10 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import SpriteFont.SpriteFont;
-import Players.prof;
+import Players.PlayerThree;
 import Players.PlayerTwo;
-import Level.Player; // Ensure Player is imported here
-import Players.PlayerType; // Import PlayerType for selecting character type
+import Level.Player;
+import Players.PlayerType;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,22 +16,22 @@ public class CharacterSelectScreen extends Screen {
     private ScreenCoordinator screenCoordinator;
     private SpriteFont character1;
     private SpriteFont character2;
+    private SpriteFont character3; // New option for PlayerThree
     private int currentOptionHovered = 0;
     private int pointerLocationX, pointerLocationY;
     private KeyLocker keyLocker = new KeyLocker();
     private int keyPressTimer = 0;
-    private BufferedImage characterSelectImage; // To hold the character select image
-    private PlayerType selectedPlayerType; // Use PlayerType to determine selected player
+    private BufferedImage characterSelectImage;
+    private PlayerType selectedPlayerType;
 
-    // New variables for image size and position
-    private int imageWidth = 1200; // Default width of the image
-    private int imageHeight = 1200; // Default height of the image
-    private int imageX = 0; // Default X position of the image
-    private int imageY = 0; // Default Y position of the image
+    private int imageWidth = 1200;
+    private int imageHeight = 1200;
+    private int imageX = 0;
+    private int imageY = 0;
 
     public CharacterSelectScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
-        this.selectedPlayerType = PlayerType.PROF; // Assign PROF by default
+        this.selectedPlayerType = PlayerType.PROF; // Default to PROF
     }
 
     @Override
@@ -43,84 +43,70 @@ public class CharacterSelectScreen extends Screen {
         character2 = new SpriteFont("Professor Alex: Jump Higher!", 100, 150, "Arial", 35, new Color(198, 49, 17));
         character2.setOutlineColor(Color.black);
         character2.setOutlineThickness(3);
+        
+        character3 = new SpriteFont("Professor Oneil Variant: Jack O' Lantern!", 100, 250, "Arial", 35, new Color(198, 49, 17)); // New third option
+        character3.setOutlineColor(Color.black);
+        character3.setOutlineThickness(3);
 
         pointerLocationX = 60;
         pointerLocationY = 60;
 
-        // Load the character select image
-        characterSelectImage = ImageLoader.load("hellish.png"); // Ensure the image path is correct
-        if (characterSelectImage == null) {
-            System.out.println("Character select image not loaded correctly.");
-        }
-
+        characterSelectImage = ImageLoader.load("hellish.png");
         keyLocker.lockKey(Key.SPACE);
     }
 
     public void update() {
         if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
             keyPressTimer = 14;
-            currentOptionHovered = 1;
-            pointerLocationY = 160;
+            if (currentOptionHovered < 2) {
+                currentOptionHovered++;
+                pointerLocationY += 100; // Adjusted to move to the third option
+            }
         } else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
             keyPressTimer = 14;
-            currentOptionHovered = 0;
-            pointerLocationY = 60;
-        } else {
-            if (keyPressTimer > 0) {
-                keyPressTimer--;
+            if (currentOptionHovered > 0) {
+                currentOptionHovered--;
+                pointerLocationY -= 100; // Adjusted for upward movement
             }
         }
 
-        // Update color based on hover
-        if (currentOptionHovered == 0) {
-            character1.setColor(new Color(225, 136, 67));
-            character2.setColor(new Color(198, 49, 17));
-        } else {
-            character1.setColor(new Color(198, 49, 17));
-            character2.setColor(new Color(225, 136, 67));
+        if (keyPressTimer > 0) {
+            keyPressTimer--;
         }
+
+        // Update colors based on the current option hovered
+        character1.setColor(currentOptionHovered == 0 ? new Color(225, 136, 67) : new Color(198, 49, 17));
+        character2.setColor(currentOptionHovered == 1 ? new Color(225, 136, 67) : new Color(198, 49, 17));
+        character3.setColor(currentOptionHovered == 2 ? new Color(225, 136, 67) : new Color(198, 49, 17)); // Color update for third option
 
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
 
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
-            if (currentOptionHovered == 0) {
-                // Select Character 1 (prof)
-                selectedPlayerType = PlayerType.PROF; // Set to PROF
-            } else if (currentOptionHovered == 1) {
-                // Select Character 2 (PlayerTwo)
-                selectedPlayerType = PlayerType.PLAYER_TWO; // Set to PLAYER_TWO
+            switch (currentOptionHovered) {
+                case 0:
+                    selectedPlayerType = PlayerType.PROF;
+                    break;
+                case 1:
+                    selectedPlayerType = PlayerType.PLAYER_TWO;
+                    break;
+                case 2:
+                    selectedPlayerType = PlayerType.PLAYER_THREE; // Handle the third option
+                    break;
             }
-            screenCoordinator.setSelectedPlayer(selectedPlayerType); // Set the selected player in ScreenCoordinator
-            screenCoordinator.setGameState(GameState.LEVEL); // Proceed to the level
+            screenCoordinator.setSelectedPlayer(selectedPlayerType);
+            screenCoordinator.setGameState(GameState.LEVEL);
         }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // Draw the character select image with adjustable size and position
         if (characterSelectImage != null) {
-            graphicsHandler.drawImage(characterSelectImage, imageX, imageY, imageWidth, imageHeight); // Adjusting size and position
+            graphicsHandler.drawImage(characterSelectImage, imageX, imageY, imageWidth, imageHeight);
         }
-
-        // Draw the character options
         character1.draw(graphicsHandler);
         character2.draw(graphicsHandler);
+        character3.draw(graphicsHandler); // Draw third option
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(255, 0, 0), Color.black, 2);
-    }
-
-    public PlayerType getSelectedPlayerType() {
-        return selectedPlayerType; // Return the selected player type
-    }
-
-    // New methods to set image size and position
-    public void setImagePosition(int x, int y) {
-        this.imageX = x; // Set X position
-        this.imageY = y; // Set Y position
-    }
-
-    public void setImageSize(int width, int height) {
-        this.imageWidth = width; // Set width
-        this.imageHeight = height; // Set height
     }
 }

@@ -10,6 +10,7 @@ import Level.PlayerListener;
 import Maps.TestMap;
 import Players.prof;
 import Players.PlayerTwo;
+import Players.PlayerThree; // Import PlayerThree class
 import Players.PlayerType;
 
 import javax.sound.sampled.AudioInputStream;
@@ -50,7 +51,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             playBackgroundMusic("src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav");
         }
 
-        // define/setup map
+        // Define/setup map
         this.map = new TestMap();
        
         // Setup player based on selected player type
@@ -60,9 +61,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.player = new prof(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         } else if (selectedPlayerType == PlayerType.PLAYER_TWO) {
             this.player = new PlayerTwo(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        } else if (selectedPlayerType == PlayerType.PLAYER_THREE) { // Added for PlayerThree
+            this.player = new PlayerThree(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         }
         
-        // Common setup for both player types
+        // Common setup for player
         if (this.player != null) {
             this.player.setMap(map);
             this.player.addListener(this);
@@ -78,11 +81,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
-        // based on screen state, perform specific actions
+        // Based on screen state, perform specific actions
         switch (playLevelScreenState) {
             case RUNNING:
-                player.update();
-                map.update(player);
+                if (player != null) {
+                    player.update();
+                    map.update(player);
+                }
 
                 // Increment the level timer (counts in frames)
                 levelTimer++;
@@ -109,13 +114,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(graphicsHandler);
-                player.draw(graphicsHandler);
+                if (player != null) {
+                    player.draw(graphicsHandler);
+                }
 
                 // Draw the timer on the screen
                 drawLevelTimer(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
-                //Tell the LevelClearedScreen how much time the player toook 
+                // Tell the LevelClearedScreen how much time the player took 
                 levelClearedScreen.setTime(levelTimer);
                 levelClearedScreen.draw(graphicsHandler);
                 break;

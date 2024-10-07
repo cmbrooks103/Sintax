@@ -66,8 +66,22 @@ public class TestMap extends Map {
         GuardianEnemy GuardianEnemy2 = new GuardianEnemy(getMapTile(528, 10).getLocation().addY(0), getMapTile(530, 10).getLocation().addY(0), Direction.LEFT);
         enemies.add(GuardianEnemy2);
 
-        GuardianEnemy GuardianEnemy3 = new GuardianEnemy(getMapTile(528, 6).getLocation().addY(6), getMapTile(526, 2).getLocation().addY(2), Direction.LEFT);
+        GuardianEnemy GuardianEnemy3 = new GuardianEnemy(getMapTile(526, 6).getLocation().addY(0), getMapTile(531, 6).getLocation().addY(0), Direction.LEFT);
         enemies.add(GuardianEnemy3);
+
+
+        GuardianEnemy GuardianEnemy4 = new GuardianEnemy(getMapTile(568, 9).getLocation().addY(0), getMapTile(571, 9).getLocation().addY(0), Direction.LEFT);
+        enemies.add(GuardianEnemy4);
+
+        GuardianEnemy GuardianEnemy5 = new GuardianEnemy(getMapTile(587, 10).getLocation().addY(0), getMapTile(590, 10).getLocation().addY(0), Direction.LEFT);
+        enemies.add(GuardianEnemy5);
+
+        GuardianEnemy GuardianEnemy6 = new GuardianEnemy(getMapTile(603, 11).getLocation().addY(0), getMapTile(610, 11).getLocation().addY(0), Direction.LEFT);
+        enemies.add(GuardianEnemy6);
+
+        GuardianEnemy GuardianEnemy7 = new GuardianEnemy(getMapTile(646, 5).getLocation().addY(0), getMapTile(648, 5).getLocation().addY(0), Direction.LEFT);
+        enemies.add(GuardianEnemy7);
+
 
        
 
@@ -146,6 +160,20 @@ PuzzleTile pt1 = new PuzzleTile(getMapTile(546, 2).getLocation());
 pt1.setPuzzlePlatform(pp1); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt1);
 
+PuzzlePlatform pp2 = new PuzzlePlatform(
+    ImageLoader.load("PuzzlePlatform.png"),
+    getMapTile(661, 6).getLocation(),
+    getMapTile(658, 6).getLocation(),
+    TileType.JUMP_THROUGH_PLATFORM,
+    3,
+    new Rectangle(0, 6, 16, 4),
+    Direction.LEFT
+);
+enhancedMapTiles.add(pp2);
+
+PuzzleTile pt2 = new PuzzleTile(getMapTile(648, 1).getLocation());
+pt2.setPuzzlePlatform(pp2); // Link the puzzle platform to the tile
+enhancedMapTiles.add(pt2);
        
 
 //end level
@@ -165,3 +193,6 @@ enhancedMapTiles.add(pt1);
         return npcs;
     }
 }
+
+
+// Add coords for platform puzzle, box 648,1 plat 661,6 to 658,6
