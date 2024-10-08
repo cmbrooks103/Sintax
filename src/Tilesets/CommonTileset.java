@@ -467,7 +467,7 @@ public class CommonTileset extends Tileset {
 
  mapTiles.add(newflame1);
 
-                 // green biome chains hanging
+        // green biome chains hanging
          Frame newflame2Frame = new FrameBuilder(getSubImage(4, 8))
          .withScale(tileScale)
          .build();
@@ -476,6 +476,100 @@ public class CommonTileset extends Tileset {
          .withTileType(TileType.WATER);
 
  mapTiles.add(newflame2);
+
+// Volcanic biome stuff
+        Frame lavabackFrame = new FrameBuilder(getSubImage(1, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaback = new MapTileBuilder(lavabackFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavaback);
+
+        // Volcanic biome stuff
+        Frame lavarockFrame = new FrameBuilder(getSubImage(2, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavarock = new MapTileBuilder(lavarockFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lavarock);
+
+        // Volcanic biome stuff
+        Frame lavacaFrame = new FrameBuilder(getSubImage(3, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaca = new MapTileBuilder(lavacaFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lavaca);
+
+         // Volcanic biome stuff
+        Frame lavaindFrame = new FrameBuilder(getSubImage(4, 9))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavaind = new MapTileBuilder(lavaindFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lavaind);
+
+         // Volcanic biome stuff
+        Frame lavafireFrame = new FrameBuilder(getSubImage(0, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavafire = new MapTileBuilder(lavafireFrame)
+                .withTileType(TileType.WATER);
+
+        mapTiles.add(lavafire);
+
+           // right 45 degree slope
+           Frame rightgreenslopelavaFrame = new FrameBuilder(getSubImage(2, 10))
+           .withScale(tileScale)
+           .build();
+   
+           MapTileBuilder rightgreenslopelava = new MapTileBuilder(rightgreenslopelavaFrame)
+           .withTileType(TileType.SLOPE)
+           .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+   
+           mapTiles.add(rightgreenslopelava);
+   
+           // left 45 degree slope
+           Frame leftgreenslopelavaFrame = new FrameBuilder(getSubImage(1, 10))
+           .withScale(tileScale)
+           .build();
+   
+           MapTileBuilder leftgreenslopelava = new MapTileBuilder(leftgreenslopelavaFrame)
+           .withTileType(TileType.SLOPE)
+           .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+   
+           mapTiles.add(leftgreenslopelava);
+
+             // Volcanic biome stuff
+        Frame lavafirechainFrame = new FrameBuilder(getSubImage(3, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavafirechain = new MapTileBuilder(lavafirechainFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(lavafirechain);
+
+        // Volcanic biome stuff
+        Frame lavafirechainplatFrame = new FrameBuilder(getSubImage(4, 10))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lavafirechainplat = new MapTileBuilder(lavafirechainplatFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(lavafirechainplat);
+
+
 
 
 
