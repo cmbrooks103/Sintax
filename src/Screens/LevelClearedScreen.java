@@ -18,8 +18,10 @@ public class LevelClearedScreen extends Screen {
     protected SpriteFont winMessage;
     protected SpriteFont RecordTime;
     protected SpriteFont CurrentTime;
+    protected SpriteFont recordBrokenMessage;
     protected int currentRun;
     protected int recordRun;
+    protected boolean recordBroken;
 
     public LevelClearedScreen() {
         initialize();
@@ -33,6 +35,8 @@ public class LevelClearedScreen extends Screen {
         RecordTime = new SpriteFont("Record Time: 00:00", 265, 229, "Times New Roman", 30, Color.red);
 
         CurrentTime = new SpriteFont("Current Time: 00:00", 265, 279, "Times New Roman", 30, Color.green);
+
+        recordBroken = false;
     }
 
     @Override
@@ -46,21 +50,32 @@ public class LevelClearedScreen extends Screen {
         
         try{
             //read the file for the record time
-            File file = new File("C:\\\\Users\\\\thoma\\\\Desktop\\\\Sintax\\\\PlayerData\\\\highscore.txt");
+            File file = new File("highscore.txt");
             Scanner sc = new Scanner(file);
             recordRun = sc.nextInt();
             sc.close();
             // if current time is faster, then update the fastest time in the txt file
             if (recordRun>currentRun){
                 recordRun = currentRun;
-                FileWriter fWriter = new FileWriter("C:\\\\Users\\\\thoma\\\\Desktop\\\\Sintax\\\\PlayerData\\\\highscore.txt", false);
+                recordBroken = true;
+                FileWriter fWriter = new FileWriter("highscore.txt", false);
                 fWriter.write(String.valueOf(currentRun));
                 fWriter.close();
             }
             
         }catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            try{
+                File file = new File("highscore.txt");
+                FileWriter fWriter = new FileWriter("highscore.txt", false);
+                fWriter.write(String.valueOf(currentRun));
+                fWriter.close();
+                recordBroken = true;
+
+            }catch (IOException e2){
+                e2.printStackTrace();
+            }
+
+            
         }catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -84,6 +99,13 @@ public class LevelClearedScreen extends Screen {
         winMessage.draw(graphicsHandler);
         RecordTime.draw(graphicsHandler);
         CurrentTime.draw(graphicsHandler);
+
+        
+        if (recordBroken){
+            recordBrokenMessage = new SpriteFont("Congratulations! You broke the record!", 265, 329, "Times New Roman", 30, Color.yellow);
+            recordBrokenMessage.draw(graphicsHandler);
+        }
+
     }
     
     //set the time for the current attempt and convert it to seconds
