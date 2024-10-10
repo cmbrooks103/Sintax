@@ -11,38 +11,37 @@ import Level.NPC;
 import Level.Player;
 import Utils.Point;
 
+public class Sword extends NPC {
 
-public class Grave extends NPC {
+    private boolean hasTalked = false;  // Tracks if the NPC has been interacted with
 
-    public Grave(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Grave.png"), 24, 24), "RESTING");
+    public Sword(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 24, 24), "NORMAL");
         isInteractable = true;
         talkedToTime = 200;
-        textbox.setText("↸𝙹リ'ℸᓵꖌ∷ℸ");
+        textbox.setText("b roke");
         textboxOffsetX = -4;
         textboxOffsetY = -800;
     }
 
     public void update(Player player) {
-        if (talkedTo) {
-            currentAnimationName = "WAKEN";
-        } else {
-            currentAnimationName = "RESTING";
+        if (talkedTo && !hasTalked) {
+            currentAnimationName = "BROKEN";
+            hasTalked = true;  // Set to true to ensure it doesn't switch back to NORMAL
         }
     
         super.update(player);
     }
-    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-           put("RESTING", new Frame[] {
+           put("NORMAL", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                            .withScale(3)
                            .build()
            });
-            put("WAKEN", new Frame[] {
+            put("BROKEN", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale(3)
                             .build()

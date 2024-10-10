@@ -20,6 +20,7 @@ import Level.NPC;
 import Level.TileType;
 import NPCs.Fproof;
 import NPCs.Grave;
+import NPCs.Sword;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -200,6 +201,9 @@ enhancedMapTiles.add(pt2);
 
         Grave grave = new Grave(getMapTile(46, 12).getLocation().subtractY(13));
         npcs.add(grave);
+
+        Sword sword = new Sword(getMapTile(119, 9).getLocation().subtractY(13));
+        npcs.add(sword);
 
         return npcs;
     }
