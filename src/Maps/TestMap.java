@@ -1,29 +1,35 @@
 package Maps;
 
+import java.util.ArrayList;
+
+import Enemies.BugEnemy;
 import Enemies.DemonEnemy;
+import Enemies.DinosaurEnemy;
 import Enemies.GuardianEnemy;
 import Enemies.PhantomEnemy;
-import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.PuzzlePlatform;
 import EnhancedMapTiles.PuzzleTile;
 import GameObject.Rectangle;
-import Level.*;
+import Level.Enemy;
+import Level.EnhancedMapTile;
+import Level.Map;
+import Level.NPC;
+import Level.TileType;
+import NPCs.Fproof;
+import NPCs.Grave;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
-
-import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(665, 11).getLocation();
+        this.playerStartPosition = getMapTile(1, 11).getLocation();
     }
 
     @Override
@@ -176,7 +182,7 @@ pt2.setPuzzlePlatform(pp2); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt2);
 
 //end level
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(542, 8).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(750, 10).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
@@ -188,6 +194,12 @@ enhancedMapTiles.add(pt2);
 
         Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
         npcs.add(walrus);
+
+        Fproof fproof = new Fproof(getMapTile(103, 9).getLocation().subtractY(13));
+        npcs.add(fproof);
+
+        Grave grave = new Grave(getMapTile(46, 12).getLocation().subtractY(13));
+        npcs.add(grave);
 
         return npcs;
     }

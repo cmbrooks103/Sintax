@@ -1,5 +1,7 @@
 package Level;
 
+import java.util.ArrayList;
+
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -8,8 +10,6 @@ import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
-
-import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -47,6 +47,19 @@ public abstract class Player extends GameObject {
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    public boolean isWaterDamageImmune = false; // Flag to track water damage immunity
+
+// Getter for isWaterDamageImmune
+public boolean isWaterDamageImmune() {
+    return isWaterDamageImmune;
+}
+
+// Setter for isWaterDamageImmune
+public void setWaterDamageImmune(boolean isWaterDamageImmune) {
+    this.isWaterDamageImmune = isWaterDamageImmune;
+}
+
+
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -256,7 +269,9 @@ public abstract class Player extends GameObject {
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                levelState = LevelState.PLAYER_DEAD;;
+                if (!isWaterDamageImmune) {
+                    levelState = LevelState.PLAYER_DEAD; // Only kill if not immune
+                }
             }
         }
         else if (playerState == PlayerState.WALKING) {

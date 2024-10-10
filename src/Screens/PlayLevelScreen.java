@@ -1,5 +1,16 @@
 package Screens;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -8,21 +19,11 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
-import Players.prof;
+import Players.PlayerFour;
+import Players.PlayerThree;
 import Players.PlayerTwo;
-import Players.PlayerThree; // Import PlayerThree class
-import Players.PlayerFour; // Import PlayerFour class
 import Players.PlayerType;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.Color;
-import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
+import Players.prof;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
