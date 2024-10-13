@@ -60,7 +60,6 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
 }
 
 
-
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -407,8 +406,9 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
     }
 
     public void setLocation(Point playerStartPosition) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setLocation'");
+        // Set the player's position to the specified coordinates
+        this.x = playerStartPosition.x; // Assuming 'x' is the player's current x-coordinate
+        this.y = playerStartPosition.y; // Assuming 'y' is the player's current y-coordinate
     }
     
 

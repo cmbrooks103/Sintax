@@ -7,9 +7,11 @@ import Enemies.DemonEnemy;
 import Enemies.DinosaurEnemy;
 import Enemies.GuardianEnemy;
 import Enemies.PhantomEnemy;
+import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.PortalTile;
 import EnhancedMapTiles.PuzzlePlatform;
 import EnhancedMapTiles.PuzzleTile;
 import GameObject.Rectangle;
@@ -23,6 +25,9 @@ import NPCs.Grave;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
+import Utils.Point;
+
+
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
@@ -35,6 +40,15 @@ public class TestMap extends Map {
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+
+        // Enemy spawns
+        VolcanoEnemy volcanoEnemy = new VolcanoEnemy(getMapTile(727, 8).getLocation().addY(2)); 
+        enemies.add(volcanoEnemy);
+
+        VolcanoEnemy volcanoEnemy1 = new VolcanoEnemy(getMapTile(732, 8).getLocation().addY(2)); 
+        enemies.add(volcanoEnemy1);
+
+
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
@@ -130,9 +144,17 @@ public class TestMap extends Map {
         3,
         new Rectangle(0, 6,16,4),
         Direction.RIGHT
-);
-enhancedMapTiles.add(hmp2);
+    );
+    enhancedMapTiles.add(hmp2);
 
+        // Portal
+    Point portalLocation = getMapTile(171, 12).getLocation(); // Location for the portal tile
+    PortalTile portalTile = new PortalTile(portalLocation);
+
+    Point teleportDestination = getMapTile(693, 12).getLocation(); // Destination for the teleport
+    portalTile.setTeleportDestination(teleportDestination);
+
+    enhancedMapTiles.add(portalTile);
 
         // First set of PuzzlePlatform and PuzzleTile
 PuzzlePlatform pp = new PuzzlePlatform(
@@ -187,6 +209,7 @@ enhancedMapTiles.add(pt2);
 
         return enhancedMapTiles;
     }
+
 
     @Override
     public ArrayList<NPC> loadNPCs() {

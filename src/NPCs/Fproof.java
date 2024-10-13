@@ -18,7 +18,7 @@ public class Fproof extends NPC {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fproof.png"), 24, 24), "DORMANT");
         isInteractable = true;
         talkedToTime = 200;
-        textbox.setText("You are know immune to heat damage");
+        textbox.setText("You are now immune to heat damage");
         textboxOffsetX = -4;
         textboxOffsetY = -50;
     }
