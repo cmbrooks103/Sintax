@@ -569,6 +569,86 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(lavafirechainplat);
 
+        //Dark biome
+
+          Frame darkskyFrame = new FrameBuilder(getSubImage(0, 11))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder darksky = new MapTileBuilder(darkskyFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(darksky);
+
+         //Dark biome
+
+         Frame darkskyfloorFrame = new FrameBuilder(getSubImage(1, 11))
+         .withScale(tileScale)
+         .build();
+
+        MapTileBuilder darkskyfloor = new MapTileBuilder(darkskyfloorFrame)
+         .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(darkskyfloor);
+
+        //Dark biome
+
+       // left 45 degree slope
+       Frame leftgreenslopedarkFrame = new FrameBuilder(getSubImage(3, 11))
+       .withScale(tileScale)
+       .build();
+
+       MapTileBuilder leftgreenslopedark = new MapTileBuilder(leftgreenslopedarkFrame)
+       .withTileType(TileType.SLOPE)
+       .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+
+       mapTiles.add(leftgreenslopedark);
+
+       // right 45 degree slope
+       Frame rightgreenslopedarkFrame = new FrameBuilder(getSubImage(2, 11))
+       .withScale(tileScale)
+       .build();
+
+       MapTileBuilder rightgreenslopedark = new MapTileBuilder(rightgreenslopedarkFrame)
+       .withTileType(TileType.SLOPE)
+       .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+
+       mapTiles.add(rightgreenslopedark);
+
+
+         //Dark biome
+
+         Frame darkbrickFrame = new FrameBuilder(getSubImage(4, 11))
+         .withScale(tileScale)
+         .build();
+
+        MapTileBuilder darkbrick = new MapTileBuilder(darkbrickFrame)
+         .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(darkbrick);
+
+        //Dark biome
+
+        Frame darkbrickplatFrame = new FrameBuilder(getSubImage(0, 12))
+        .withScale(tileScale)
+        .build();
+
+       MapTileBuilder darkbrickplat = new MapTileBuilder(darkbrickplatFrame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+       mapTiles.add(darkbrickplat);
+
+        //Dark biome
+
+         Frame darkskyfloor1Frame = new FrameBuilder(getSubImage(1, 12))
+         .withScale(tileScale)
+         .build();
+
+        MapTileBuilder darkskyfloor1 = new MapTileBuilder(darkskyfloor1Frame)
+         .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(darkskyfloor1);
+
 
 
 

@@ -165,7 +165,7 @@ public class TestMap extends Map {
     Point portalLocation1 = getMapTile(9, 9).getLocation(); // Location for the portal tile
     PortalTile portalTile1 = new PortalTile(portalLocation1);
 
-    Point teleportDestination1 = getMapTile(693, 12).getLocation(); // Destination for the teleport
+    Point teleportDestination1 = getMapTile(939, 9).getLocation(); // Destination for the teleport
     portalTile1.setTeleportDestination(teleportDestination1);
 
     enhancedMapTiles.add(portalTile1);
