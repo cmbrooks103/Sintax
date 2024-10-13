@@ -40,4 +40,9 @@ public class EnhancedMapTile extends MapTile {
         super.draw(graphicsHandler);
     }
 
+    public void render() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'render'");
+    }
+
 }

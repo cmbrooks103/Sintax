@@ -6,6 +6,7 @@ import Enemies.BugEnemy;
 import Enemies.DemonEnemy;
 import Enemies.DinosaurEnemy;
 import Enemies.GuardianEnemy;
+import Enemies.Spirit;
 import Enemies.PhantomEnemy;
 import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
@@ -49,7 +50,8 @@ public class TestMap extends Map {
         VolcanoEnemy volcanoEnemy1 = new VolcanoEnemy(getMapTile(732, 8).getLocation().addY(2)); 
         enemies.add(volcanoEnemy1);
 
-
+        Spirit spirit = new Spirit(getMapTile(737, 8).getLocation().addY(2)); 
+        enemies.add(spirit);
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
@@ -111,6 +113,8 @@ public class TestMap extends Map {
         return enemies;
     }
 
+
+
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
@@ -147,7 +151,7 @@ public class TestMap extends Map {
         Direction.RIGHT
     );
     enhancedMapTiles.add(hmp2);
-
+  
         // Portal
     Point portalLocation = getMapTile(171, 12).getLocation(); // Location for the portal tile
     PortalTile portalTile = new PortalTile(portalLocation);
@@ -156,6 +160,16 @@ public class TestMap extends Map {
     portalTile.setTeleportDestination(teleportDestination);
 
     enhancedMapTiles.add(portalTile);
+
+// Portal 2
+    Point portalLocation1 = getMapTile(9, 9).getLocation(); // Location for the portal tile
+    PortalTile portalTile1 = new PortalTile(portalLocation1);
+
+    Point teleportDestination1 = getMapTile(693, 12).getLocation(); // Destination for the teleport
+    portalTile1.setTeleportDestination(teleportDestination1);
+
+    enhancedMapTiles.add(portalTile1);
+
 
         // First set of PuzzlePlatform and PuzzleTile
 PuzzlePlatform pp = new PuzzlePlatform(
