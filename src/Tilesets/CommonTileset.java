@@ -649,7 +649,35 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(darkskyfloor1);
 
+           // purple lava
+           Frame newpflame2Frame = new FrameBuilder(getSubImage(2, 12))
+           .withScale(tileScale)
+           .build();
+  
+   MapTileBuilder newpflame2 = new MapTileBuilder(newpflame2Frame)
+           .withTileType(TileType.WATER);
+  
+   mapTiles.add(newpflame2);
 
+// Plants
+   Frame darksky3Frame = new FrameBuilder(getSubImage(3, 12))
+   .withScale(tileScale)
+   .build();
+
+MapTileBuilder darksky3 = new MapTileBuilder(darksky3Frame)
+   .withTileType(TileType.PASSABLE);
+
+mapTiles.add(darksky3);
+
+// Plants
+Frame crystalFrame = new FrameBuilder(getSubImage(4, 12))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder crystal = new MapTileBuilder(crystalFrame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(crystal);
 
 
 
