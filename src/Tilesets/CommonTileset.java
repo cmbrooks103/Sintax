@@ -679,6 +679,89 @@ MapTileBuilder crystal = new MapTileBuilder(crystalFrame)
 
 mapTiles.add(crystal);
 
+Frame snowFloorFrame = new FrameBuilder(getSubImage(0, 13))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowFloor = new MapTileBuilder(snowFloorFrame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowFloor);
+
+Frame snowRamp1Frame = new FrameBuilder(getSubImage(1, 13))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowRamp1 = new MapTileBuilder(snowRamp1Frame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowRamp1);
+
+Frame snowRamp2Frame = new FrameBuilder(getSubImage(2, 13))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowRamp2 = new MapTileBuilder(snowRamp2Frame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowRamp2);
+
+
+Frame snowSkyFrame = new FrameBuilder(getSubImage(3, 13))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowSky = new MapTileBuilder(snowSkyFrame)
+.withTileType(TileType.PASSABLE);
+
+mapTiles.add(snowSky);
+
+Frame snowGroundFrame = new FrameBuilder(getSubImage(4, 13))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowGround = new MapTileBuilder(snowGroundFrame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowGround);
+
+Frame snowIcicleFrame = new FrameBuilder(getSubImage(0, 14))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowIcicle = new MapTileBuilder(snowIcicleFrame)
+.withTileType(TileType.PASSABLE);
+
+mapTiles.add(snowIcicle);
+
+Frame snowTreeTrunkFrame = new FrameBuilder(getSubImage(1, 14))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowTreeTrunk = new MapTileBuilder(snowTreeTrunkFrame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowTreeTrunk);
+
+Frame snowLeavesFrame = new FrameBuilder(getSubImage(2, 14))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowLeaves = new MapTileBuilder(snowLeavesFrame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowLeaves);
+
+
+Frame snowSkullFrame = new FrameBuilder(getSubImage(3, 14))
+.withScale(tileScale)
+.build();
+
+MapTileBuilder snowSkull = new MapTileBuilder(snowSkullFrame)
+.withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(snowSkull);
+
 
 
 //4,8 and 0,9 for fire tiles. 0,9 is bottom flame, 4,8 is top flame
