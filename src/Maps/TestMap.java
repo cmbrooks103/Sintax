@@ -10,6 +10,7 @@ import Enemies.Spirit;
 import Enemies.PhantomEnemy;
 import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Collectible;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.PortalTile;
@@ -218,6 +219,9 @@ enhancedMapTiles.add(pp2);
 PuzzleTile pt2 = new PuzzleTile(getMapTile(648, 1).getLocation());
 pt2.setPuzzlePlatform(pp2); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt2);
+
+Collectible collectible = new Collectible(getMapTile(3, 10).getLocation());
+enhancedMapTiles.add(collectible);
 
 //end level
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(750, 10).getLocation());
