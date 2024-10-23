@@ -410,6 +410,14 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
         this.x = playerStartPosition.x; // Assuming 'x' is the player's current x-coordinate
         this.y = playerStartPosition.y; // Assuming 'y' is the player's current y-coordinate
     }
+
+    public void setAirGroundState(AirGroundState newState) {
+        if (newState != airGroundState) {
+            previousAirGroundState = airGroundState; // Store the previous state
+            airGroundState = newState; // Update to the new state
+        }
+    }
+    
     
 
         

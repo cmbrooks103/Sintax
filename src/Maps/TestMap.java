@@ -15,6 +15,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.PortalTile;
 import EnhancedMapTiles.PuzzlePlatform;
 import EnhancedMapTiles.PuzzleTile;
+import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
