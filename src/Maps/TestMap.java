@@ -153,6 +153,23 @@ public class TestMap extends Map {
         Direction.RIGHT
     );
     enhancedMapTiles.add(hmp2);
+
+    // Vertical platform
+    VerticalMovingPlatform vmp = new VerticalMovingPlatform(
+    ImageLoader.load("GreenPlatform.png"),
+    getMapTile(10, 5).getLocation(),  // Start location
+    getMapTile(10, 10).getLocation(), // End location
+    TileType.JUMP_THROUGH_PLATFORM,
+    3,
+    new Rectangle(0, 6, 16, 5),
+    Direction.UP  // Starting direction
+);
+enhancedMapTiles.add(vmp);
+
+ // Add a collectible at a specific location (e.g., tile (10, 6)).
+        Collectible collectible = new Collectible(getMapTile(3, 6).getLocation());
+        enhancedMapTiles.add(collectible);
+
   
         // Portal
     Point portalLocation = getMapTile(171, 12).getLocation(); // Location for the portal tile
@@ -219,9 +236,6 @@ enhancedMapTiles.add(pp2);
 PuzzleTile pt2 = new PuzzleTile(getMapTile(648, 1).getLocation());
 pt2.setPuzzlePlatform(pp2); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt2);
-
-Collectible collectible = new Collectible(getMapTile(3, 10).getLocation());
-enhancedMapTiles.add(collectible);
 
 //end level
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(750, 10).getLocation());
