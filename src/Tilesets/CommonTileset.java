@@ -762,7 +762,14 @@ MapTileBuilder snowSkull = new MapTileBuilder(snowSkullFrame)
 
 mapTiles.add(snowSkull);
 
+Frame snowSky1Frame = new FrameBuilder(getSubImage(4, 13))
+.withScale(tileScale)
+.build();
 
+MapTileBuilder snowSky1 = new MapTileBuilder(snowSky1Frame)
+.withTileType(TileType.PASSABLE);
+
+mapTiles.add(snowSky1);
 
 //4,8 and 0,9 for fire tiles. 0,9 is bottom flame, 4,8 is top flame
         return mapTiles;
