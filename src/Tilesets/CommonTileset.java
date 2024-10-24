@@ -1,5 +1,7 @@
 package Tilesets;
 
+import java.util.ArrayList;
+
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Engine.ImageLoader;
@@ -8,8 +10,6 @@ import GameObject.ImageEffect;
 import Level.TileType;
 import Level.Tileset;
 import Utils.SlopeTileLayoutUtils;
-
-import java.util.ArrayList;
 
 // This class represents a "common" tileset of standard tiles defined in the CommonTileset.png file
 public class CommonTileset extends Tileset {
@@ -770,6 +770,164 @@ MapTileBuilder snowSky1 = new MapTileBuilder(snowSky1Frame)
 .withTileType(TileType.PASSABLE);
 
 mapTiles.add(snowSky1);
+
+// Adding the new tiles in defineTiles() method
+
+// empty (Row 0, Column 15)
+Frame emptyFrame = new FrameBuilder(getSubImage(0, 15))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder emptyTile = new MapTileBuilder(emptyFrame)
+        .withTileType(TileType.PASSABLE);
+
+mapTiles.add(emptyTile);
+
+// xground (Row 0, Column 16)
+Frame xgroundFrame = new FrameBuilder(getSubImage(0, 16))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder xgroundTile = new MapTileBuilder(xgroundFrame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(xgroundTile);
+
+// bluegrass (Row 0, Column 17)
+Frame bluegrassFrame = new FrameBuilder(getSubImage(0, 17))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder bluegrassTile = new MapTileBuilder(bluegrassFrame)
+        .withTileType(TileType.PASSABLE);
+
+mapTiles.add(bluegrassTile);
+
+// toproot (Row 1, Column 15)
+Frame toprootFrame = new FrameBuilder(getSubImage(1, 15))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder toprootTile = new MapTileBuilder(toprootFrame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(toprootTile);
+
+// xceling (Row 1, Column 16)
+Frame xcelingFrame = new FrameBuilder(getSubImage(1, 16))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder xcelingTile = new MapTileBuilder(xcelingFrame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(xcelingTile);
+
+// blueroot (Row 1, Column 17)
+Frame bluerootFrame = new FrameBuilder(getSubImage(1, 17))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder bluerootTile = new MapTileBuilder(bluerootFrame)
+        .withTileType(TileType.NOT_PASSABLE);
+
+mapTiles.add(bluerootTile);
+
+// bluevine1 (Row 2, Column 15)
+Frame bluevine1Frame = new FrameBuilder(getSubImage(2, 15))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder bluevine1Tile = new MapTileBuilder(bluevine1Frame)
+        .withTileType(TileType.PASSABLE);
+
+mapTiles.add(bluevine1Tile);
+
+// bluevine2 (Row 2, Column 16)
+Frame bluevine2Frame = new FrameBuilder(getSubImage(2, 16))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder bluevine2Tile = new MapTileBuilder(bluevine2Frame)
+        .withTileType(TileType.PASSABLE);
+
+mapTiles.add(bluevine2Tile);
+
+// skullrose (Row 2, Column 17)
+Frame skullroseFrame = new FrameBuilder(getSubImage(2, 17))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder skullroseTile = new MapTileBuilder(skullroseFrame)
+        .withTileType(TileType.PASSABLE);
+
+mapTiles.add(skullroseTile);
+
+// xslope1 (Row 3, Column 15)
+Frame xslope1Frame = new FrameBuilder(getSubImage(3, 15))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder xslope1Tile = new MapTileBuilder(xslope1Frame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+
+mapTiles.add(xslope1Tile);
+
+// xslope2 (Row 3, Column 16)
+Frame xslope2Frame = new FrameBuilder(getSubImage(3, 16))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder xslope2Tile = new MapTileBuilder(xslope2Frame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+
+mapTiles.add(xslope2Tile);
+
+// clearwatertop (Row 3, Column 17)
+Frame clearwatertopFrame = new FrameBuilder(getSubImage(3, 17))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder clearwatertopTile = new MapTileBuilder(clearwatertopFrame)
+        .withTileType(TileType.PASSABLE);
+
+mapTiles.add(clearwatertopTile);
+
+// xslopebottom (Row 4, Column 15)
+Frame xslopebottomFrame = new FrameBuilder(getSubImage(4, 15))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder xslopebottomTile = new MapTileBuilder(xslopebottomFrame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createBottomLeft30SlopeLayout(spriteWidth, (int) tileScale));
+
+mapTiles.add(xslopebottomTile);
+
+// xslopetop (Row 4, Column 16)
+Frame xslopetopFrame = new FrameBuilder(getSubImage(4, 16))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder xslopetopTile = new MapTileBuilder(xslopetopFrame)
+        .withTileType(TileType.SLOPE)
+        .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
+
+mapTiles.add(xslopetopTile);
+
+// clearwater (Row 4, Column 17)
+Frame clearwaterFrame = new FrameBuilder(getSubImage(4, 17))
+        .withScale(tileScale)
+        .build();
+
+MapTileBuilder clearwaterTile = new MapTileBuilder(clearwaterFrame)
+        .withTileType(TileType.WATER);
+
+mapTiles.add(clearwaterTile);
+
+
 
 //4,8 and 0,9 for fire tiles. 0,9 is bottom flame, 4,8 is top flame
         return mapTiles;

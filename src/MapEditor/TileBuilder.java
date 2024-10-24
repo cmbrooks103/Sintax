@@ -1,14 +1,24 @@
 package MapEditor;
 
-import Engine.GraphicsHandler;
-import Level.*;
-import Utils.Colors;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import Engine.GraphicsHandler;
+import Level.Enemy;
+import Level.EnhancedMapTile;
+import Level.Map;
+import Level.MapTile;
+import Level.NPC;
+import Utils.Colors;
 
 public class TileBuilder extends JPanel {
     private Map map;
