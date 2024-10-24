@@ -42,6 +42,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     // Audio variables
     private static Clip backgroundClip;
+    private String originalMusicFilepath = "src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav";
+    private String specialAreaMusicFilepath = "src/Sounds/SpecialAreaMusic.wav"; // Path to the specific audio file
+    private boolean inSpecialArea = false; // Track if the player is inside the special area
+
+    // Final area variables
+    private int finalAreaStartX = 800;  // Starting X coordinate of the final area
+    private int finalAreaEndX = 1000;   // Ending X coordinate of the final area
+    private int finalAreaStartY = 0;    // Starting Y coordinate of the final area
+    private int finalAreaEndY = 600;    // Ending Y coordinate of the final area
+    private boolean inFinalArea = false;  // Flag to track if the player is in the final area
+
+    // Special area coordinates
+    private int specialAreaStartX = 1057;
+    private int specialAreaEndX = 1070;
+    private int specialAreaY = 11;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -54,7 +69,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // Play background music for the level only if it's not already playing
         if (backgroundClip == null || !backgroundClip.isRunning()) {
-            playBackgroundMusic("src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav");
+            playBackgroundMusic(originalMusicFilepath);
         }
 
         // Define/setup map
@@ -95,6 +110,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 if (player != null) {
                     player.update();
                     map.update(player);
+
+                    // Check if player has entered the final area
+                    if (!inFinalArea && isPlayerInFinalArea()) {
+                        inFinalArea = true; // Mark that we are in the final area
+                        changeBackgroundMusic("src/Sounds/Super Metroid Music - Ridley Draygon Boss Theme (online-audio-converter.com).wav"); // Change to the final area music
+                    }
+
+                    // Check if the player is in the special area
+                    if (isPlayerInSpecialArea() && !inSpecialArea) {
+                        inSpecialArea = true;
+                        changeBackgroundMusic(specialAreaMusicFilepath); // Change to the special area music
+                    } else if (!isPlayerInSpecialArea() && inSpecialArea) {
+                        inSpecialArea = false;
+                        changeBackgroundMusic(originalMusicFilepath); // Return to original music if player leaves special area
+                    }
                 }
 
                 // Increment the level timer (counts in frames)
@@ -182,7 +212,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // Method to load and play the background music
+    // Method to load and play the background music with looping
     private void playBackgroundMusic(String filepath) {
         try {
             File musicPath = new File(filepath);
@@ -191,7 +221,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 backgroundClip = AudioSystem.getClip();
                 backgroundClip.open(audioInput);
                 backgroundClip.start(); // Play music once
-                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music
+                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music continuously
             } else {
                 System.out.println("WAV file not found: " + filepath);
             }
@@ -205,6 +235,30 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         if (backgroundClip != null && backgroundClip.isRunning()) {
             backgroundClip.stop();
         }
+    }
+
+    // Method to change background music and ensure looping
+    private void changeBackgroundMusic(String filepath) {
+        stopBackgroundMusic(); // Stop the current background music
+        playBackgroundMusic(filepath); // Play new background music and ensure looping
+    }
+
+    // Method to check if player is in the final area
+    private boolean isPlayerInFinalArea() {
+        int playerX = (int) player.getX();
+        int playerY = (int) player.getY();
+
+        return playerX >= finalAreaStartX && playerX <= finalAreaEndX &&
+        playerY >= finalAreaStartY && playerY <= finalAreaEndY;
+    }
+
+    // Method to check if the player is in the special area
+    private boolean isPlayerInSpecialArea() {
+        int playerX = (int) player.getX();
+        int playerY = (int) player.getY();
+
+        return playerX >= specialAreaStartX && playerX <= specialAreaEndX &&
+               playerY == specialAreaY;
     }
 
     // This enum represents the different states this screen can be in
