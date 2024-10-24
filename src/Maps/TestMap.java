@@ -38,7 +38,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(350, 7).getLocation();
+        this.playerStartPosition = getMapTile(1, 11).getLocation();
     }
 
     @Override
@@ -271,7 +271,7 @@ pt2.setPuzzlePlatform(pp2); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt2);
 
 //end level
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(750, 10).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(871, 8).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
