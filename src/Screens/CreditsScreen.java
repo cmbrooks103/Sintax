@@ -31,7 +31,7 @@ public class CreditsScreen extends Screen {
         creditsLabel = new SpriteFont("Tutorial", 15, 7, "Times New Roman", 30, Color.red);
         createdByLabel = new SpriteFont("Use < > keys to move left and right. Use ^ key to jump.", 130, 121, "Times New Roman", 20, Color.red);
         returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.red);
-        additionalTutorialLabel = new SpriteFont("Lava can kill you but Fire cannot at the moment", 130, 160, "Times New Roman", 20, Color.red);  // New label
+        additionalTutorialLabel = new SpriteFont("Lava and fire will kill you! Run through fire without stopping to negate damage and press space to interact with certain objects in the world.", 130, 160, "Times New Roman", 20, Color.red);  // New label
         newTutorialLabel = new SpriteFont("Avoid all enemies!!!", 130, 200, "Times New Roman", 20, Color.red);  // Another new label
 
         keyLocker.lockKey(Key.SPACE);
