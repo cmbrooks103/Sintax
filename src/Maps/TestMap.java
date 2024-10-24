@@ -38,7 +38,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(1, 11).getLocation();
+        this.playerStartPosition = getMapTile(350, 7).getLocation();
     }
 
     @Override
@@ -52,8 +52,18 @@ public class TestMap extends Map {
         VolcanoEnemy volcanoEnemy1 = new VolcanoEnemy(getMapTile(732, 8).getLocation().addY(2)); 
         enemies.add(volcanoEnemy1);
 
+        VolcanoEnemy volcanoEnemy2 = new VolcanoEnemy(getMapTile(752, 10).getLocation().addY(2)); 
+        enemies.add(volcanoEnemy2);
+
+        VolcanoEnemy volcanoEnemy3 = new VolcanoEnemy(getMapTile(776, 12).getLocation().addY(2)); 
+        enemies.add(volcanoEnemy3);
+
         Spirit spirit = new Spirit(getMapTile(737, 8).getLocation().addY(2)); 
         enemies.add(spirit);
+
+        Spirit spirit1 = new Spirit(getMapTile(776, 8).getLocation().addY(2)); 
+        enemies.add(spirit1);
+
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
@@ -157,14 +167,26 @@ public class TestMap extends Map {
     // Vertical platform
     VerticalMovingPlatform vmp = new VerticalMovingPlatform(
     ImageLoader.load("GreenPlatform.png"),
-    getMapTile(10, 5).getLocation(),  // Start location
-    getMapTile(10, 10).getLocation(), // End location
+    getMapTile(787, 9).getLocation(),  // Start location
+    getMapTile(787, 6).getLocation(), // End location
     TileType.JUMP_THROUGH_PLATFORM,
     3,
     new Rectangle(0, 6, 16, 5),
     Direction.UP  // Starting direction
 );
 enhancedMapTiles.add(vmp);
+
+ // Vertical platform
+ VerticalMovingPlatform vmp1 = new VerticalMovingPlatform(
+    ImageLoader.load("GreenPlatform.png"),
+    getMapTile(797, 9).getLocation(),  // Start location
+    getMapTile(797, 6).getLocation(), // End location
+    TileType.JUMP_THROUGH_PLATFORM,
+    3,
+    new Rectangle(0, 6, 16, 5),
+    Direction.UP  // Starting direction
+);
+enhancedMapTiles.add(vmp1);
 
  // Add a collectible at a specific location (e.g., tile (10, 6)).
         Collectible collectible = new Collectible(getMapTile(3, 6).getLocation());
@@ -180,14 +202,25 @@ enhancedMapTiles.add(vmp);
 
     enhancedMapTiles.add(portalTile);
 
+
+//
+    Point portalLocation2 = getMapTile(1242, 6).getLocation(); // Location for the portal tile
+    PortalTile portalTile2 = new PortalTile(portalLocation2);
+
+    Point teleportDestination2 = getMapTile(540, 8).getLocation(); // Destination for the teleport
+    portalTile2.setTeleportDestination(teleportDestination2);
+
+    enhancedMapTiles.add(portalTile2);
+
 // Portal 2
-    Point portalLocation1 = getMapTile(9, 9).getLocation(); // Location for the portal tile
+    Point portalLocation1 = getMapTile(350, 6).getLocation(); // Location for the portal tile
     PortalTile portalTile1 = new PortalTile(portalLocation1);
 
-    Point teleportDestination1 = getMapTile(939, 9).getLocation(); // Destination for the teleport
+    Point teleportDestination1 = getMapTile(1062, 8).getLocation(); // Destination for the teleport
     portalTile1.setTeleportDestination(teleportDestination1);
 
     enhancedMapTiles.add(portalTile1);
+    //NEW
 
 
         // First set of PuzzlePlatform and PuzzleTile
