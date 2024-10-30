@@ -141,6 +141,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
                 // Draw the timer on the screen
                 drawLevelTimer(graphicsHandler);
+                drawHealth(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 // Tell the LevelClearedScreen how much time the player took 
@@ -165,6 +166,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         graphicsHandler.drawString("Time: " + timeString, 650, 50, timerFont, timerColor);
     }
+    
+     // Method to draw the health on the screen
+     private void drawHealth(GraphicsHandler graphicsHandler) {
+        Font timerFont = new Font("Arial", Font.PLAIN, 24);
+        Color timerColor = Color.RED;
+
+        graphicsHandler.drawString("Health: " + this.player.getPlayerHealth(), 650, 75, timerFont, timerColor);
+    }
+
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;

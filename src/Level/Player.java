@@ -30,6 +30,8 @@ public abstract class Player extends GameObject {
     // values used to keep track of player's current state
     protected PlayerState playerState;
     protected PlayerState previousPlayerState;
+    protected int Health;
+    protected int damageTimer;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
@@ -68,6 +70,8 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+        Health = 5;
+        damageTimer = 0;
     }
 
     public void update() {
@@ -93,6 +97,9 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
             handlePlayerAnimation();
 
             updateLockedKeys();
+            if (damageTimer > 0){
+                damageTimer--;
+            }
 
             // update player's animation
             super.update();
@@ -319,9 +326,18 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
-            // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
+            // if map entity is an enemy, lower player health by 1, if health reaches 0 kill player
+            if ((mapEntity instanceof Enemy) &&  (damageTimer == 0)) {
+                damageTimer = 60;
+                if (Health == 1){
+                    Health = 0;
+                    levelState = LevelState.PLAYER_DEAD;
+                }else if(Health == 0){
+
+                }else{
+                    Health = Health - 1;
+                }
+                
             }
         }
     }
@@ -379,6 +395,10 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
 
     public PlayerState getPlayerState() {
         return playerState;
+    }
+
+    public int getPlayerHealth(){
+        return this.Health;
     }
 
     public void setPlayerState(PlayerState playerState) {
