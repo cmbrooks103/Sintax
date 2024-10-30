@@ -12,21 +12,29 @@ import Utils.Point;
 import java.util.HashMap;
 
 public class Trail extends EnhancedMapTile {
-    private long spawnTime; // Time when the trail is created
-    private static final long LIFESPAN = 20000; // 20 seconds lifespan in milliseconds
+    private static final long LIFESPAN = 100; // 200ms lifespan for each trail
+    private long spawnTime; // Record when the trail was created
+    private boolean animationStopped = false; // Track if animation has stopped
 
     public Trail(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("trail.png"), 16, 16), TileType.PASSABLE);
-        this.spawnTime = System.currentTimeMillis();
+        this.spawnTime = System.currentTimeMillis(); // Set creation time
     }
 
     @Override
     public void update() {
         super.update();
-        // Remove trail after 20 seconds
-        if (System.currentTimeMillis() - spawnTime >= LIFESPAN) {
-            mapEntityStatus = MapEntityStatus.REMOVED;
+
+        // Check if the trail has lived beyond its lifespan
+        if (System.currentTimeMillis() - spawnTime >= LIFESPAN && !animationStopped) {
+            stopAnimationAtLastFrame(); // Stop animation at the last frame
+            animationStopped = true; // Ensure it only runs once
         }
+    }
+
+    private void stopAnimationAtLastFrame() {
+        currentFrameIndex = getCurrentAnimation().length - 1; // Set to the last frame
+        mapEntityStatus = MapEntityStatus.ACTIVE; // Keep the trail on the map
     }
 
     @Override
@@ -41,7 +49,7 @@ public class Trail extends EnhancedMapTile {
                     .withScale(3)
                     .withBounds(1, 1, 14, 14)
                     .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
+                new FrameBuilder(spriteSheet.getSprite(0, 2), -1) // Final frame, no loop (-1 duration)
                     .withScale(3)
                     .withBounds(1, 1, 14, 14)
                     .build()

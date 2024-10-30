@@ -14,11 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TrailCollectible extends EnhancedMapTile {
-    private static final long TRAIL_DURATION = 20000; // 20 seconds duration
-    private static final float SPEED_MULTIPLIER = 2.0f; // Speed multiplier
-    private static final int TRAIL_INTERVAL = 200; // Interval in milliseconds for spawning trails
-
-    private boolean isActive = false; // Prevents multiple activations
+    private static final long TRAIL_DURATION = 20000; // 20 seconds for the power-up effect
+    private boolean collected = false; // Ensure collectible activates only once
 
     public TrailCollectible(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("collectible.png"), 16, 16), TileType.PASSABLE);
@@ -28,34 +25,45 @@ public class TrailCollectible extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
 
-        // If the player touches the collectible and it hasn't been activated yet
-        if (!isActive && intersects(player)) {
-            isActive = true; // Mark as activated to prevent multiple triggers
-            mapEntityStatus = MapEntityStatus.REMOVED; // Remove the collectible from the map
+        // When the player collects the power-up
+        if (intersects(player) && !collected) {
+            collected = true; // Prevent multiple activations
+            mapEntityStatus = MapEntityStatus.REMOVED; // Remove the collectible
 
-            // Activate speed boost for the player
-            player.activateSpeedBoost(SPEED_MULTIPLIER);
+            // Activate the speed boost (2x speed for the player)
+            player.activateSpeedBoost(2.0f);
 
-            // Start a thread to spawn trails and disable the speed boost after 20 seconds
-            new Thread(() -> {
-                long startTime = System.currentTimeMillis();
-                while (System.currentTimeMillis() - startTime < TRAIL_DURATION) {
-                    // Create a trail at the player's current position
-                    Trail trail = new Trail(new Point((int) player.getX(), (int) player.getY()));
-                    player.getMap().addEnhancedMapTile(trail); // Add the trail to the map
+            // Start generating trails for 20 seconds
+            new Thread(() -> generateTrails(player)).start();
 
-                    // Wait for the next trail spawn
-                    try {
-                        Thread.sleep(TRAIL_INTERVAL); // Pause between trail spawns
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                // Reset the player's speed after the trail effect ends
-                player.deactivateSpeedBoost();
-            }).start();
+            // Schedule speed reset after 20 seconds
+            new Thread(() -> resetSpeedAfterDuration(player)).start();
         }
+    }
+
+    private void generateTrails(Player player) {
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime < TRAIL_DURATION) {
+            // Create a new trail at the player's current location
+            Trail trail = new Trail(new Point((int) player.getX(), (int) player.getY()));
+            player.getMap().addEnhancedMapTile(trail); // Add the trail to the map
+
+            try {
+                Thread.sleep(200); // Wait 200ms before placing the next trail
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Reset the player's speed after the power-up duration ends
+    private void resetSpeedAfterDuration(Player player) {
+        try {
+            Thread.sleep(TRAIL_DURATION); // Wait 20 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        player.deactivateSpeedBoost(); // Reset the speed
     }
 
     @Override
