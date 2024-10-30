@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 // This class is a base class for all enemies in the game -- all enemies should extend from it
 public class Enemy extends MapEntity {
+    protected int Health;
+    protected int damageTimer;
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -31,17 +33,40 @@ public class Enemy extends MapEntity {
     @Override
     public void initialize() {
         super.initialize();
+        Health = 3;
+        damageTimer = 0;
     }
 
     public void update(Player player) {
         super.update();
+        if (damageTimer > 0){
+            damageTimer--;
+        }
         if (intersects(player)) {
             touchedPlayer(player);
+        }
+        if (false){
+            this.hurtEnemy();
         }
     }
 
     // A subclass can override this method to specify what it does when it touches the player
     public void touchedPlayer(Player player) {
         player.hurtPlayer(this);
+        this.hurtEnemy();
+    }
+
+    public void hurtEnemy(){
+        if(damageTimer == 0){
+            damageTimer = 60;
+            if (Health == 1){
+                Health = 0;
+                this.mapEntityStatus = mapEntityStatus.REMOVED;
+            }else if(Health == 0){
+    
+            }else{
+                Health = Health - 1;
+            } 
+        }
     }
 }

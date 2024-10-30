@@ -161,7 +161,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         int seconds = secondsElapsed % 60;
 
         String timeString = String.format("%02d:%02d", minutes, seconds);
-        Font timerFont = new Font("Arial", Font.PLAIN, 24);
+        Font timerFont = new Font("Georgia", Font.PLAIN, 24);
         Color timerColor = Color.WHITE;
 
         graphicsHandler.drawString("Time: " + timeString, 650, 50, timerFont, timerColor);
@@ -169,10 +169,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     
      // Method to draw the health on the screen
      private void drawHealth(GraphicsHandler graphicsHandler) {
-        Font timerFont = new Font("Arial", Font.PLAIN, 24);
+        Font timerFont = new Font("Georgia", Font.PLAIN, 24);
         Color timerColor = Color.RED;
 
-        graphicsHandler.drawString("Health: " + this.player.getPlayerHealth(), 650, 75, timerFont, timerColor);
+        graphicsHandler.drawString("Health: " + this.player.getPlayerHealth(), 680, 75, timerFont, timerColor);
     }
 
 

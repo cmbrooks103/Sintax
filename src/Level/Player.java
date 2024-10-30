@@ -76,7 +76,7 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
-        Health = 5;
+        Health = 3;
         damageTimer = 0;
     }
 
