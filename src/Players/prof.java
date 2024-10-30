@@ -6,6 +6,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.Map;
 import Level.Player;
 
 import java.util.HashMap;
@@ -13,8 +14,8 @@ import java.util.HashMap;
 // Class representing Player One
 public class prof extends Player {
     // Constructor for Player One
-    public prof(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("profsheet.png"), 24, 24), x, y, "STAND_RIGHT");
+    public prof(float x, float y, Map map) {
+        super(new SpriteSheet(ImageLoader.load("profsheet.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15; // Cast to int directly

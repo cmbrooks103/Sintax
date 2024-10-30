@@ -17,6 +17,7 @@ import EnhancedMapTiles.PortalTile;
 import EnhancedMapTiles.PuzzlePlatform;
 import EnhancedMapTiles.PuzzleTile;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.TrailCollectible;
 import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
@@ -191,6 +192,9 @@ enhancedMapTiles.add(vmp1);
  // Add a collectible at a specific location (e.g., tile (10, 6)).
         Collectible collectible = new Collectible(getMapTile(3, 6).getLocation());
         enhancedMapTiles.add(collectible);
+
+        TrailCollectible speedCollectible = new TrailCollectible(getMapTile(6, 6).getLocation());
+        enhancedMapTiles.add(speedCollectible);
 
   
         // Portal

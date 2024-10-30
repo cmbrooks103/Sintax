@@ -64,13 +64,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         PlayerType selectedPlayerType = screenCoordinator.getSelectedPlayer();
 
         if (selectedPlayerType == PlayerType.PROF) {
-            this.player = new prof(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            this.player = new prof(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         } else if (selectedPlayerType == PlayerType.PLAYER_TWO) {
-            this.player = new PlayerTwo(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            this.player = new PlayerTwo(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         } else if (selectedPlayerType == PlayerType.PLAYER_THREE) { // Added for PlayerThree
-            this.player = new PlayerThree(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            this.player = new PlayerThree(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         } else if (selectedPlayerType == PlayerType.PLAYER_FOUR) { // Added for PlayerFour
-            this.player = new PlayerFour(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            this.player = new PlayerFour(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         }
 
         // Common setup for player

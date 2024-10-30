@@ -11,6 +11,8 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+
+
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
@@ -26,6 +28,10 @@ public abstract class Player extends GameObject {
     protected float momentumY = 0;
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
+
+    protected boolean isSpeedBoostActive = false;  // Track if speed boost is active
+    protected float originalWalkSpeed;  // Store the original walk speed
+    protected static Map map;  // Reference to the map instance
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -59,16 +65,38 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
     this.isWaterDamageImmune = isWaterDamageImmune;
 }
 
-
-    public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
-        super(spriteSheet, x, y, startingAnimationName);
-        facingDirection = Direction.RIGHT;
-        airGroundState = AirGroundState.AIR;
-        previousAirGroundState = airGroundState;
-        playerState = PlayerState.STANDING;
-        previousPlayerState = playerState;
-        levelState = LevelState.RUNNING;
+// Method to activate speed boost
+public void activateSpeedBoost(float multiplier) {
+    if (!isSpeedBoostActive) {
+        originalWalkSpeed = walkSpeed;  // Store original speed
+        walkSpeed *= multiplier;  // Apply speed multiplier
+        isSpeedBoostActive = true;
     }
+}
+
+// Method to deactivate speed boost
+public void deactivateSpeedBoost() {
+    if (isSpeedBoostActive) {
+        walkSpeed = originalWalkSpeed;  // Reset to original speed
+        isSpeedBoostActive = false;
+    }
+}
+
+// Getter method to access the map
+public Map getMap() {
+    return map;
+}
+
+public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, Map map) {
+    super(spriteSheet, x, y, startingAnimationName);
+    this.map = map;  // Store the map reference
+    this.facingDirection = Direction.RIGHT;
+    this.airGroundState = AirGroundState.AIR;
+    this.previousAirGroundState = airGroundState;
+    this.playerState = PlayerState.STANDING;
+    this.previousPlayerState = playerState;
+    this.levelState = LevelState.RUNNING;
+}
 
     public void update() {
         moveAmountX = 0;
