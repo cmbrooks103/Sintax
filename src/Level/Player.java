@@ -36,6 +36,8 @@ public abstract class Player extends GameObject {
     // values used to keep track of player's current state
     protected PlayerState playerState;
     protected PlayerState previousPlayerState;
+    protected int Health;
+    protected int damageTimer;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
@@ -65,14 +67,25 @@ public void setWaterDamageImmune(boolean isWaterDamageImmune) {
     this.isWaterDamageImmune = isWaterDamageImmune;
 }
 
-// Method to activate speed boost
-public void activateSpeedBoost(float multiplier) {
-    if (!isSpeedBoostActive) {
-        originalWalkSpeed = walkSpeed;  // Store original speed
-        walkSpeed *= multiplier;  // Apply speed multiplier
-        isSpeedBoostActive = true;
+public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, Map map) {
+    super(spriteSheet, x, y, startingAnimationName);
+    this.map = map;  // Store the map reference
+        facingDirection = Direction.RIGHT;
+        airGroundState = AirGroundState.AIR;
+        previousAirGroundState = airGroundState;
+        playerState = PlayerState.STANDING;
+        previousPlayerState = playerState;
+        levelState = LevelState.RUNNING;
+        Health = 5;
+        damageTimer = 0;
     }
-}
+
+    public void activateSpeedBoost(float multiplier) {
+        if (!isSpeedBoostActive) {
+            originalWalkSpeed = walkSpeed;  // Store original speed
+            walkSpeed *= multiplier;  // Apply speed multiplier
+            isSpeedBoostActive = true;
+}}
 
 // Method to deactivate speed boost
 public void deactivateSpeedBoost() {
@@ -87,16 +100,6 @@ public Map getMap() {
     return map;
 }
 
-public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, Map map) {
-    super(spriteSheet, x, y, startingAnimationName);
-    this.map = map;  // Store the map reference
-    this.facingDirection = Direction.RIGHT;
-    this.airGroundState = AirGroundState.AIR;
-    this.previousAirGroundState = airGroundState;
-    this.playerState = PlayerState.STANDING;
-    this.previousPlayerState = playerState;
-    this.levelState = LevelState.RUNNING;
-}
 
     public void update() {
         moveAmountX = 0;
@@ -121,6 +124,9 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
             handlePlayerAnimation();
 
             updateLockedKeys();
+            if (damageTimer > 0){
+                damageTimer--;
+            }
 
             // update player's animation
             super.update();
@@ -347,9 +353,18 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
-            // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
+            // if map entity is an enemy, lower player health by 1, if health reaches 0 kill player
+            if ((mapEntity instanceof Enemy) &&  (damageTimer == 0)) {
+                damageTimer = 60;
+                if (Health == 1){
+                    Health = 0;
+                    levelState = LevelState.PLAYER_DEAD;
+                }else if(Health == 0){
+
+                }else{
+                    Health = Health - 1;
+                }
+                
             }
         }
     }
@@ -407,6 +422,10 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
 
     public PlayerState getPlayerState() {
         return playerState;
+    }
+
+    public int getPlayerHealth(){
+        return this.Health;
     }
 
     public void setPlayerState(PlayerState playerState) {
