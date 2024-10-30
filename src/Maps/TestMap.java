@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import Enemies.BugEnemy;
 import Enemies.DemonEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.FishEnemy;
 import Enemies.GuardianEnemy;
 import Enemies.PhantomEnemy;
+import Enemies.Rose;
 import Enemies.Spirit;
 import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
@@ -47,24 +49,20 @@ public class TestMap extends Map {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
         // Enemy spawns
+        Rose roseEnemy = new Rose(getMapTile(1187, 11).getLocation().addY(2)); 
+        enemies.add(roseEnemy);
+
         VolcanoEnemy volcanoEnemy = new VolcanoEnemy(getMapTile(727, 8).getLocation().addY(2)); 
         enemies.add(volcanoEnemy);
 
         VolcanoEnemy volcanoEnemy1 = new VolcanoEnemy(getMapTile(732, 8).getLocation().addY(2)); 
         enemies.add(volcanoEnemy1);
 
-        VolcanoEnemy volcanoEnemy2 = new VolcanoEnemy(getMapTile(752, 10).getLocation().addY(2)); 
-        enemies.add(volcanoEnemy2);
-
-        VolcanoEnemy volcanoEnemy3 = new VolcanoEnemy(getMapTile(776, 12).getLocation().addY(2)); 
-        enemies.add(volcanoEnemy3);
-
         Spirit spirit = new Spirit(getMapTile(737, 8).getLocation().addY(2)); 
         enemies.add(spirit);
 
-        Spirit spirit1 = new Spirit(getMapTile(776, 8).getLocation().addY(2)); 
-        enemies.add(spirit1);
-
+        FishEnemy fishEnemy = new FishEnemy(getMapTile(1152, 12).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(fishEnemy);
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
@@ -118,10 +116,10 @@ public class TestMap extends Map {
         GuardianEnemy GuardianEnemy7 = new GuardianEnemy(getMapTile(646, 5).getLocation().addY(0), getMapTile(648, 5).getLocation().addY(0), Direction.LEFT);
         enemies.add(GuardianEnemy7);
 
+        
+        
 
-       
-
-
+        
 
         return enemies;
     }
@@ -168,26 +166,14 @@ public class TestMap extends Map {
     // Vertical platform
     VerticalMovingPlatform vmp = new VerticalMovingPlatform(
     ImageLoader.load("GreenPlatform.png"),
-    getMapTile(787, 9).getLocation(),  // Start location
-    getMapTile(787, 6).getLocation(), // End location
+    getMapTile(10, 5).getLocation(),  // Start location
+    getMapTile(10, 10).getLocation(), // End location
     TileType.JUMP_THROUGH_PLATFORM,
     3,
     new Rectangle(0, 6, 16, 5),
     Direction.UP  // Starting direction
 );
 enhancedMapTiles.add(vmp);
-
- // Vertical platform
- VerticalMovingPlatform vmp1 = new VerticalMovingPlatform(
-    ImageLoader.load("GreenPlatform.png"),
-    getMapTile(797, 9).getLocation(),  // Start location
-    getMapTile(797, 6).getLocation(), // End location
-    TileType.JUMP_THROUGH_PLATFORM,
-    3,
-    new Rectangle(0, 6, 16, 5),
-    Direction.UP  // Starting direction
-);
-enhancedMapTiles.add(vmp1);
 
  // Add a collectible at a specific location (e.g., tile (10, 6)).
         Collectible collectible = new Collectible(getMapTile(3, 6).getLocation());
@@ -206,25 +192,31 @@ enhancedMapTiles.add(vmp1);
 
     enhancedMapTiles.add(portalTile);
 
+// Portal 2
+    Point portalLocation1 = getMapTile(9, 9).getLocation(); // Location for the portal tile
+    PortalTile portalTile1 = new PortalTile(portalLocation1);
 
-//
-    Point portalLocation2 = getMapTile(1242, 6).getLocation(); // Location for the portal tile
+    Point teleportDestination1 = getMapTile(939, 9).getLocation(); // Destination for the teleport
+    portalTile1.setTeleportDestination(teleportDestination1);
+
+    enhancedMapTiles.add(portalTile1);
+
+    //Portal 3
+    Point portalLocation2 = getMapTile(100, 2).getLocation(); // Location for the portal tile
     PortalTile portalTile2 = new PortalTile(portalLocation2);
 
-    Point teleportDestination2 = getMapTile(540, 8).getLocation(); // Destination for the teleport
+    Point teleportDestination2 = getMapTile(1060, 6).getLocation(); // Destination for the teleport
     portalTile2.setTeleportDestination(teleportDestination2);
 
     enhancedMapTiles.add(portalTile2);
 
-// Portal 2
-    Point portalLocation1 = getMapTile(350, 6).getLocation(); // Location for the portal tile
-    PortalTile portalTile1 = new PortalTile(portalLocation1);
+    Point portalLocation3 = getMapTile(1245, 8).getLocation(); // Location for the portal tile
+    PortalTile portalTile3 = new PortalTile(portalLocation3);
 
-    Point teleportDestination1 = getMapTile(1062, 8).getLocation(); // Destination for the teleport
-    portalTile1.setTeleportDestination(teleportDestination1);
+    Point teleportDestination3 = getMapTile(99, 8).getLocation(); // Destination for the teleport
+    portalTile3.setTeleportDestination(teleportDestination3);
 
-    enhancedMapTiles.add(portalTile1);
-    //NEW
+    enhancedMapTiles.add(portalTile3);
 
 
         // First set of PuzzlePlatform and PuzzleTile
@@ -275,7 +267,7 @@ pt2.setPuzzlePlatform(pp2); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt2);
 
 //end level
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(871, 8).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(750, 10).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;

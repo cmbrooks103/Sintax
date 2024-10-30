@@ -43,6 +43,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     // Audio variables
     private static Clip backgroundClip;
 
+    // Final area variables
+    private int finalAreaStartX = 800;  // Starting X coordinate of the final area
+    private int finalAreaEndX = 1000;   // Ending X coordinate of the final area
+    private int finalAreaStartY = 0;    // Starting Y coordinate of the final area
+    private int finalAreaEndY = 600;    // Ending Y coordinate of the final area
+    private boolean inFinalArea = false;  // Flag to track if the player is in the final area
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
@@ -95,6 +102,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 if (player != null) {
                     player.update();
                     map.update(player);
+
+                    // Check if player has entered the final area
+                    if (!inFinalArea && isPlayerInFinalArea()) {
+                        inFinalArea = true; // Mark that we are in the final area
+                        changeBackgroundMusic("src/Sounds/Super Metroid Music - Ridley Draygon Boss Theme (online-audio-converter.com).wav"); // Change to the final area music
+                    }
                 }
 
                 // Increment the level timer (counts in frames)
@@ -169,8 +182,26 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     @Override
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
+            playDeathSound();  // Play the death sound
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             stopBackgroundMusic(); // Stop the music when the player dies
+        }
+    }
+
+    // Method to play the death sound
+    private void playDeathSound() {
+        try {
+            File deathSoundPath = new File("src/Sounds/Video Game Death - Sound Effect (HD) (online-audio-converter.com).wav");
+            if (deathSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(deathSoundPath);
+                Clip deathClip = AudioSystem.getClip();
+                deathClip.open(audioInput);
+                deathClip.start(); // Play the death sound once
+            } else {
+                System.out.println("WAV file not found: " + deathSoundPath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
 
@@ -182,7 +213,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // Method to load and play the background music
+    // Method to load and play the background music with looping
     private void playBackgroundMusic(String filepath) {
         try {
             File musicPath = new File(filepath);
@@ -191,7 +222,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 backgroundClip = AudioSystem.getClip();
                 backgroundClip.open(audioInput);
                 backgroundClip.start(); // Play music once
-                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music
+                backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music continuously
             } else {
                 System.out.println("WAV file not found: " + filepath);
             }
@@ -205,6 +236,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         if (backgroundClip != null && backgroundClip.isRunning()) {
             backgroundClip.stop();
         }
+    }
+
+    // Method to change background music and ensure looping
+    private void changeBackgroundMusic(String filepath) {
+        stopBackgroundMusic(); // Stop the current background music
+        playBackgroundMusic(filepath); // Play new background music and ensure looping
+    }
+
+    // Method to check if player is in the final area
+    private boolean isPlayerInFinalArea() {
+        int playerX = (int) player.getX();
+        int playerY = (int) player.getY();
+
+        return playerX >= finalAreaStartX && playerX <= finalAreaEndX &&
+               playerY >= finalAreaStartY && playerY <= finalAreaEndY;
     }
 
     // This enum represents the different states this screen can be in
