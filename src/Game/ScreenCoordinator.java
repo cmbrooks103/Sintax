@@ -8,6 +8,7 @@ import Players.prof;
 import Players.PlayerTwo;
 import Players.PlayerThree; // Import the new PlayerThree class
 import Players.PlayerFour;  // Import the new PlayerFour class
+import Players.PlayerFive;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;

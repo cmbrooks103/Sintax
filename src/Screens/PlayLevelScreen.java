@@ -19,6 +19,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
+import Players.PlayerFive;
 import Players.PlayerFour;
 import Players.PlayerThree;
 import Players.PlayerTwo;
@@ -78,8 +79,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.player = new PlayerThree(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         } else if (selectedPlayerType == PlayerType.PLAYER_FOUR) { // Added for PlayerFour
             this.player = new PlayerFour(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
+        }else if (selectedPlayerType == PlayerType.PLAYER_FIVE) { // Added for PlayerFive
+            this.player = new PlayerFive(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         }
-
         // Common setup for player
         if (this.player != null) {
             this.player.setMap(map);
