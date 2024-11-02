@@ -56,6 +56,13 @@ public abstract class Map {
     protected ArrayList<EnhancedMapTile> enhancedMapTiles;
     protected ArrayList<NPC> npcs;
 
+    protected ArrayList<MapEntity> projectiles = new ArrayList<>();
+
+public void addProjectile(MapEntity projectile) {
+    projectiles.add(projectile);
+    projectile.setMap(this);
+}
+
     // if set to false, camera will not move as player moves
     protected boolean adjustCamera = true;
 
@@ -323,6 +330,17 @@ public abstract class Map {
         this.npcs.add(npc);
     }
 
+    public void addMapEntity(MapEntity entity) {
+        entity.setMap(this);
+        if (entity instanceof Enemy) {
+            enemies.add((Enemy) entity);
+        } else if (entity instanceof EnhancedMapTile) {
+            enhancedMapTiles.add((EnhancedMapTile) entity);
+        } else {
+            projectiles.add(entity); // Use this for explosions and fireballs
+        }
+    }
+    
     public void setAdjustCamera(boolean adjustCamera) {
         this.adjustCamera = adjustCamera;
     }
@@ -333,6 +351,16 @@ public abstract class Map {
             adjustMovementX(player);
         }
         camera.update(player);
+
+
+        for (int i = 0; i < projectiles.size(); i++) {
+            MapEntity projectile = projectiles.get(i);
+            projectile.update(); // Remove the player argument here
+            if (projectile.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+                projectiles.remove(i);
+                i--; // Adjust index after removal
+            }
+        }
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),
@@ -395,6 +423,9 @@ public abstract class Map {
 
     public void draw(GraphicsHandler graphicsHandler) {
         camera.draw(graphicsHandler);
+        for (MapEntity projectile : projectiles) {
+            projectile.draw(graphicsHandler);
+        }
     }
 
     public int getEndBoundX() { return endBoundX; }

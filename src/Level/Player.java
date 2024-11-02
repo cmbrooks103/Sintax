@@ -52,6 +52,8 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    protected Key SHOOT_KEY = Key.X;
+
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -80,6 +82,19 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
         damageTimer = 0;
     }
 
+
+    private void shootFireball() {
+        // Determine the initial position of the fireball based on the player's facing direction
+        int fireballOffsetX = facingDirection == Direction.RIGHT ? this.getWidth() : 10; // Offset X based on direction
+        int fireballOffsetY = this.getHeight() / 2; // Adjust the Y position to come from a little lower
+    
+        Point fireballStart = new Point((int) this.x + fireballOffsetX, (int) this.y + fireballOffsetY);
+    
+        // Create a new PlayerFireball and add it to the map
+        PlayerFireball fireball = new PlayerFireball(fireballStart, 5.0f, 1, 100, facingDirection == Direction.RIGHT);
+        map.addProjectile(fireball);
+    }
+    
     public void activateSpeedBoost(float multiplier) {
         if (!isSpeedBoostActive) {
             originalWalkSpeed = walkSpeed;  // Store original speed
@@ -105,6 +120,16 @@ public Map getMap() {
         moveAmountX = 0;
         moveAmountY = 0;
 
+        if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
+            keyLocker.lockKey(SHOOT_KEY);
+            shootFireball();
+        }
+    
+        // Unlock SHOOT_KEY when released
+        if (Keyboard.isKeyUp(SHOOT_KEY)) {
+            keyLocker.unlockKey(SHOOT_KEY);
+        }
+    
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             applyGravity();

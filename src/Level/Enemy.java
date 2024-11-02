@@ -45,9 +45,6 @@ public class Enemy extends MapEntity {
         if (intersects(player)) {
             touchedPlayer(player);
         }
-        if (false){
-            this.hurtEnemy();
-        }
     }
 
     // A subclass can override this method to specify what it does when it touches the player
@@ -58,7 +55,7 @@ public class Enemy extends MapEntity {
 
     public void hurtEnemy(){
         if(damageTimer == 0){
-            damageTimer = 60;
+            damageTimer = 1;
             if (Health == 1){
                 Health = 0;
                 this.mapEntityStatus = mapEntityStatus.REMOVED;
