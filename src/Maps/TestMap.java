@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.BugEnemy;
+import Enemies.MiniBoss;
 import Enemies.DemonEnemy;
 import Enemies.DinosaurEnemy;
 import Enemies.FishEnemy;
@@ -29,6 +30,7 @@ import Level.TileType;
 import NPCs.Fproof;
 import NPCs.Grave;
 import NPCs.Sword;
+import NPCs.FireballMaster;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -41,7 +43,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(1, 11).getLocation();
+        this.playerStartPosition = getMapTile(1122, 6).getLocation();
     }
 
     @Override
@@ -67,6 +69,7 @@ public class TestMap extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
+
         PhantomEnemy PhantomEnemy = new PhantomEnemy(getMapTile(278, 4).getLocation().addY(0), getMapTile(278, 4).getLocation().addY(0), Direction.LEFT);
         enemies.add(PhantomEnemy);
 
@@ -87,6 +90,9 @@ public class TestMap extends Map {
 
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
+
+        MiniBoss mb = new MiniBoss(getMapTile(1130, 6).getLocation().addY(-2), getMapTile(1127, 6).getLocation().addY(-2), Direction.RIGHT);
+        enemies.add(mb);
 
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(63, 10).getLocation().addY(2), getMapTile(65, 10).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy2);
@@ -289,6 +295,9 @@ enhancedMapTiles.add(pt2);
 
         Sword sword = new Sword(getMapTile(119, 9).getLocation().subtractY(13));
         npcs.add(sword);
+
+        FireballMaster FBM = new FireballMaster(getMapTile(1120, 5).getLocation().subtractY(13));
+        npcs.add(FBM);
 
         return npcs;
     }

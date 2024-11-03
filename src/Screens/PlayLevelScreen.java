@@ -200,6 +200,73 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
+
+    public static void playFireballShootSound() {
+        try {
+            File fireballShootSoundPath = new File("src/Sounds/Fireball_Shoot_Sound_Effect.wav"); // Update with the correct file path
+            if (fireballShootSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(fireballShootSoundPath);
+                Clip fireballShootClip = AudioSystem.getClip();
+                fireballShootClip.open(audioInput);
+                fireballShootClip.start(); // Play the fireball shoot sound once
+            } else {
+                System.out.println("WAV file not found: " + fireballShootSoundPath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void playEnemyDefeatSound() {
+        try {
+            File enemyDefeatSoundPath = new File("src/Sounds/Enemy_Defeat_Sound_Effect.wav"); // Update with the correct file path
+            if (enemyDefeatSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(enemyDefeatSoundPath);
+                Clip enemyDefeatClip = AudioSystem.getClip();
+                enemyDefeatClip.open(audioInput);
+                enemyDefeatClip.start(); // Play the enemy defeat sound once
+            } else {
+                System.out.println("WAV file not found: " + enemyDefeatSoundPath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+    public static void playDamageSound() {
+        try {
+            File damageSoundPath = new File("src/Sounds/Damage_Sound_Effect.wav"); // Update with the correct file path
+            if (damageSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(damageSoundPath);
+                Clip damageClip = AudioSystem.getClip();
+                damageClip.open(audioInput);
+                damageClip.start(); // Play the damage sound once
+            } else {
+                System.out.println("WAV file not found: " + damageSoundPath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+    public void playExplosionSound() {
+        try {
+            File explosionSoundPath = new File("src/Sounds/Explosion_Sound_Effect.wav"); // Update with the correct file path
+            if (explosionSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(explosionSoundPath);
+                Clip explosionClip = AudioSystem.getClip();
+                explosionClip.open(audioInput);
+                explosionClip.start(); // Play the explosion sound once
+            } else {
+                System.out.println("WAV file not found: " + explosionSoundPath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+    
     // Method to play the death sound
     private void playDeathSound() {
         try {
@@ -242,6 +309,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             e.printStackTrace();
         }
     }
+
+    
 
     // Method to stop the background music
     private void stopBackgroundMusic() {

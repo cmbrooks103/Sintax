@@ -7,6 +7,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Screens.PlayLevelScreen;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -81,10 +82,16 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
         Health = 3;
         damageTimer = 0;
     }
+    
+    private boolean canShootFireballs = false;
 
+    public void enableFireballAbility() {
+        this.canShootFireballs = true;
+    }
 
     private void shootFireball() {
         // Determine the initial position of the fireball based on the player's facing direction
+        PlayLevelScreen.playFireballShootSound();
         int fireballOffsetX = facingDirection == Direction.RIGHT ? this.getWidth() : 10; // Offset X based on direction
         int fireballOffsetY = this.getHeight() / 2; // Adjust the Y position to come from a little lower
     
@@ -120,12 +127,11 @@ public Map getMap() {
         moveAmountX = 0;
         moveAmountY = 0;
 
-        if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
+        if (canShootFireballs && Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
             keyLocker.lockKey(SHOOT_KEY);
-            shootFireball();
+            shootFireball(); // Call the method to shoot a fireball
         }
     
-        // Unlock SHOOT_KEY when released
         if (Keyboard.isKeyUp(SHOOT_KEY)) {
             keyLocker.unlockKey(SHOOT_KEY);
         }
@@ -377,22 +383,24 @@ public Map getMap() {
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
-        if (!isInvincible) {
-            // if map entity is an enemy, lower player health by 1, if health reaches 0 kill player
-            if ((mapEntity instanceof Enemy) &&  (damageTimer == 0)) {
-                damageTimer = 60;
-                if (Health == 1){
-                    Health = 0;
-                    levelState = LevelState.PLAYER_DEAD;
-                }else if(Health == 0){
-
-                }else{
-                    Health = Health - 1;
-                }
-                
+    if (!isInvincible) {
+        // Check if the map entity is an enemy and player can take damage
+        if ((mapEntity instanceof Enemy) && (damageTimer == 0)) {
+            damageTimer = 60; // Set damage cooldown
+            if (Health == 1) {
+                Health = 0;
+                levelState = LevelState.PLAYER_DEAD;
+            } else if (Health > 1) {
+                Health -= 1;
+                PlayLevelScreen.playDamageSound();
             }
+
+            // Spawn a damage effect animation at the player's location
+            DamageEffect damageEffect = new DamageEffect(new Point((int) this.x, (int) this.y), 60);
+            map.addMapEntity(damageEffect);
         }
     }
+}
 
     // other entities can call this to tell the player they beat a level
     public void completeLevel() {

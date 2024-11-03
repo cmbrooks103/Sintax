@@ -15,44 +15,38 @@ import Utils.Point;
 import java.util.HashMap;
 
 // This class is for the green dinosaur enemy that shoots fireballs
-// It walks back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will shoot a Fireball enemy
 public class DinosaurEnemy extends Enemy {
-
-    // start and end location defines the two points that it walks between
-    // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
     protected Point startLocation;
     protected Point endLocation;
-
     protected float movementSpeed = 1f;
     private Direction startFacingDirection;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
 
-    // timer is used to determine how long dinosaur freezes in place before shooting fireball
     protected int shootWaitTimer;
-
-    // timer is used to determine when a fireball is to be shot out
     protected int shootTimer;
 
-    // can be either WALK or SHOOT based on what the enemy is currently set to do
     protected DinosaurState dinosaurState;
     protected DinosaurState previousDinosaurState;
+
+    private int customHealth = 4; // Set health to 10 for this dinosaur
 
     public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("DinosaurEnemy.png"), 14, 17), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
-        this.initialize();
+        initialize();
     }
 
     @Override
     public void initialize() {
         super.initialize();
+        this.Health = customHealth; // Override the default health with custom health
         dinosaurState = DinosaurState.WALK;
         previousDinosaurState = dinosaurState;
         facingDirection = startFacingDirection;
+
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "WALK_RIGHT";
         } else if (facingDirection == Direction.LEFT) {
@@ -60,7 +54,6 @@ public class DinosaurEnemy extends Enemy {
         }
         airGroundState = AirGroundState.GROUND;
 
-        // every certain number of frames, the fireball will be shot out
         shootWaitTimer = 65;
     }
 
@@ -69,15 +62,12 @@ public class DinosaurEnemy extends Enemy {
         float startBound = startLocation.x;
         float endBound = endLocation.x;
 
-        // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
         if (shootWaitTimer == 0 && dinosaurState != DinosaurState.SHOOT_WAIT) {
             dinosaurState = DinosaurState.SHOOT_WAIT;
-        }
-        else {
+        } else {
             shootWaitTimer--;
         }
 
-        // if dinosaur is walking, determine which direction to walk in based on facing direction
         if (dinosaurState == DinosaurState.WALK) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
@@ -87,9 +77,6 @@ public class DinosaurEnemy extends Enemy {
                 moveXHandleCollision(-movementSpeed);
             }
 
-            // if dinosaur reaches the start or end location, it turns around
-            // dinosaur may end up going a bit past the start or end location depending on movement speed
-            // this calculates the difference and pushes the enemy back a bit so it ends up right on the start or end location
             if (getX1() + getWidth() >= endBound) {
                 float difference = endBound - (getX2());
                 moveXHandleCollision(-difference);
@@ -101,24 +88,18 @@ public class DinosaurEnemy extends Enemy {
             }
         }
 
-        // if dinosaur is waiting to shoot, it first turns read for a set number of frames
-        // after this waiting period is over, the fireball is actually shot out
         if (dinosaurState == DinosaurState.SHOOT_WAIT) {
             if (previousDinosaurState == DinosaurState.WALK) {
                 shootTimer = 65;
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
             } else if (shootTimer == 0) {
                 dinosaurState = DinosaurState.SHOOT;
-            }
-            else {
+            } else {
                 shootTimer--;
             }
         }
 
-        // this is for actually having the dinosaur spit out the fireball
         if (dinosaurState == DinosaurState.SHOOT) {
-            // define where fireball will spawn on map (x location) relative to dinosaur enemy's location
-            // and define its movement speed
             int fireballX;
             float movementSpeed;
             if (facingDirection == Direction.RIGHT) {
@@ -129,31 +110,19 @@ public class DinosaurEnemy extends Enemy {
                 movementSpeed = -1.5f;
             }
 
-            // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
             int fireballY = Math.round(getY()) + 4;
-
-            // create Fireball enemy
             Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, isUpdateOffScreen);
-
-
-            // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);
-
-            // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
             dinosaurState = DinosaurState.WALK;
-
-            // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
             shootWaitTimer = 130;
         }
 
         super.update(player);
-
         previousDinosaurState = dinosaurState;
     }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if dinosaur enemy collides with something on the x axis, it turns around and walks the other way
         if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -169,42 +138,42 @@ public class DinosaurEnemy extends Enemy {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
-                            .build()
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                        .withScale(3)
+                        .withBounds(4, 2, 5, 13)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                        .withScale(3)
+                        .withBounds(4, 2, 5, 13)
+                        .build()
             });
 
             put("WALK_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
-                            .build()
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(4, 2, 5, 13)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(4, 2, 5, 13)
+                        .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 0))
+                        .withScale(3)
+                        .withBounds(4, 2, 5, 13)
+                        .build(),
             });
 
             put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(3)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 0))
+                        .withScale(3)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                        .withBounds(4, 2, 5, 13)
+                        .build(),
             });
         }};
     }

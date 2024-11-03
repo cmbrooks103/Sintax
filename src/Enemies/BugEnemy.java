@@ -17,8 +17,10 @@ import java.util.HashMap;
 // This class is for the black bug enemy
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
-public class BugEnemy extends Enemy {
 
+public class BugEnemy extends Enemy {
+    
+    private int customHealth = 1;
     private float gravity = .5f;
     private float movementSpeed = 1.2f;
     private Direction startFacingDirection;
@@ -34,6 +36,7 @@ public class BugEnemy extends Enemy {
     @Override
     public void initialize() {
         super.initialize();
+        this.Health = customHealth; 
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "WALK_RIGHT";
