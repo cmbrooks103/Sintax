@@ -94,6 +94,9 @@ public class TestMap extends Map {
         MiniBoss mb = new MiniBoss(getMapTile(1130, 6).getLocation().addY(-2), getMapTile(1127, 6).getLocation().addY(-2), Direction.RIGHT);
         enemies.add(mb);
 
+        MiniBoss mb1 = new MiniBoss(getMapTile(393, 8).getLocation().addY(-2), getMapTile(396, 8).getLocation().addY(-2), Direction.RIGHT);
+        enemies.add(mb1);
+
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(63, 10).getLocation().addY(2), getMapTile(65, 10).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy2);
 

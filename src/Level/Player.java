@@ -54,6 +54,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
     protected Key SHOOT_KEY = Key.X;
+    protected Key SLASH_KEY = Key.Z;
 
 
     // flags
@@ -109,6 +110,7 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
             isSpeedBoostActive = true;
 }}
 
+
 // Method to deactivate speed boost
 public void deactivateSpeedBoost() {
     if (isSpeedBoostActive) {
@@ -135,8 +137,9 @@ public Map getMap() {
         if (Keyboard.isKeyUp(SHOOT_KEY)) {
             keyLocker.unlockKey(SHOOT_KEY);
         }
-    
-        // if player is currently playing through level (has not won or lost)
+
+        
+       // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             applyGravity();
 
