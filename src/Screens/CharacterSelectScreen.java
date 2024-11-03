@@ -44,7 +44,7 @@ public class CharacterSelectScreen extends Screen {
         character1.setOutlineColor(Color.black);
         character1.setOutlineThickness(3);
 
-        character2 = new SpriteFont("Professor Alex: Jump Higher!", 100, 150, "Arial", 35, new Color(198, 49, 17));
+        character2 = new SpriteFont("Professor Alex: Double Jump!", 100, 150, "Arial", 35, new Color(198, 49, 17));
         character2.setOutlineColor(Color.black);
         character2.setOutlineThickness(3);
         
