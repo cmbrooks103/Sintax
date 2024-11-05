@@ -185,11 +185,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     @Override
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
+            playVictorySound();       // Play the victory sound
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
-            stopBackgroundMusic(); // Stop the music when level is completed
+            stopBackgroundMusic();    // Stop the background music when level is completed
         }
     }
+    
 
     @Override
     public void onDeath() {
@@ -311,7 +313,22 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     
-
+    private void playVictorySound() {
+        try {
+            File victorySoundFile = new File("src/Sounds/Stage Win (Super Mario) - Sound Effect HD (1) (online-audio-converter.com).wav");
+            if (victorySoundFile.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(victorySoundFile);
+                Clip victoryClip = AudioSystem.getClip();
+                victoryClip.open(audioInput);
+                victoryClip.start();
+            } else {
+                System.out.println("Victory sound file not found.");
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+    
     // Method to stop the background music
     private void stopBackgroundMusic() {
         if (backgroundClip != null && backgroundClip.isRunning()) {
