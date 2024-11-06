@@ -26,7 +26,7 @@ public class BlueFireball extends Enemy {
 
         // how long the fireball will exist for before disappearing
         this.existenceFrames = existenceFrames;
-
+        isProjectile = true;
         initialize();
     }
 

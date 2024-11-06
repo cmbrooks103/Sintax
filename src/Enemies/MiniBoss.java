@@ -41,6 +41,7 @@ public class MiniBoss extends Enemy {
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
         initialize();
+        maxHealth = 55;
     }
 
     @Override
