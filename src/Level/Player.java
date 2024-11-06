@@ -11,6 +11,8 @@ import Screens.PlayLevelScreen;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 
@@ -55,7 +57,7 @@ public abstract class Player extends GameObject {
     protected Key CROUCH_KEY = Key.DOWN;
     protected Key SHOOT_KEY = Key.X;
     protected Key SLASH_KEY = Key.Z;
-
+    protected Key DASH_KEY = Key.SHIFT;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -123,6 +125,11 @@ public void deactivateSpeedBoost() {
 public Map getMap() {
     return map;
 }
+
+
+
+
+
 
 
     public void update() {
