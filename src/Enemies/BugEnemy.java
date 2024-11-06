@@ -31,6 +31,7 @@ public class BugEnemy extends Enemy {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
         this.startFacingDirection = facingDirection;
         this.initialize();
+        maxHealth = 1;
     }
 
     @Override

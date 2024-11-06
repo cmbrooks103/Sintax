@@ -67,7 +67,7 @@ public class Enemy extends MapEntity {
                 Health--;
                 if (Health <= 0) {
                     PlayLevelScreen.playEnemyDefeatSound();
-                    this.mapEntityStatus = mapEntityStatus.REMOVED;  // Remove the enemy when dead
+                    this.mapEntityStatus = MapEntityStatus.REMOVED;  // Remove the enemy when dead
                 }
             }
         }
@@ -81,13 +81,14 @@ public class Enemy extends MapEntity {
 
     public void drawHealthBar(GraphicsHandler graphicsHandler) {
         if (Health > 0) {
-            int barWidth = 1000;  // Width of the health bar
+            int barWidth = 50;  // Width of the health bar
+
             int healthBarWidth = (int) (((float) Health / maxHealth) * barWidth);
 
             // Draw filled health bar
-            graphicsHandler.drawFilledRectangle(getX(), getY() - 15, healthBarWidth, 100, Color.RED);
+            graphicsHandler.drawFilledRectangle(getCalibratedXLocation(), getCalibratedYLocation() - 15, healthBarWidth, 10, Color.RED);
             // Draw outline of health bar
-            graphicsHandler.drawRectangle(getX(), getY() - 15, barWidth, 100, Color.BLACK);
+            graphicsHandler.drawRectangle(getCalibratedXLocation(), getCalibratedYLocation() - 15, barWidth, 10, Color.BLACK);
         }
     }
 }

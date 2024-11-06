@@ -37,6 +37,7 @@ public class DinosaurEnemy extends Enemy {
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
         initialize();
+        maxHealth = 4;
     }
 
     @Override
