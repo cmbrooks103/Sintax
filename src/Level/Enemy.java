@@ -13,6 +13,7 @@ public class Enemy extends MapEntity {
     public int Health;
     protected int damageTimer;
     protected int maxHealth;  // To keep track of the maximum health
+    protected boolean isProjectile = false;
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -76,7 +77,10 @@ public class Enemy extends MapEntity {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        drawHealthBar(graphicsHandler);  // Draw the health bar
+        if(!isProjectile){
+            drawHealthBar(graphicsHandler);  // Draw the health bar
+        }
+    
     }
 
     public void drawHealthBar(GraphicsHandler graphicsHandler) {

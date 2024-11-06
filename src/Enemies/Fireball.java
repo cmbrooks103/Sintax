@@ -24,7 +24,7 @@ public class Fireball extends Enemy {
         this.movementSpeed = movementSpeed;
         this.existenceFrames = existenceFrames;
         this.moveUpwards = moveUpwards;  // Initialize direction
-
+        isProjectile = true;
         initialize();
     }
 
