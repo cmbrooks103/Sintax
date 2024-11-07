@@ -14,6 +14,7 @@ import Enemies.Rose;
 import Enemies.Spirit;
 import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.LavaPerk;
 import EnhancedMapTiles.Collectible;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HealingCollectible;
@@ -198,6 +199,9 @@ enhancedMapTiles.add(vmp);
         HealingCollectible HealthCollectible = new HealingCollectible(getMapTile(10, 6).getLocation());
         enhancedMapTiles.add(HealthCollectible);
 
+        LavaPerk lavaPerkCollectible = new LavaPerk(getMapTile(103, 9).getLocation());
+        enhancedMapTiles.add(lavaPerkCollectible);
+
   
         // Portal
     Point portalLocation = getMapTile(171, 12).getLocation(); // Location for the portal tile
@@ -297,7 +301,7 @@ enhancedMapTiles.add(pt2);
         Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
         npcs.add(walrus);
 
-        Fproof fproof = new Fproof(getMapTile(103, 9).getLocation().subtractY(13));
+        Fproof fproof = new Fproof(getMapTile(107, 9).getLocation().subtractY(13));
         npcs.add(fproof);
 
         Grave grave = new Grave(getMapTile(46, 12).getLocation().subtractY(13));

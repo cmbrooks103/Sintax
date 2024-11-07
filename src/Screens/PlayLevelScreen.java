@@ -47,7 +47,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     // Final area variables
     private int finalAreaStartX = 800;  // Starting X coordinate of the final area
     private int finalAreaEndX = 1000;   // Ending X coordinate of the final area
-    private int finalAreaStartY = 0;    // Starting Y coordinate of the final area
+    private int finalAreaStartY = 0;    // z Y coordinate of the final area
     private int finalAreaEndY = 600;    // Ending Y coordinate of the final area
     private boolean inFinalArea = false;  // Flag to track if the player is in the final area
 
