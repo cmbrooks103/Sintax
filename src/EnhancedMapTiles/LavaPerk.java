@@ -32,10 +32,29 @@ public class LavaPerk extends EnhancedMapTile {
             // Enable lava immunity for the player
             player.setWaterDamageImmune(true); // Assume water immunity applies to lava in this context
 
+            // Start generating trails while immunity lasts
+            new Thread(() -> generateTrails(player)).start();
+
             // Schedule immunity reset after the duration ends
             new Thread(() -> resetLavaImmunityAfterDuration(player)).start();
         }
     }
+
+    private void generateTrails(Player player) {
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime < IMMUNITY_DURATION) {
+            // Create a new Trail3 at the player's current location
+            Trail3 trail = new Trail3(new Point((int) player.getX(), (int) player.getY()));
+            player.getMap().addEnhancedMapTile(trail); // Add the unique trail to the map
+    
+            try {
+                Thread.sleep(200); // Wait 200ms before placing the next trail
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
 
     // Reset the player's lava immunity after the effect duration ends
     private void resetLavaImmunityAfterDuration(Player player) {
