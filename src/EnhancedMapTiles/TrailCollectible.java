@@ -18,7 +18,7 @@ public class TrailCollectible extends EnhancedMapTile {
     private boolean collected = false; // Ensure collectible activates only once
 
     public TrailCollectible(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("collectible.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("lightcollectible.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
