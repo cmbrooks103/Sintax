@@ -10,9 +10,13 @@ import GameObject.SpriteSheet;
 import Level.Map;
 import Level.Player;
 import Level.PlayerState;
+import EnhancedMapTiles.Trail; // Import the Trail class
+import EnhancedMapTiles.Trail2;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Engine.Keyboard;
+import Utils.Point;
+
 import java.util.HashMap;
 
 public class PlayerFive extends Player {
@@ -53,18 +57,23 @@ public class PlayerFive extends Player {
                 }
             }
         }
-    
-        // Dash left or right when Shift key is pressed
-        if (canDash && Keyboard.isKeyDown(Key.SHIFT)) {  // Using the updated check for the SHIFT key
+
+        // Dash logic
+        if (canDash && Keyboard.isKeyDown(Key.SHIFT)) {
+            Point initialTrailLocation = new Point(Math.round(getX()), Math.round(getY())); // Capture initial player location
+            map.addMapEntity(new Trail2(initialTrailLocation)); // Add the first trail
+
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-                moveAmountX = -walkSpeed * 35; // Dash left with increased speed
+                moveAmountX = -walkSpeed * 30; // Dash left with increased distance
+                spawnTrails(-20); // Space out trails towards the left
                 canDash = false; // Dash used up
             } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX = walkSpeed * 35; // Dash right with increased speed
+                moveAmountX = walkSpeed * 30; // Dash right with increased distance
+                spawnTrails(20); // Space out trails towards the right
                 canDash = false; // Dash used up
             }
         }
-    
+
         // Continue normal air movement
         if (airGroundState == AirGroundState.AIR) {
             if (jumpForce > 0) {
@@ -74,24 +83,31 @@ public class PlayerFive extends Player {
                     jumpForce = 0;
                 }
             }
-    
+
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
         }
-    
+
         // Continue normal ground movement
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX -= walkSpeed;
         } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX += walkSpeed;
         }
-    
+
         if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
-    
+
+    // Spawns spaced-out trails in the given direction
+    private void spawnTrails(int xOffset) {
+        for (int i = 1; i <= 2; i++) { // Spawn 2 additional trails with larger spacing
+            Point trailLocation = new Point(Math.round(getX() + i * xOffset * 2), Math.round(getY()));
+            map.addMapEntity(new Trail2(trailLocation)); // Add trail at the calculated position
+        }
+    }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {

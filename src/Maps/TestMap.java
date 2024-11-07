@@ -190,8 +190,6 @@ public class TestMap extends Map {
 enhancedMapTiles.add(vmp);
 
  // Add a collectible at a specific location (e.g., tile (10, 6)).
-        Collectible collectible = new Collectible(getMapTile(3, 6).getLocation());
-        enhancedMapTiles.add(collectible);
 
         TrailCollectible speedCollectible = new TrailCollectible(getMapTile(6, 6).getLocation());
         enhancedMapTiles.add(speedCollectible);
@@ -213,13 +211,7 @@ enhancedMapTiles.add(vmp);
     enhancedMapTiles.add(portalTile);
 
 // Portal 2
-    Point portalLocation1 = getMapTile(9, 9).getLocation(); // Location for the portal tile
-    PortalTile portalTile1 = new PortalTile(portalLocation1);
-
-    Point teleportDestination1 = getMapTile(939, 9).getLocation(); // Destination for the teleport
-    portalTile1.setTeleportDestination(teleportDestination1);
-
-    enhancedMapTiles.add(portalTile1);
+    
 
     //Portal 3
     Point portalLocation2 = getMapTile(100, 2).getLocation(); // Location for the portal tile
@@ -310,7 +302,7 @@ enhancedMapTiles.add(pt2);
         Sword sword = new Sword(getMapTile(119, 9).getLocation().subtractY(13));
         npcs.add(sword);
 
-        FireballMaster FBM = new FireballMaster(getMapTile(1120, 5).getLocation().subtractY(13));
+        FireballMaster FBM = new FireballMaster(getMapTile(33, 9).getLocation().subtractY(13));
         npcs.add(FBM);
 
         return npcs;
