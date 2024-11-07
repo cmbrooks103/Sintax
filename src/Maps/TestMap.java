@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.BugEnemy;
+import Enemies.Judy;
 import Enemies.MiniBoss;
 import Enemies.DemonEnemy;
 import Enemies.DinosaurEnemy;
@@ -92,11 +93,13 @@ public class TestMap extends Map {
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy);
 
-        MiniBoss mb = new MiniBoss(getMapTile(1130, 6).getLocation().addY(-2), getMapTile(1127, 6).getLocation().addY(-2), Direction.RIGHT);
-        enemies.add(mb);
+        Judy judy = new Judy(getMapTile(1130, 6).getLocation().addY(-2), getMapTile(1127, 6).getLocation().addY(-2), Direction.RIGHT);
+        enemies.add(judy);
 
         MiniBoss mb1 = new MiniBoss(getMapTile(393, 8).getLocation().addY(-2), getMapTile(396, 8).getLocation().addY(-2), Direction.RIGHT);
         enemies.add(mb1);
+
+
 
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(63, 10).getLocation().addY(2), getMapTile(65, 10).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy2);
