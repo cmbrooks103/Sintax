@@ -171,10 +171,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     
      // Method to draw the health on the screen
      private void drawHealth(GraphicsHandler graphicsHandler) {
-        Font timerFont = new Font("Georgia", Font.PLAIN, 24);
-        Color timerColor = Color.RED;
+        int barWidth = 130;
+        int healthBarWidth = (int) (((float) this.player.getPlayerHealth()/ 3) * barWidth);
 
-        graphicsHandler.drawString("Health: " + this.player.getPlayerHealth(), 680, 75, timerFont, timerColor);
+            // Draw filled health bar
+            graphicsHandler.drawFilledRectangle(650, 70, healthBarWidth, 10, Color.RED);
+            // Draw outline of health bar
+            graphicsHandler.drawRectangle(650, 70, barWidth, 10, Color.YELLOW);
     }
 
 

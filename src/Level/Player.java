@@ -471,6 +471,10 @@ public Map getMap() {
         return this.Health;
     }
 
+    public void setPlayerHealth(int health){
+        Health = health;
+    }
+
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
     }

@@ -15,6 +15,7 @@ import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.Collectible;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HealingCollectible;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.PortalTile;
 import EnhancedMapTiles.PuzzlePlatform;
@@ -190,6 +191,9 @@ enhancedMapTiles.add(vmp);
 
         TrailCollectible speedCollectible = new TrailCollectible(getMapTile(6, 6).getLocation());
         enhancedMapTiles.add(speedCollectible);
+
+        HealingCollectible HealthCollectible = new HealingCollectible(getMapTile(10, 6).getLocation());
+        enhancedMapTiles.add(HealthCollectible);
 
   
         // Portal
