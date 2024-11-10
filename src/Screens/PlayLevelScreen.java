@@ -19,6 +19,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
+import Players.PlayerSix;
 import Players.PlayerFive;
 import Players.PlayerFour;
 import Players.PlayerThree;
@@ -81,7 +82,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             this.player = new PlayerFour(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
         }else if (selectedPlayerType == PlayerType.PLAYER_FIVE) { // Added for PlayerFive
             this.player = new PlayerFive(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
-        }
+        }else if (selectedPlayerType == PlayerType.PLAYER_SIX) { // Added for PlayerSix
+            this.player = new PlayerSix(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, map);
+       }
         // Common setup for player
         if (this.player != null) {
             this.player.setMap(map);
@@ -204,6 +207,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             stopBackgroundMusic(); // Stop the music when the player dies
         }
     }
+
+
+    public static void playDoomSound() {
+    try {
+        File doomSoundPath = new File("src/Sounds/doom.wav"); // Update with the correct file path
+        if (doomSoundPath.exists()) {
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(doomSoundPath);
+            Clip doomClip = AudioSystem.getClip();
+            doomClip.open(audioInput);
+            doomClip.start(); // Play the doom sound once
+        } else {
+            System.out.println("WAV file not found: " + doomSoundPath);
+        }
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        e.printStackTrace();
+    }
+}
+
 
 
     public static void playFireballShootSound() {

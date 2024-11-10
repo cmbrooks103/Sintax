@@ -34,6 +34,7 @@ import NPCs.Fproof;
 import NPCs.Grave;
 import NPCs.Sword;
 import NPCs.FireballMaster;
+import NPCs.Shotgun;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -293,7 +294,7 @@ enhancedMapTiles.add(pt2);
         Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
         npcs.add(walrus);
 
-        Fproof fproof = new Fproof(getMapTile(107, 9).getLocation().subtractY(13));
+        Fproof fproof = new Fproof(getMapTile(107, 1).getLocation().subtractY(13));
         npcs.add(fproof);
 
         Grave grave = new Grave(getMapTile(46, 12).getLocation().subtractY(13));
@@ -305,6 +306,8 @@ enhancedMapTiles.add(pt2);
         FireballMaster FBM = new FireballMaster(getMapTile(33, 9).getLocation().subtractY(13));
         npcs.add(FBM);
 
+        Shotgun Shtgn = new Shotgun(getMapTile(107, 9).getLocation().subtractY(13));
+        npcs.add(Shtgn);
         return npcs;
     }
 }

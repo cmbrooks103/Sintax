@@ -7,5 +7,6 @@ public enum PlayerType {
     PLAYER_THREE,  // Player type for Professor Oneil Variant
     PLAYER_FOUR,   // New player type for Professor Four
     PLAYER_FIVE,
+    PLAYER_SIX,
     // Add any additional methods or properties if needed
 }
