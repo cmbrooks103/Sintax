@@ -11,3 +11,7 @@ _site
 .DS_Store
 todo.txt
 highscore.txt
+player3State.txt
+player4State.txt
+player5State.txt
+player6State.txt
