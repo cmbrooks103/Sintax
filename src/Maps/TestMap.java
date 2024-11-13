@@ -1,6 +1,11 @@
 package Maps;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Enemies.BugEnemy;
 import Enemies.Judy;
@@ -24,6 +29,10 @@ import EnhancedMapTiles.PortalTile;
 import EnhancedMapTiles.PuzzlePlatform;
 import EnhancedMapTiles.PuzzleTile;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.char3Collectible;
+import EnhancedMapTiles.char4Collectible;
+import EnhancedMapTiles.char5Collectible;
+import EnhancedMapTiles.char6Collectible;
 import EnhancedMapTiles.TrailCollectible;
 import EnhancedMapTiles.KeyCollectible;
 import EnhancedMapTiles.Door;
@@ -47,6 +56,10 @@ import Utils.Point;
 // FOR MAP; All Y values must be moved +11 tiles!!! Example, 6 went to 17. 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
+    protected boolean player3Access;
+    protected boolean player4Access;
+    protected boolean player5Access;
+    protected boolean player6Access;
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
@@ -205,6 +218,27 @@ enhancedMapTiles.add(vmp);
         LavaPerk lavaPerkCollectible = new LavaPerk(getMapTile(103, 20).getLocation());
         enhancedMapTiles.add(lavaPerkCollectible);
 
+        checkUnlockedCharacters();
+        
+        if(!player3Access){
+            char3Collectible char3Collectible = new char3Collectible(getMapTile(1, 8).getLocation());
+            enhancedMapTiles.add(char3Collectible);
+        }
+
+        if(!player4Access){
+            char4Collectible char4Collectible = new char4Collectible(getMapTile(1, 5).getLocation());
+            enhancedMapTiles.add(char4Collectible);
+        }
+
+        if(!player5Access){
+            char5Collectible char5Collectible = new char5Collectible(getMapTile(2, 5).getLocation());
+            enhancedMapTiles.add(char5Collectible);
+        }
+        
+        if(!player6Access){
+            char6Collectible char6Collectible = new char6Collectible(getMapTile(3, 5).getLocation());
+            enhancedMapTiles.add(char6Collectible);
+        }
   
         // Portal
     Point portalLocation = getMapTile(171, 23).getLocation(); // Location for the portal tile
@@ -326,6 +360,51 @@ enhancedMapTiles.add(pt2);
         npcs.add(Shtgn);
 
         return npcs;
+    }
+
+    // The 2 next methods exist to check if each character has been unlocked so their collectible doesnt spawn in again
+    public void checkUnlockedCharacters(){
+        checkCharacter("player3State.txt", 3);;
+        checkCharacter("player4State.txt", 4);
+        checkCharacter("player5State.txt", 5);
+        checkCharacter("player6State.txt", 6);
+    }
+
+    public void checkCharacter(String filepath, int player){
+        boolean access;
+        int State;
+        try{
+            //read the file for the record time
+            File file = new File(filepath);
+            Scanner sc = new Scanner(file);
+            State = sc.nextInt();
+            sc.close();
+            if(State == 1){
+                access = true;
+            }else{
+                access = false;
+            }
+            switch(player){
+                case 3: 
+                    player3Access = access;
+                case 4:
+                    player4Access = access;
+                case 5:
+                    player5Access = access;
+                case 6:
+                    player6Access = access;
+            }
+        }catch (FileNotFoundException e1) {
+            try{
+                File file = new File(filepath);
+                FileWriter fWriter = new FileWriter(filepath, false);
+                fWriter.write("0");
+                fWriter.close();
+            }catch (IOException e2) {
+                System.out.println("An error occurred.");
+                e2.printStackTrace();
+            }
+        }
     }
 }
 
