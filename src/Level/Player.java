@@ -86,6 +86,18 @@ public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimatio
         damageTimer = 0;
     }
     
+    private boolean hasKey = false;
+
+    // Other player properties and methods
+
+    public boolean hasKey() {
+        return hasKey;
+    }
+
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = hasKey;
+    }
+    
     private boolean canShootFireballs = false;
 
     public void enableFireballAbility() {
