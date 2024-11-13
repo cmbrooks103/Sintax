@@ -48,7 +48,7 @@ public class char6Collectible extends EnhancedMapTile {
     public void unlockCharacter(){
         FileWriter fWriter;
         try {
-            fWriter = new FileWriter("player3State.txt", false);
+            fWriter = new FileWriter("player6State.txt", false);
             fWriter.write("1");
             fWriter.close();
         } catch (IOException e) {

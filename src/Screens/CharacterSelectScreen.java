@@ -122,7 +122,7 @@ public class CharacterSelectScreen extends Screen {
         }
 
         pointerLocationX = 60;
-        pointerLocationY = 60;
+        pointerLocationY = 5;
 
         characterSelectImage = ImageLoader.load("hellish.png");
         keyLocker.lockKey(Key.SPACE);
@@ -133,7 +133,7 @@ public class CharacterSelectScreen extends Screen {
             keyPressTimer = 14;
             if (currentOptionHovered < 5) { // Adjusted to allow for the fourth option
                 currentOptionHovered++;
-                pointerLocationY += 85; // Adjusted to move to the fourth option
+                pointerLocationY += 100; // Adjusted to move to the fourth option
             }
         } else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
             keyPressTimer = 14;
