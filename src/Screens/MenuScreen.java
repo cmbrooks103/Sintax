@@ -23,6 +23,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont playGame;
     protected SpriteFont credits;
     protected SpriteFont playerSelect; // New Player Select button
+    protected SpriteFont keybinds; // New Keybinds button
     protected Map background;
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
@@ -37,15 +38,18 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("PLAY", 100, 315, "Arial", 35, new Color(198, 49, 17));
+        playGame = new SpriteFont("PLAY", 100, 310, "Arial", 35, new Color(198, 49, 17));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("HOW TO PLAY", 100, 393, "Arial", 35, new Color(198, 49, 17));
+        credits = new SpriteFont("HOW TO PLAY", 100, 373, "Arial", 35, new Color(198, 49, 17));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
-        playerSelect = new SpriteFont("PROFESSOR SELECT", 100, 473, "Arial", 35, new Color(198, 49, 17));
+        playerSelect = new SpriteFont("PROFESSOR SELECT", 100, 453, "Arial", 35, new Color(198, 49, 17));
         playerSelect.setOutlineColor(Color.black);
         playerSelect.setOutlineThickness(3);
+        keybinds = new SpriteFont("KEYBINDS", 100, 522, "Arial", 35, new Color(198, 49, 17));
+        keybinds.setOutlineColor(Color.black);
+        keybinds.setOutlineThickness(3);
 
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
@@ -62,6 +66,9 @@ public class MenuScreen extends Screen {
         // Load and play the background music
         loadBackgroundMusic("src/Sounds/Don Toliver - Crossfaded (Instrumental) (online-audio-converter.com).wav");
         playBackgroundMusic();
+
+        // Set keybinds for menu navigation (Move Up/Down)
+        Key.setKeybinds(Key.W, Key.S, Key.UP, Key.DOWN); // WASD and Arrow keys for movement
     }
 
     // Method to load background music
@@ -98,11 +105,11 @@ public class MenuScreen extends Screen {
         // Update background map (to play tile animations)
         background.update(null);
 
-        // Change menu item "hovered" over if UP/DOWN key is pressed
-        if (Keyboard.isKeyDown(Key.DOWN) && keyPressTimer == 0) {
+        // Change menu item "hovered" over using dynamic keybinding (Arrow keys and WASD)
+        if ((Key.isActionKeyDown("Move Down") || Keyboard.isKeyDown(Key.DOWN)) && keyPressTimer == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered++;
-        } else if (Keyboard.isKeyDown(Key.UP) && keyPressTimer == 0) {
+        } else if ((Key.isActionKeyDown("Move Up") || Keyboard.isKeyDown(Key.UP)) && keyPressTimer == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered--;
         } else {
@@ -112,10 +119,10 @@ public class MenuScreen extends Screen {
         }
 
         // Loop the selection back around if necessary
-        if (currentMenuItemHovered > 2) {  // Adjusted for 3 items
+        if (currentMenuItemHovered > 3) {  // Adjusted for 4 items
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
-            currentMenuItemHovered = 2;
+            currentMenuItemHovered = 3;
         }
 
         // Set color for selected menu item and update pointer location
@@ -123,20 +130,30 @@ public class MenuScreen extends Screen {
             playGame.setColor(new Color(225, 136, 67));
             credits.setColor(new Color(198, 49, 17));
             playerSelect.setColor(new Color(198, 49, 17));
+            keybinds.setColor(new Color(198, 49, 17));
             pointerLocationX = 70;
-            pointerLocationY = 318;
+            pointerLocationY = 310;
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(198, 49, 17));
             credits.setColor(new Color(225, 136, 67));
             playerSelect.setColor(new Color(198, 49, 17));
+            keybinds.setColor(new Color(198, 49, 17));
             pointerLocationX = 70;
-            pointerLocationY = 400;
+            pointerLocationY = 373;
         } else if (currentMenuItemHovered == 2) {
             playGame.setColor(new Color(198, 49, 17));
             credits.setColor(new Color(198, 49, 17));
             playerSelect.setColor(new Color(225, 136, 67));
+            keybinds.setColor(new Color(198, 49, 17));
             pointerLocationX = 70;
-            pointerLocationY = 480;
+            pointerLocationY = 453;
+        } else if (currentMenuItemHovered == 3) {
+            playGame.setColor(new Color(198, 49, 17));
+            credits.setColor(new Color(198, 49, 17));
+            playerSelect.setColor(new Color(198, 49, 17));
+            keybinds.setColor(new Color(225, 136, 67));
+            pointerLocationX = 70;
+            pointerLocationY = 522;
         }
 
         // If SPACE is pressed, select the menu item
@@ -153,6 +170,8 @@ public class MenuScreen extends Screen {
                 screenCoordinator.setGameState(GameState.CREDITS);
             } else if (menuItemSelected == 2) {
                 screenCoordinator.setGameState(GameState.PLAYER_SELECT);
+            } else if (menuItemSelected == 3) {
+                screenCoordinator.setGameState(GameState.KEYBINDS);
             }
         }
     }
@@ -175,6 +194,7 @@ public class MenuScreen extends Screen {
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         playerSelect.draw(graphicsHandler); // Draw Player Select button
+        keybinds.draw(graphicsHandler); //
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(255, 0, 0), Color.black, 2);
     }
 }
