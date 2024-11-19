@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import EnhancedMapTiles.Trail;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Screens.PlayLevelScreen;
