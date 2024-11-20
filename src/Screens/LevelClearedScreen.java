@@ -9,7 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import Engine.ImageLoader; // Import this if you have an ImageLoader utility
+import java.awt.image.BufferedImage;
 
 import java.awt.*;
 
@@ -30,7 +31,7 @@ public class LevelClearedScreen extends Screen {
     @Override
     public void initialize() {
 
-        winMessage = new SpriteFont("Level Cleared", 265, 179, "Times New Roman", 30, Color.white);
+        winMessage = new SpriteFont("Level Cleared", 265, 179, "Times New Roman", 30, Color.BLACK);
     
         RecordTime = new SpriteFont("Record Time: 00:00", 265, 229, "Times New Roman", 30, Color.red);
 
@@ -45,67 +46,67 @@ public class LevelClearedScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // paint entire screen black and dislpay level cleared text
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
+        // Load the image as a BufferedImage
+        BufferedImage backgroundImage = ImageLoader.load("levelclear.png");
+    
+        // Draw the image as the background
+        graphicsHandler.drawImage(backgroundImage, 0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight());
         
-        try{
-            //read the file for the record time
+        try {
+            // Read the file for the record time
             File file = new File("highscore.txt");
             Scanner sc = new Scanner(file);
             recordRun = sc.nextInt();
             sc.close();
-            // if current time is faster, then update the fastest time in the txt file
-            if (recordRun>currentRun){
+    
+            // If current time is faster, update the fastest time in the txt file
+            if (recordRun > currentRun) {
                 recordRun = currentRun;
                 recordBroken = true;
                 FileWriter fWriter = new FileWriter("highscore.txt", false);
                 fWriter.write(String.valueOf(currentRun));
                 fWriter.close();
             }
-            
-        }catch (FileNotFoundException e) {
-            try{
+        } catch (FileNotFoundException e) {
+            try {
                 File file = new File("highscore.txt");
                 FileWriter fWriter = new FileWriter("highscore.txt", false);
                 fWriter.write(String.valueOf(currentRun));
                 fWriter.close();
                 recordBroken = true;
-
-            }catch (IOException e2){
+            } catch (IOException e2) {
                 e2.printStackTrace();
             }
-
-            
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        //convert record time for display
-        int minutesR = Math.round(recordRun/60);
-        int secondsR = recordRun%60;
+    
+        // Convert record time for display
+        int minutesR = Math.round(recordRun / 60);
+        int secondsR = recordRun % 60;
         String sMinutesR = String.format("%02d", minutesR);
         String sSecondsR = String.format("%02d", secondsR);
-
-        RecordTime = new SpriteFont("Record Time: " + sMinutesR + ":" + sSecondsR , 265, 229, "Times New Roman", 30, Color.red);
-        
-        //convert current time for display
-        int minutesC = Math.round(currentRun/60);
-        int secondsC = currentRun%60;
+    
+        RecordTime = new SpriteFont("Record Time: " + sMinutesR + ":" + sSecondsR, 265, 229, "Times New Roman", 30, Color.red);
+    
+        // Convert current time for display
+        int minutesC = Math.round(currentRun / 60);
+        int secondsC = currentRun % 60;
         String sMinutesC = String.format("%02d", minutesC);
         String sSecondsC = String.format("%02d", secondsC);
-
-        CurrentTime = new SpriteFont("Current Time: " + sMinutesC + ":" + sSecondsC , 265, 279, "Times New Roman", 30, Color.green);
-        // display the times and the win messages
+    
+        CurrentTime = new SpriteFont("Current Time: " + sMinutesC + ":" + sSecondsC, 265, 279, "Times New Roman", 30, Color.green);
+    
+        // Display the times and the win messages
         winMessage.draw(graphicsHandler);
         RecordTime.draw(graphicsHandler);
         CurrentTime.draw(graphicsHandler);
-
-        
-        if (recordBroken){
+    
+        if (recordBroken) {
             recordBrokenMessage = new SpriteFont("Congratulations! You broke the record!", 265, 329, "Times New Roman", 30, Color.yellow);
             recordBrokenMessage.draw(graphicsHandler);
         }
-
     }
     
     //set the time for the current attempt and convert it to seconds

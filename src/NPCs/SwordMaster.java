@@ -11,11 +11,11 @@ import Level.NPC;
 import Level.Player;
 import Utils.Point;
 
-public class Shotgun extends NPC {
+public class SwordMaster extends NPC {
 
     private boolean hasTalked = false;  // Tracks if the NPC has been interacted with
 
-    public Shotgun(Point location) {
+    public SwordMaster(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("shawty.png"), 24, 24), "Rip");
         isInteractable = true;
         talkedToTime = 200;
