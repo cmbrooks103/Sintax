@@ -58,7 +58,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private int finalAreaEndX = 1000;   // Ending X coordinate of the final area
     private int finalAreaStartY = 0;    // z Y coordinate of the final area
     private int finalAreaEndY = 600;    // Ending Y coordinate of the final area
-    private boolean inFinalArea = false;  // Flag to track if the player is in the final area
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -147,12 +146,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 if (player != null) {
                     player.update();
                     map.update(player);
-
-                    // Check if player has entered the final area
-                    if (!inFinalArea && isPlayerInFinalArea()) {
-                        inFinalArea = true; // Mark that we are in the final area
-                        changeBackgroundMusic("src/Sounds/Super Metroid Music - Ridley Draygon Boss Theme (online-audio-converter.com).wav"); // Change to the final area music
-                    }
                 }
 
                 // Increment the level timer (counts in frames)
@@ -412,16 +405,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         stopBackgroundMusic(); // Stop the current background music
         playBackgroundMusic(filepath); // Play new background music and ensure looping
     }
-
-    // Method to check if player is in the final area
-    private boolean isPlayerInFinalArea() {
-        int playerX = (int) player.getX();
-        int playerY = (int) player.getY();
-
-        return playerX >= finalAreaStartX && playerX <= finalAreaEndX &&
-               playerY >= finalAreaStartY && playerY <= finalAreaEndY;
-    }
-
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
         CUTSCENE, RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
