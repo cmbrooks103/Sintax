@@ -12,6 +12,7 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+
 import java.util.HashMap;
 
 public class Judy extends Enemy {
@@ -28,15 +29,11 @@ public class Judy extends Enemy {
     protected DinosaurState dinosaurState;
     protected DinosaurState previousDinosaurState;
 
-    private int customHealth = 55; // Set health to 55
+    private int customHealth = 90; // Set health to 70
     private float gravity = 0.5f; // Gravity effect
     private float moveAmountY = 0; // Vertical movement amount
     private int directionChangeTimer = 0; // Timer for direction changes
     private int directionChangeInterval = 80; // Time in frames before changing direction
-
-    private boolean musicChanged = false; // Tracks if the boss music is playing
-    private final int musicStartDistance = 15 * 16; // Start playing music at 15 blocks
-    private final int musicStopDistance = 18 * 16; // Stop playing music at 18 blocks
 
     public Judy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("judy.png"), 14, 17), "WALK_RIGHT");
@@ -50,7 +47,7 @@ public class Judy extends Enemy {
     @Override
     public void initialize() {
         super.initialize();
-        this.Health = customHealth;
+        this.Health = customHealth; 
         dinosaurState = DinosaurState.WALK;
         previousDinosaurState = dinosaurState;
         facingDirection = startFacingDirection;
@@ -61,7 +58,7 @@ public class Judy extends Enemy {
             currentAnimationName = "WALK_LEFT";
         }
         airGroundState = AirGroundState.GROUND;
-
+        
         shootWaitTimer = 25;
     }
 
@@ -124,60 +121,31 @@ public class Judy extends Enemy {
             shootWaitTimer = 130; // Reset shooting wait timer
         }
 
-        // Check distance to player and toggle music
-        checkDistanceAndToggleMusic(player);
-
         super.update(player);
         previousDinosaurState = dinosaurState;
     }
 
-    private void shootCash() {
-        int cashX;
-        float cashSpeed;
-
-        // Determine the initial position and direction of the cash projectile
-        if (facingDirection == Direction.RIGHT) {
-            cashX = Math.round(getX()) + getWidth();
-            cashSpeed = 2.0f; // Adjust speed as needed
-        } else {
-            cashX = Math.round(getX() - 21);
-            cashSpeed = -2.0f; // Adjust speed as needed
-        }
-
-        int cashY = Math.round(getY()) + 4;
-
-        // Create a new Cash instance instead of LargeFireball
-        Cash cash = new Cash(new Point(cashX, cashY), cashSpeed, 100); // Adjust existence frames if needed
-        map.addEnemy(cash);
+    // Replace shootLargeFireball method with shootCash
+private void shootCash() {
+    int cashX;
+    float cashSpeed;
+    
+    // Determine the initial position and direction of the cash projectile
+    if (facingDirection == Direction.RIGHT) {
+        cashX = Math.round(getX()) + getWidth();
+        cashSpeed = 2.0f; // Adjust speed as needed
+    } else {
+        cashX = Math.round(getX() - 21);
+        cashSpeed = -2.0f; // Adjust speed as needed
     }
 
-    private void checkDistanceAndToggleMusic(Player player) {
-        int playerX = Math.round(player.getX());
-        int playerY = Math.round(player.getY());
-        int judyX = Math.round(getX());
-        int judyY = Math.round(getY());
+    int cashY = Math.round(getY()) + 4;
+    
+    // Create a new Cash instance instead of LargeFireball
+    Cash cash = new Cash(new Point(cashX, cashY), cashSpeed, 100); // Adjust existence frames if needed
+    map.addEnemy(cash);
+}
 
-        // Calculate the distance
-        double distance = Math.sqrt(Math.pow(playerX - judyX, 2) + Math.pow(playerY - judyY, 2));
-
-        if (distance <= musicStartDistance && !musicChanged) {
-            playBossMusic();
-            musicChanged = true;
-        } else if (distance > musicStopDistance && musicChanged) {
-            stopBossMusic();
-            musicChanged = false;
-        }
-    }
-
-    private void playBossMusic() {
-        MusicHandler.pause("default_background_music.mp3"); // Pause the default background music
-        MusicHandler.play("src/Sounds/Super Metroid Music - Ridley Draygon Boss Theme (online-audio-converter.com).wav"); // Play boss music
-    }
-
-    private void stopBossMusic() {
-        MusicHandler.stop("src/Sounds/Super Metroid Music - Ridley Draygon Boss Theme (online-audio-converter.com).wav"); // Stop boss music
-        MusicHandler.resume("default_background_music.mp3"); // Resume default background music
-    }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
@@ -209,23 +177,23 @@ public class Judy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                        .withScale(13)
+                        .withScale(8)
                         .withBounds(4, 2, 5, 13)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                        .withScale(13)
+                        .withScale(8)
                         .withBounds(4, 2, 5, 13)
                         .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                        .withScale(13)
+                        .withScale(8)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                        .withScale(13)
+                        .withScale(8)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build()
@@ -233,14 +201,14 @@ public class Judy extends Enemy {
 
             put("SHOOT_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-                        .withScale(13)
+                        .withScale(8)
                         .withBounds(4, 2, 5, 13)
                         .build(),
             });
 
             put("SHOOT_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-                        .withScale(13)
+                        .withScale(8)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build(),
@@ -250,8 +218,8 @@ public class Judy extends Enemy {
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler); // Call super to draw 
-        drawHealthBar(graphicsHandler); // Draw the health bar 
+        super.draw(graphicsHandler);  // Call super to draw 
+        drawHealthBar(graphicsHandler);  // Draw the health bar 
     }
 
     public enum DinosaurState {

@@ -64,7 +64,7 @@ public class TestMap extends Map {
 
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(0, 17).getLocation();
+        this.playerStartPosition = getMapTile(1, 7).getLocation();
     }
 
     @Override
@@ -189,7 +189,7 @@ public class TestMap extends Map {
         DinosaurEnemy dinosaurEnemy8 = new DinosaurEnemy(getMapTile(815, 21).getLocation().addY(2), getMapTile(817, 21).getLocation().addY(2), Direction.RIGHT);
         enemies.add(dinosaurEnemy8);
 
-        Judy judy = new Judy(getMapTile(904, 19).getLocation().addY(-2), getMapTile(907, 19).getLocation().addY(-2), Direction.RIGHT);
+        Judy judy = new Judy(getMapTile(904, 14).getLocation().addY(-2), getMapTile(907, 14).getLocation().addY(-2), Direction.RIGHT);
         enemies.add(judy);
 
         MiniBoss mb1 = new MiniBoss(getMapTile(393, 19).getLocation().addY(-2), getMapTile(396, 19).getLocation().addY(-2), Direction.RIGHT);
