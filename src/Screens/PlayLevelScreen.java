@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -12,6 +14,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -37,6 +40,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    private int cutsceneTimer; // Timer to track when to change images
+    private int cutsceneIndex; // Index of the current image in the cutscene
+    private static final int CUTSCENE_IMAGE_DURATION = 240; // Duration per image (in frames)
+    private List<String> cutsceneImages; // List of cutscene image file paths
+    private ImageLoader imageLoader;
 
     // Timer variables
     protected int levelTimer; // Timer counts in frames
@@ -50,7 +58,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private int finalAreaEndX = 1000;   // Ending X coordinate of the final area
     private int finalAreaStartY = 0;    // z Y coordinate of the final area
     private int finalAreaEndY = 600;    // Ending Y coordinate of the final area
-    private boolean inFinalArea = false;  // Flag to track if the player is in the final area
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -61,6 +68,28 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void initialize() {
+
+         // Initialize cutscene
+        cutsceneImages = Arrays.asList(
+        "CutsceneImage1.png",
+            "CutsceneImage2.png",
+            "CutsceneImage3.png",
+            "CutsceneImage4.png",
+            "CutsceneImage5.png",
+            "CutsceneImage6.png",
+            "CutsceneImage7.png",
+            "CutsceneImage8.png",
+            "CutsceneImage9.png",
+            "CutsceneImage10.png",
+            "CutsceneImage11.png",
+            "CutsceneImage12.png",
+            "CutsceneImage13.png",
+            "CutsceneImage14.png",
+            "CutsceneImage15.png"
+        );
+        cutsceneTimer = 0;
+        cutsceneIndex = 0;
+        playLevelScreenState = PlayLevelScreenState.CUTSCENE;
         // Play background music for the level only if it's not already playing
         if (backgroundClip == null || !backgroundClip.isRunning()) {
             playBackgroundMusic("src/Sounds/Super Mario Bros. 3 - World Map 8_ Dark Land Theme (online-audio-converter.com).wav");
@@ -94,7 +123,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
 
-        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
         // Initialize timer
         this.levelTimer = 0;
@@ -103,16 +131,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void update() {
         // Based on screen state, perform specific actions
         switch (playLevelScreenState) {
+            case CUTSCENE:
+                cutsceneTimer++;
+                if (cutsceneTimer >= CUTSCENE_IMAGE_DURATION) {
+                    cutsceneTimer = 0;
+                    cutsceneIndex++;
+                    if (cutsceneIndex >= cutsceneImages.size()) {
+                        playLevelScreenState = PlayLevelScreenState.RUNNING;
+                    }
+                }
+                break;
+
             case RUNNING:
                 if (player != null) {
                     player.update();
                     map.update(player);
-
-                    // Check if player has entered the final area
-                    if (!inFinalArea && isPlayerInFinalArea()) {
-                        inFinalArea = true; // Mark that we are in the final area
-                        changeBackgroundMusic("src/Sounds/Super Metroid Music - Ridley Draygon Boss Theme (online-audio-converter.com).wav"); // Change to the final area music
-                    }
                 }
 
                 // Increment the level timer (counts in frames)
@@ -138,6 +171,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void draw(GraphicsHandler graphicsHandler) {
         switch (playLevelScreenState) {
+            case CUTSCENE:
+            if (cutsceneIndex < cutsceneImages.size()) {
+                String imagePath = cutsceneImages.get(cutsceneIndex);
+                graphicsHandler.drawImage(imageLoader.load(imagePath), 0, 0, 800, 600); // Adjust dimensions as needed
+            }
+            break;
+
             case RUNNING:
                 map.draw(graphicsHandler);
                 if (player != null) {
@@ -365,18 +405,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         stopBackgroundMusic(); // Stop the current background music
         playBackgroundMusic(filepath); // Play new background music and ensure looping
     }
-
-    // Method to check if player is in the final area
-    private boolean isPlayerInFinalArea() {
-        int playerX = (int) player.getX();
-        int playerY = (int) player.getY();
-
-        return playerX >= finalAreaStartX && playerX <= finalAreaEndX &&
-               playerY >= finalAreaStartY && playerY <= finalAreaEndY;
-    }
-
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
+        CUTSCENE, RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 }
