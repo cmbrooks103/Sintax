@@ -75,7 +75,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         "CutsceneImage1.png",
             "CutsceneImage2.png",
             "CutsceneImage3.png",
-            "CutsceneImage4.png"
+            "CutsceneImage4.png",
+            "CutsceneImage5.png",
+            "CutsceneImage6.png",
+            "CutsceneImage7.png",
+            "CutsceneImage8.png",
+            "CutsceneImage9.png",
+            "CutsceneImage10.png",
+            "CutsceneImage11.png",
+            "CutsceneImage12.png"
         );
         cutsceneTimer = 0;
         cutsceneIndex = 0;
