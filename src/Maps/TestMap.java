@@ -42,6 +42,7 @@ import Level.TileType;
 import NPCs.Fproof;
 import NPCs.Grave;
 import NPCs.Sword;
+import NPCs.SwordMaster;
 import NPCs.FireballMaster;
 import NPCs.Shotgun;
 import NPCs.Walrus;
@@ -336,6 +337,9 @@ enhancedMapTiles.add(pt2);
 
         Sword sword = new Sword(getMapTile(119, 9).getLocation().subtractY(13));
         npcs.add(sword);
+
+        SwordMaster blade = new SwordMaster(getMapTile(10, 11).getLocation().subtractY(13));
+        npcs.add(blade);
 
         FireballMaster FBM = new FireballMaster(getMapTile(33, 9).getLocation().subtractY(13));
         npcs.add(FBM);

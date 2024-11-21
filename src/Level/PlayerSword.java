@@ -18,14 +18,14 @@ import java.util.HashMap;
 public class PlayerSword extends MapEntity {
     private float speed;
     private int damage;
-    private int lifespan; // Number of frames the fireball will exist
+    private int lifespan; // Number of frames the sword slash will exist
     private boolean movingRight;
 
     public PlayerSword(Point location, float speed, int damage, int lifespan, boolean movingRight) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("slash.png"), 7, 7), "DEFAULT");
         this.speed = speed;
         this.damage = damage;
-        this.lifespan = lifespan;
+        lifespan = (int) (50 / (1000.0 / 60.0));  // 200 ms lifespan
         this.movingRight = movingRight;
     }
 
@@ -33,7 +33,7 @@ public class PlayerSword extends MapEntity {
     public void update() {
         super.update(); // Call the base class update
 
-        // Move the fireball in the appropriate direction
+        // Move the sword slash in the appropriate direction
         moveXHandleCollision(movingRight ? speed : -speed);
 
         // Check for collision with each enemy to ensure immediate damage registration
@@ -41,43 +41,43 @@ public class PlayerSword extends MapEntity {
             if (this.getBounds().intersects(enemy.getBounds())) {
                 enemy.hurtEnemy(); // Apply damage
 
-                // Play explosion sound effect
-                playExplosionSound();
+                // Play clash sound effect
+                playClashSound();
 
-                // Create an explosion at the intersection point
-                Explosion explosion = new Explosion(new Point((int) this.x, (int) this.y), 60);
-                map.addMapEntity(explosion);
+                // Create a clash at the intersection point
+                Clash clash = new Clash(new Point((int) this.x, (int) this.y), 60);
+                map.addMapEntity(clash);
 
-                // Remove the fireball after collision
+                // Remove the sword slash after collision
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
-                break; // Exit the loop as the fireball should only damage one enemy at a time
+                break; // Exit the loop as the sword slash should only damage one enemy at a time
             }
         }
 
         // Reduce lifespan and remove if it reaches zero
         lifespan--;
         if (lifespan <= 0) {
-            // Create an explosion when the fireball vanishes
-            Explosion explosion = new Explosion(new Point((int) this.x, (int) this.y), 60);
-            map.addMapEntity(explosion);
+            // Create a clash when the sword slash vanishes
+            Clash clash = new Clash(new Point((int) this.x, (int) this.y), 60);
+            map.addMapEntity(clash);
 
-            // Play explosion sound effect for when the fireball disappears
-            playExplosionSound();
+            // Play clash sound effect for when the sword slash disappears
+            playClashSound();
 
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
     }
 
-    private void playExplosionSound() {
+    private void playClashSound() {
         try {
-            File explosionSoundPath = new File("src/Sounds/Explosion_Sound_Effect.wav"); // Update with your explosion sound file path
-            if (explosionSoundPath.exists()) {
-                AudioInputStream audioInput = AudioSystem.getAudioInputStream(explosionSoundPath);
-                Clip explosionClip = AudioSystem.getClip();
-                explosionClip.open(audioInput);
-                explosionClip.start(); // Play the explosion sound once
+            File clashSoundPath = new File("src/Sounds/Clash_Sound_Effect.wav"); // Update with your clash sound file path
+            if (clashSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(clashSoundPath);
+                Clip clashClip = AudioSystem.getClip();
+                clashClip.open(audioInput);
+                clashClip.start(); // Play the clash sound once
             } else {
-                System.out.println("WAV file not found: " + explosionSoundPath);
+                System.out.println("WAV file not found: " + clashSoundPath);
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();

@@ -42,7 +42,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected boolean levelCompletedStateChangeStart;
     private int cutsceneTimer; // Timer to track when to change images
     private int cutsceneIndex; // Index of the current image in the cutscene
-    private static final int CUTSCENE_IMAGE_DURATION = 240; // Duration per image (in frames)
+    private static final int CUTSCENE_IMAGE_DURATION = 0; // Duration per image (in frames)
     private List<String> cutsceneImages; // List of cutscene image file paths
     private ImageLoader imageLoader;
 
@@ -282,6 +282,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             e.printStackTrace();
         }
     }
+
+    public static void playSwordSwingSound() {
+        try {
+            File swordSwingSoundPath = new File("src/Sounds/swing.wav");
+            if (swordSwingSoundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(swordSwingSoundPath);
+                Clip swordSwingClip = AudioSystem.getClip();
+                swordSwingClip.open(audioInput);
+                swordSwingClip.start(); // Play the sword swing sound once
+            } else {
+                System.out.println("WAV file not found: " + swordSwingSoundPath);
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
     
     public static void playEnemyDefeatSound() {
         try {

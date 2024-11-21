@@ -13,38 +13,39 @@ import Utils.Point;
 
 public class SwordMaster extends NPC {
 
-    private boolean hasTalked = false;  // Tracks if the NPC has been interacted with
-
     public SwordMaster(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("shawty.png"), 24, 24), "Rip");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("blade.png"), 24, 24), "DORMANT");
         isInteractable = true;
-        talkedToTime = 200;
-        textbox.setText("b roke");
+        talkedToTime = 200; // Duration for interaction
+        textbox.setText("You've been granted the ability to swing a sword. Press Z to attack.");
         textboxOffsetX = -4;
-        textboxOffsetY = -800;
+        textboxOffsetY = -50;
     }
 
+    @Override
     public void update(Player player) {
-        if (talkedTo && !hasTalked) {
-            currentAnimationName = "N Tear";
-            hasTalked = true;  // Set to true to ensure it doesn't switch back to NORMAL
+        if (talkedTo) {
+            currentAnimationName = "ACTIVATE";
+            player.enableSwordSwingAbility(); // Grant the player the ability to swing a sword
+        } else {
+            currentAnimationName = "DORMANT";
         }
-    
+
         super.update(player);
     }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-           put("Rip", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(3)
-                           .build()
-           });
-            put("N Tear", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(3)
-                            .build()
+            put("DORMANT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    .withScale(3)
+                    .build()
+            });
+            put("ACTIVATE", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    .withScale(3)
+                    .build()
             });
         }};
     }

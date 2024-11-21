@@ -129,61 +129,80 @@ public Map getMap() {
 
 
 
+private boolean canSwingSword = false;
+
+public void enableSwordSwingAbility() {
+    this.canSwingSword = true;
+}
+
+private void swingSword() {
+    // Determine the initial position of the sword slash based on the player's facing direction
+    PlayLevelScreen.playSwordSwingSound();
+    int swordOffsetX = facingDirection == Direction.RIGHT ? this.getWidth() : -10; // Offset X based on direction
+    int swordOffsetY = this.getHeight() / 2; // Adjust the Y position for the sword swing
+
+    Point swordStart = new Point((int) this.x + swordOffsetX, (int) this.y + swordOffsetY);
+
+    // Create a new PlayerSword and add it to the map
+    PlayerSword sword = new PlayerSword(swordStart, 5.0f, 1, 30, facingDirection == Direction.RIGHT);
+    map.addProjectile(sword);
+}
 
 
 
 
-    public void update() {
-        moveAmountX = 0;
-        moveAmountY = 0;
+@Override
+public void update() {
+    moveAmountX = 0;
+    moveAmountY = 0;
 
-        if (canShootFireballs && Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
-            keyLocker.lockKey(SHOOT_KEY);
-            shootFireball(); // Call the method to shoot a fireball
-        }
-    
-        if (Keyboard.isKeyUp(SHOOT_KEY)) {
-            keyLocker.unlockKey(SHOOT_KEY);
-        }
-
-        
-       // if player is currently playing through level (has not won or lost)
-        if (levelState == LevelState.RUNNING) {
-            applyGravity();
-
-            // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
-            do {
-                previousPlayerState = playerState;
-                handlePlayerState();
-            } while (previousPlayerState != playerState);
-
-            previousAirGroundState = airGroundState;
-
-            // move player with respect to map collisions based on how much player needs to move this frame
-            lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
-            lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
-
-            handlePlayerAnimation();
-
-            updateLockedKeys();
-            if (damageTimer > 0){
-                damageTimer--;
-            }
-
-            // update player's animation
-            super.update();
-        }
-
-        // if player has beaten level
-        else if (levelState == LevelState.LEVEL_COMPLETED) {
-            updateLevelCompleted();
-        }
-
-        // if player has lost level
-        else if (levelState == LevelState.PLAYER_DEAD) {
-            updatePlayerDead();
-        }
+    // Handle shooting fireballs
+    if (canShootFireballs && Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
+        keyLocker.lockKey(SHOOT_KEY);
+        shootFireball();
     }
+    if (Keyboard.isKeyUp(SHOOT_KEY)) {
+        keyLocker.unlockKey(SHOOT_KEY);
+    }
+
+    // Handle sword swinging
+    if (canSwingSword && Keyboard.isKeyDown(SLASH_KEY) && !keyLocker.isKeyLocked(SLASH_KEY)) {
+        keyLocker.lockKey(SLASH_KEY);
+        swingSword();
+    }
+    if (Keyboard.isKeyUp(SLASH_KEY)) {
+        keyLocker.unlockKey(SLASH_KEY);
+    }
+
+    // Handle level running, gravity, and player state
+    if (levelState == LevelState.RUNNING) {
+        applyGravity();
+
+        do {
+            previousPlayerState = playerState;
+            handlePlayerState();
+        } while (previousPlayerState != playerState);
+
+        previousAirGroundState = airGroundState;
+
+        lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
+        lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
+
+        handlePlayerAnimation();
+        updateLockedKeys();
+
+        if (damageTimer > 0) {
+            damageTimer--;
+        }
+
+        super.update();
+    } else if (levelState == LevelState.LEVEL_COMPLETED) {
+        updateLevelCompleted();
+    } else if (levelState == LevelState.PLAYER_DEAD) {
+        updatePlayerDead();
+    }
+}
+
 
     // add gravity to player, which is a downward force
     protected void applyGravity() {
