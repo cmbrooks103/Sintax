@@ -702,7 +702,7 @@ Frame snowRamp2Frame = new FrameBuilder(getSubImage(2, 13))
 .build();
 
 MapTileBuilder snowRamp2 = new MapTileBuilder(snowRamp2Frame)
-.withTileType(TileType.NOT_PASSABLE);
+.withTileType(TileType.SLOPE);
 
 mapTiles.add(snowRamp2);
 
@@ -762,12 +762,12 @@ MapTileBuilder snowSkull = new MapTileBuilder(snowSkullFrame)
 
 mapTiles.add(snowSkull);
 
-Frame snowSky1Frame = new FrameBuilder(getSubImage(4, 13))
+Frame snowSky1Frame = new FrameBuilder(getSubImage(4, 14))
 .withScale(tileScale)
 .build();
 
 MapTileBuilder snowSky1 = new MapTileBuilder(snowSky1Frame)
-.withTileType(TileType.PASSABLE);
+.withTileType(TileType.NOT_PASSABLE);
 
 mapTiles.add(snowSky1);
 

@@ -41,7 +41,7 @@ public class Judy extends Enemy {
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
         initialize();
-        maxHealth = 55;
+        maxHealth = 90;
     }
 
     @Override
@@ -177,23 +177,23 @@ private void shootCash() {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                        .withScale(8)
+                        .withScale(13)
                         .withBounds(4, 2, 5, 13)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                        .withScale(8)
+                        .withScale(13)
                         .withBounds(4, 2, 5, 13)
                         .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                        .withScale(8)
+                        .withScale(13)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                        .withScale(8)
+                        .withScale(13)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build()
@@ -201,14 +201,14 @@ private void shootCash() {
 
             put("SHOOT_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-                        .withScale(8)
+                        .withScale(13)
                         .withBounds(4, 2, 5, 13)
                         .build(),
             });
 
             put("SHOOT_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(1, 0))
-                        .withScale(8)
+                        .withScale(13)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(4, 2, 5, 13)
                         .build(),

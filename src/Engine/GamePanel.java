@@ -8,133 +8,129 @@ import javax.swing.*;
 import java.awt.*;
 
 /*
- * This is where the game loop process and render back buffer is setup
+ * This is where the game loop process and render back buffer is set up.
  */
 public class GamePanel extends JPanel {
-	// loads Screens on to the JPanel
-	// each screen has its own update and draw methods defined to handle a "section" of the game.
-	private ScreenManager screenManager;
+    private ScreenManager screenManager;
+    private GraphicsHandler graphicsHandler;
 
-	// used to draw graphics to the panel
-	private GraphicsHandler graphicsHandler;
+    private boolean isGamePaused = false;
+    private SpriteFont pauseLabel;
+    private KeyLocker keyLocker = new KeyLocker();
+    private final Key pauseKey = Key.P;
+    private Thread gameLoopProcess;
 
-	private boolean isGamePaused = false;
-	private SpriteFont pauseLabel;
-	private KeyLocker keyLocker = new KeyLocker();
-	private final Key pauseKey = Key.P;
-	private Thread gameLoopProcess;
+    private Key showFPSKey = Key.G;
+    private SpriteFont fpsDisplayLabel;
+    private boolean showFPS = false;
+    private int currentFPS;
+    private boolean doPaint;
 
-	private Key showFPSKey = Key.G;
-	private SpriteFont fpsDisplayLabel;
-	private boolean showFPS = false;
-	private int currentFPS;
-	private boolean doPaint;
+    // Viewport dimensions
+    private static final int VIEWPORT_WIDTH = 800;
+    private static final int VIEWPORT_HEIGHT = 605;
 
-	// The JPanel and various important class instances are setup here
-	public GamePanel() {
-		super();
-		this.setDoubleBuffered(true);
+    public GamePanel() {
+        super();
+        this.setDoubleBuffered(true);
+        this.addKeyListener(Keyboard.getKeyListener());
 
-		// attaches Keyboard class's keyListener to this JPanel
-		this.addKeyListener(Keyboard.getKeyListener());
+        graphicsHandler = new GraphicsHandler();
+        screenManager = new ScreenManager();
 
-		graphicsHandler = new GraphicsHandler();
+        pauseLabel = new SpriteFont("PAUSE", 365, 280, "Arial", 24, Color.white);
+        pauseLabel.setOutlineColor(Color.black);
+        pauseLabel.setOutlineThickness(2.0f);
 
-		screenManager = new ScreenManager();
+        fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
+        currentFPS = Config.TARGET_FPS;
 
-		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Arial", 24, Color.white);
-		pauseLabel.setOutlineColor(Color.black);
-		pauseLabel.setOutlineThickness(2.0f);
+        GameLoop gameLoop = new GameLoop(this);
+        gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
+    }
 
-		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
+    public void setupGame() {
+        setBackground(Colors.CORNFLOWER_BLUE);
+        screenManager.initialize(new Rectangle(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
+    }
 
-		currentFPS = Config.TARGET_FPS;
+    public void startGame() {
+        gameLoopProcess.start();
+    }
 
-		// this game loop code will run in a separate thread from the rest of the program
-		// will continually update the game's logic and repaint the game's graphics
-		GameLoop gameLoop = new GameLoop(this);
-		gameLoopProcess = new Thread(gameLoop.getGameLoopProcess());
-	}
+    public ScreenManager getScreenManager() {
+        return screenManager;
+    }
 
-	// this is called later after instantiation, and will initialize screenManager
-	// this had to be done outside of the constructor because it needed to know the JPanel's width and height, which aren't available in the constructor
-	public void setupGame() {
-		setBackground(Colors.CORNFLOWER_BLUE);
-		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
-	}
+    public void setCurrentFPS(int currentFPS) {
+        this.currentFPS = currentFPS;
+    }
 
-	// this starts the timer (the game loop is started here)
-	public void startGame() {
-		gameLoopProcess.start();
-	}
+    public void setDoPaint(boolean doPaint) {
+        this.doPaint = doPaint;
+    }
 
-	public ScreenManager getScreenManager() {
-		return screenManager;
-	}
+    public void update() {
+        updatePauseState();
+        updateShowFPSState();
 
-	public void setCurrentFPS(int currentFPS) {
-		this.currentFPS = currentFPS;
-	}
+        if (!isGamePaused) {
+            screenManager.update();
+        }
+    }
 
-	public void setDoPaint(boolean doPaint) {
-		this.doPaint = doPaint;
-	}
+    private void updatePauseState() {
+        if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
+            isGamePaused = !isGamePaused;
+            keyLocker.lockKey(pauseKey);
+        }
 
-	public void update() {
-		updatePauseState();
-		updateShowFPSState();
+        if (Keyboard.isKeyUp(pauseKey)) {
+            keyLocker.unlockKey(pauseKey);
+        }
+    }
 
-		if (!isGamePaused) {
-			screenManager.update();
-		}
-	}
+    private void updateShowFPSState() {
+        if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
+            showFPS = !showFPS;
+            keyLocker.lockKey(showFPSKey);
+        }
 
-	private void updatePauseState() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
-			isGamePaused = !isGamePaused;
-			keyLocker.lockKey(pauseKey);
-		}
+        if (Keyboard.isKeyUp(showFPSKey)) {
+            keyLocker.unlockKey(showFPSKey);
+        }
 
-		if (Keyboard.isKeyUp(pauseKey)) {
-			keyLocker.unlockKey(pauseKey);
-		}
-	}
+        fpsDisplayLabel.setText("FPS: " + currentFPS);
+    }
 
-	private void updateShowFPSState() {
-		if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
-			showFPS = !showFPS;
-			keyLocker.lockKey(showFPSKey);
-		}
+    public void draw() {
+        screenManager.draw(graphicsHandler);
 
-		if (Keyboard.isKeyUp(showFPSKey)) {
-			keyLocker.unlockKey(showFPSKey);
-		}
+        if (isGamePaused) {
+            pauseLabel.draw(graphicsHandler);
+            graphicsHandler.drawFilledRectangle(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT, new Color(0, 0, 0, 100));
+        }
 
-		fpsDisplayLabel.setText("FPS: " + currentFPS);
-	}
+        if (showFPS) {
+            fpsDisplayLabel.draw(graphicsHandler);
+        }
+    }
 
-	public void draw() {
-		screenManager.draw(graphicsHandler);
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-		// if game is paused, draw pause gfx over Screen gfx
-		if (isGamePaused) {
-			pauseLabel.draw(graphicsHandler);
-			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
-		}
+        if (doPaint) {
+            Graphics2D g2d = (Graphics2D) g;
 
-		if (showFPS) {
-			fpsDisplayLabel.draw(graphicsHandler);
-		}
-	}
+            // Set the viewport to only 800x605
+            g2d.setClip(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		if (doPaint) {
-			// every repaint call will schedule this method to be called
-			// when called, it will setup the graphics handler and then call this class's draw method
-			graphicsHandler.setGraphics((Graphics2D) g);
-			draw();
-		}
-	}
+            // Clear the area before drawing
+            g2d.clearRect(0, 0, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+
+            graphicsHandler.setGraphics(g2d);
+            draw();
+        }
+    }
 }
