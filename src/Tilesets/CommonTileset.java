@@ -688,23 +688,25 @@ MapTileBuilder snowFloor = new MapTileBuilder(snowFloorFrame)
 
 mapTiles.add(snowFloor);
 
-Frame snowRamp1Frame = new FrameBuilder(getSubImage(1, 13))
-.withScale(tileScale)
-.build();
+Frame rightsnowFrame = new FrameBuilder(getSubImage(1, 13))
+       .withScale(tileScale)
+       .build();
 
-MapTileBuilder snowRamp1 = new MapTileBuilder(snowRamp1Frame)
-.withTileType(TileType.NOT_PASSABLE);
+       MapTileBuilder rightsnow = new MapTileBuilder(rightsnowFrame)
+       .withTileType(TileType.SLOPE)
+       .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
 
-mapTiles.add(snowRamp1);
+       mapTiles.add(rightsnow);
 
-Frame snowRamp2Frame = new FrameBuilder(getSubImage(2, 13))
-.withScale(tileScale)
-.build();
+       Frame leftsnowFrame = new FrameBuilder(getSubImage(2, 13))
+       .withScale(tileScale)
+       .build();
 
-MapTileBuilder snowRamp2 = new MapTileBuilder(snowRamp2Frame)
-.withTileType(TileType.NOT_PASSABLE);
+       MapTileBuilder leftsnow = new MapTileBuilder(leftsnowFrame)
+       .withTileType(TileType.SLOPE)
+       .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
 
-mapTiles.add(snowRamp2);
+       mapTiles.add(leftsnow);
 
 
 Frame snowSkyFrame = new FrameBuilder(getSubImage(3, 13))
@@ -730,7 +732,7 @@ Frame snowIcicleFrame = new FrameBuilder(getSubImage(0, 14))
 .build();
 
 MapTileBuilder snowIcicle = new MapTileBuilder(snowIcicleFrame)
-.withTileType(TileType.PASSABLE);
+.withTileType(TileType.NOT_PASSABLE);
 
 mapTiles.add(snowIcicle);
 
@@ -758,16 +760,16 @@ Frame snowSkullFrame = new FrameBuilder(getSubImage(3, 14))
 .build();
 
 MapTileBuilder snowSkull = new MapTileBuilder(snowSkullFrame)
-.withTileType(TileType.NOT_PASSABLE);
+.withTileType(TileType.PASSABLE);
 
 mapTiles.add(snowSkull);
 
-Frame snowSky1Frame = new FrameBuilder(getSubImage(4, 13))
+Frame snowSky1Frame = new FrameBuilder(getSubImage(4, 14))
 .withScale(tileScale)
 .build();
 
 MapTileBuilder snowSky1 = new MapTileBuilder(snowSky1Frame)
-.withTileType(TileType.PASSABLE);
+.withTileType(TileType.NOT_PASSABLE);
 
 mapTiles.add(snowSky1);
 

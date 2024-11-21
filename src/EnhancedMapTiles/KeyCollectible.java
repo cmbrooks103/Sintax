@@ -1,7 +1,5 @@
 package EnhancedMapTiles;
 
-import java.util.HashMap;
-
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
@@ -12,43 +10,36 @@ import Level.Player;
 import Level.TileType;
 import Utils.Point;
 
+import java.util.HashMap;
 
-// This class is for a collectible 
-// when the player touches it, it will disapear
-public class Collectible extends EnhancedMapTile {
+public class KeyCollectible extends EnhancedMapTile {
+    private boolean collected = false; // Ensure the key activates only once
 
-    public Collectible(Point location) {
+    public KeyCollectible(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Collectible.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
-        if (intersects(player)) {
-           mapEntityStatus = MapEntityStatus.REMOVED;
+
+        // When the player collects the key
+        if (intersects(player) && !collected) {
+            collected = true; // Prevent multiple activations
+            player.setHasKey(true); // Mark the player as having the key
+            mapEntityStatus = MapEntityStatus.REMOVED; // Remove the key from the map
         }
     }
-
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[] {
+            put("DEFAULT", new Frame[]{
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
-                        .withScale(3)
-                        .withBounds(1, 1, 14, 14)
-                        .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
-                        .withScale(3)
-                        .withBounds(1, 1, 14, 14)
-                        .build(),
-                new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
                         .withScale(3)
                         .withBounds(1, 1, 14, 14)
                         .build()
             });
         }};
     }
-
-
 }

@@ -6,6 +6,9 @@ import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+/*
+ * A class for handling graphics rendering, such as drawing images, shapes, and text.
+ */
 public class GraphicsHandler {
     private Graphics2D g;
 
@@ -77,44 +80,46 @@ public class GraphicsHandler {
     }
 
     public void drawStringWithOutline(String text, int x, int y, Font font, Color textColor, Color outlineColor, float outlineThickness) {
-        // Save original settings
         Color originalColor = g.getColor();
         Stroke originalStroke = g.getStroke();
         RenderingHints originalHints = g.getRenderingHints();
 
-        // Set stroke and anti-aliasing
         g.setStroke(new BasicStroke(outlineThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-        // Create glyph vector and transform shape
         GlyphVector glyphVector = font.createGlyphVector(g.getFontRenderContext(), text);
         Shape textShape = glyphVector.getOutline();
         AffineTransform at = new AffineTransform();
         at.setToTranslation(Math.round(x), Math.round(y));
         textShape = at.createTransformedShape(textShape);
 
-        // Draw outline
         g.setColor(outlineColor);
         g.draw(textShape);
 
-        // Fill shape with text color
         g.setColor(textColor);
         g.fill(textShape);
 
-        // Restore original settings
         g.setColor(originalColor);
         g.setStroke(originalStroke);
         g.setRenderingHints(originalHints);
     }
 
     public int getHeight() {
-        // Placeholder for future implementation
-        throw new UnsupportedOperationException("Unimplemented method 'getHeight'");
+        if (g != null) {
+            return g.getClipBounds().height;
+        }
+        throw new UnsupportedOperationException("Graphics context is not initialized");
     }
 
-    public Object getFontMetrics() {
-        // Placeholder for future implementation
-        throw new UnsupportedOperationException("Unimplemented method 'getFontMetrics'");
+    public int getWidth() {
+        if (g != null) {
+            return g.getClipBounds().width;
+        }
+        throw new UnsupportedOperationException("Graphics context is not initialized");
+    }
+
+    public FontMetrics getFontMetrics(Font font) {
+        return g.getFontMetrics(font);
     }
 }

@@ -124,11 +124,27 @@ public class TileBuilder extends JPanel {
     public void tileSelected(Point selectedPoint) {
         int selectedTileIndex = getSelectedTileIndex(selectedPoint);
         if (selectedTileIndex != -1) {
-            MapTile oldMapTile = map.getMapTiles()[selectedTileIndex];
-            MapTile newMapTile =  map.getTileset().getTile(controlPanelHolder.getSelectedTileIndex()).build(oldMapTile.getX(), oldMapTile.getY());
-            newMapTile.setMap(map);
-            map.getMapTiles()[selectedTileIndex] = newMapTile;
+            int mapWidthInTiles = map.getWidthPixels() / map.getTileset().getScaledSpriteWidth();
+            int selectedTileX = selectedTileIndex % mapWidthInTiles;
+            int selectedTileY = selectedTileIndex / mapWidthInTiles;
 
+            // Loop through the 2x2 area
+            for (int offsetY = 0; offsetY < 1; offsetY++) {
+                for (int offsetX = 0; offsetX < 1; offsetX++) {
+                    int targetX = selectedTileX + offsetX;
+                    int targetY = selectedTileY + offsetY;
+                    int targetIndex = targetY * mapWidthInTiles + targetX;
+
+                    if (targetIndex < map.getMapTiles().length) {
+                        MapTile oldMapTile = map.getMapTiles()[targetIndex];
+                        MapTile newMapTile = map.getTileset()
+                            .getTile(controlPanelHolder.getSelectedTileIndex())
+                            .build(oldMapTile.getX(), oldMapTile.getY());
+                        newMapTile.setMap(map);
+                        map.getMapTiles()[targetIndex] = newMapTile;
+                    }
+                }
+            }
         }
         repaint();
     }
