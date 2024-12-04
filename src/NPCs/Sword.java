@@ -16,7 +16,7 @@ public class Sword extends NPC {
     private boolean hasTalked = false;  // Tracks if the NPC has been interacted with
 
     public Sword(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 24, 24), "NORMAL");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Sword.png"), 24, 24), "NORMAL");
         isInteractable = true;
         talkedToTime = 200;
         textbox.setText("b roke");

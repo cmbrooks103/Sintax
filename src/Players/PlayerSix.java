@@ -10,7 +10,6 @@ import GameObject.SpriteSheet;
 import Level.Map;
 import Level.Player;
 import Level.PlayerState;
-import EnhancedMapTiles.Trail; // Import the Trail class
 import EnhancedMapTiles.Trail4;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -24,7 +23,7 @@ public class PlayerSix extends Player {
     private boolean canDoubleJump; // Track if double jump is available
 
     public PlayerSix(float x, float y, Map map) {
-        super(new SpriteSheet(ImageLoader.load("slayer.png"), 24, 24), x, y, "STAND_RIGHT", map);
+        super(new SpriteSheet(ImageLoader.load("Resources/slayer.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15f;

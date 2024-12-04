@@ -12,7 +12,7 @@ public class DamageEffect extends MapEntity {
     private int lifespan; // Number of frames the effect will exist
 
     public DamageEffect(Point location, int lifespan) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("DamageEffect.png"), 16, 16), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/DamageEffect.png"), 16, 16), "DEFAULT");
         this.lifespan = lifespan;
     }
 

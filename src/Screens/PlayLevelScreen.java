@@ -72,10 +72,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
          // Initialize cutscene
         cutsceneImages = Arrays.asList(
-        "CutsceneImage1.png",
-            "CutsceneImage2.png",
-            "CutsceneImage3.png",
-            "CutsceneImage4.png"
+                "Resources/CutsceneImage1.png",
+                "Resources/CutsceneImage2.png",
+                "Resources/CutsceneImage3.png",
+                "Resources/CutsceneImage4.png"
         );
         cutsceneTimer = 0;
         cutsceneIndex = 0;

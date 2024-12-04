@@ -34,7 +34,7 @@ public class PhantomEnemy extends Enemy {
     protected DinosaurState previousDinosaurState;
 
     public PhantomEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("phantom.png"), 14, 17), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("Resources/phantom.png"), 14, 17), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;

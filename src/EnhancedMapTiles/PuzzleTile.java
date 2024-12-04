@@ -17,7 +17,7 @@ public class PuzzleTile extends EnhancedMapTile {
 
     // Constructor that only takes a location point
     public PuzzleTile(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PuzzleTile.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/PuzzleTile.png"), 16, 16), TileType.PASSABLE);
     }
 
     // Method to connect the tile to a PuzzlePlatform

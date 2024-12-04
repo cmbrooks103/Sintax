@@ -20,7 +20,7 @@ public class PlayerFour extends Player {
 
     // Constructor for Player Four
     public PlayerFour(float x, float y, Map map) {
-        super(new SpriteSheet(ImageLoader.load("dracula.png"), 24, 24), x, y, "STAND_RIGHT", map);
+        super(new SpriteSheet(ImageLoader.load("Resources/dracula.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15f;

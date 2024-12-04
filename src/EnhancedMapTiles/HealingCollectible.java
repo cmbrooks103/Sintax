@@ -10,14 +10,13 @@ import Level.Player;
 import Level.TileType;
 import Utils.Point;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HealingCollectible extends EnhancedMapTile {
     private boolean collected = false; // Ensure collectible activates only once
 
     public HealingCollectible(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("HealingCollectible.png"), 16 , 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/HealingCollectible.png"), 16 , 16), TileType.PASSABLE);
     }
 
     @Override

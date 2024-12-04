@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class PlayerThree extends Player {
     // Constructor for Player Three
     public PlayerThree(float x, float y, Map map) {
-        super(new SpriteSheet(ImageLoader.load("pumpkin.png"), 24, 24), x, y, "STAND_RIGHT", map);
+        super(new SpriteSheet(ImageLoader.load("Resources/pumpkin.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15f; // Cast to int directly

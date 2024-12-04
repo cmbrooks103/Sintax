@@ -10,7 +10,6 @@ import GameObject.SpriteSheet;
 import Level.Map;
 import Level.Player;
 import Level.PlayerState;
-import EnhancedMapTiles.Trail; // Import the Trail class
 import EnhancedMapTiles.Trail2;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -23,7 +22,7 @@ public class PlayerFive extends Player {
     private boolean canDash; // Track if dash is available
 
     public PlayerFive(float x, float y, Map map) {
-        super(new SpriteSheet(ImageLoader.load("knight.png"), 24, 24), x, y, "STAND_RIGHT", map);
+        super(new SpriteSheet(ImageLoader.load("Resources/knight.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15f;

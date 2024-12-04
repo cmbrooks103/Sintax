@@ -20,7 +20,7 @@ public class Fireball extends Enemy {
     private boolean moveUpwards;  // Added to determine direction
 
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean moveUpwards) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Fireball.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
         this.existenceFrames = existenceFrames;
         this.moveUpwards = moveUpwards;  // Initialize direction

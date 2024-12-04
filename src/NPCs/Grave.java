@@ -15,7 +15,7 @@ import Utils.Point;
 public class Grave extends NPC {
 
     public Grave(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Grave.png"), 24, 24), "RESTING");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Grave.png"), 24, 24), "RESTING");
         isInteractable = true;
         talkedToTime = 200;
         textbox.setText("↸𝙹リ'ℸᓵꖌ∷ℸ");

@@ -20,7 +20,7 @@ import Utils.Point;
 public class char3Collectible extends EnhancedMapTile {
 
     public char3Collectible(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("pumpkinCollectible.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/pumpkinCollectible.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override

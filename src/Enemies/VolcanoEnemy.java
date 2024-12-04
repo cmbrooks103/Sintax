@@ -3,7 +3,6 @@ package Enemies;
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
-import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.Player;
@@ -22,7 +21,7 @@ public class VolcanoEnemy extends Enemy {
 
     public VolcanoEnemy(Point location) {
         // Use the volcano sprite sheet
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("volcano.png"), 14, 17), "IDLE");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/volcano.png"), 14, 17), "IDLE");
         initialize();
     }
 

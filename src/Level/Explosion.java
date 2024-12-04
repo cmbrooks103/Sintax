@@ -12,7 +12,7 @@ public class Explosion extends MapEntity {
     private int lifespan; // Number of frames the explosion will exist
 
     public Explosion(Point location, int lifespan) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Explosion.png"), 16, 16), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Explosion.png"), 16, 16), "DEFAULT");
         this.lifespan = lifespan;
     }
 

@@ -42,16 +42,17 @@ In a map subclass's `loadEnhancedMapTiles` method, enhanced map tiles can be def
 For example, in `TestMap`, both a `HorizontalMovingPlatform` and `EndLevelBox` are created and added to the enhanced map tile list:
 
 ```java
+
 @Override
 public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
-ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+    ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
     HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
-            ImageLoader.load("GreenPlatform.png"),
+            ImageLoader.load("Resources/GreenPlatform.png"),
             getMapTile(24, 6).getLocation(),
             getMapTile(27, 6).getLocation(),
             TileType.JUMP_THROUGH_PLATFORM,
             3,
-            new Rectangle(0, 6,16,4),
+            new Rectangle(0, 6, 16, 4),
             Direction.RIGHT
     );
     enhancedMapTiles.add(hmp);

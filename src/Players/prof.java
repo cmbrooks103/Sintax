@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class prof extends Player {
     // Constructor for Player One
     public prof(float x, float y, Map map) {
-        super(new SpriteSheet(ImageLoader.load("profsheet.png"), 24, 24), x, y, "STAND_RIGHT", map);
+        super(new SpriteSheet(ImageLoader.load("Resources/profsheet.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15; // Cast to int directly

@@ -27,7 +27,7 @@ public class DemonEnemy extends Enemy {
     private final float maxVerticalMovement = 140; // 4 tiles = 64 pixels
 
     public DemonEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("DemonEnemy.png"), 22, 15), "FLOAT_DOWN");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/DemonEnemy.png"), 22, 15), "FLOAT_DOWN");
         this.startFacingDirection = facingDirection;
         this.initialize();
     }

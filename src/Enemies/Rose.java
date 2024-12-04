@@ -21,7 +21,7 @@ public class Rose extends Enemy {
 
     public Rose(Point location) {
         // Use the volcano sprite sheet
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("skullrose.png"), 14, 17), "IDLE");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/skullrose.png"), 14, 17), "IDLE");
         initialize();
     }
 

@@ -47,7 +47,7 @@ public class LevelClearedScreen extends Screen {
 
     public void draw(GraphicsHandler graphicsHandler) {
         // Load the image as a BufferedImage
-        BufferedImage backgroundImage = ImageLoader.load("levelclear.png");
+        BufferedImage backgroundImage = ImageLoader.load("Resources/levelclear.png");
     
         // Draw the image as the background
         graphicsHandler.drawImage(backgroundImage, 0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight());

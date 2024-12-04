@@ -36,7 +36,7 @@ public class Judy extends Enemy {
     private int directionChangeInterval = 80; // Time in frames before changing direction
 
     public Judy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("judy.png"), 14, 17), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("Resources/judy.png"), 14, 17), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;

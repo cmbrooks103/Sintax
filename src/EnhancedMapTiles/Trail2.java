@@ -17,7 +17,7 @@ public class Trail2 extends EnhancedMapTile {
     private boolean animationStopped = false; // Track if animation has stopped
 
     public Trail2(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("trail2.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/trail2.png"), 16, 16), TileType.PASSABLE);
         this.spawnTime = System.currentTimeMillis(); // Set creation time
     }
 

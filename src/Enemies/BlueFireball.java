@@ -21,7 +21,7 @@ public class BlueFireball extends Enemy {
     private int existenceFrames;
 
     public BlueFireball(Point location, float movementSpeed, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BlueFireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/BlueFireball.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing

@@ -19,7 +19,7 @@ public class PlayerTwo extends Player {
 
     // Constructor for Player Two
     public PlayerTwo(float x, float y, Map map) {
-        super(new SpriteSheet(ImageLoader.load("prof2.png"), 24, 24), x, y, "STAND_RIGHT", map);
+        super(new SpriteSheet(ImageLoader.load("Resources/prof2.png"), 24, 24), x, y, "STAND_RIGHT", map);
         gravity = 0.6f;
         terminalVelocityY = 6f;
         jumpHeight = 15f;

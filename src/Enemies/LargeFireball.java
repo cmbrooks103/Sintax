@@ -21,7 +21,7 @@ public class LargeFireball extends Enemy {
     private int existenceFrames;
 
     public LargeFireball(Point location, float movementSpeed, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BlueFireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/BlueFireball.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed * 2; // Increased speed for faster shooting
 
         // how long the fireball will exist for before disappearing

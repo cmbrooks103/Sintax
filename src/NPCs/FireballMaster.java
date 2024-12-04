@@ -14,7 +14,7 @@ import Utils.Point;
 public class FireballMaster extends NPC {
 
     public FireballMaster(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("1Fproof.png"), 24, 24), "DORMANT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/1Fproof.png"), 24, 24), "DORMANT");
         isInteractable = true;
         talkedToTime = 200; // Duration for interaction
         textbox.setText("You've been granted the ability to wield fire. Press X to shoot fireballs.");

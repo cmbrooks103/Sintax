@@ -20,7 +20,6 @@ import Enemies.Spirit;
 import Enemies.VolcanoEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.LavaPerk;
-import EnhancedMapTiles.Collectible;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HealingCollectible;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -159,7 +158,7 @@ public class TestMap extends Map {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
         HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
-                ImageLoader.load("GreenPlatform.png"),
+                ImageLoader.load("Resources/GreenPlatform.png"),
                 getMapTile(24, 6).getLocation(),
                 getMapTile(27, 6).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
@@ -170,7 +169,7 @@ public class TestMap extends Map {
         enhancedMapTiles.add(hmp);
 
         HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
-            ImageLoader.load("GreenPlatform.png"),
+            ImageLoader.load("Resources/GreenPlatform.png"),
             getMapTile(154, 4).getLocation(),
             getMapTile(158, 4).getLocation(),
             TileType.JUMP_THROUGH_PLATFORM,
@@ -181,7 +180,7 @@ public class TestMap extends Map {
     enhancedMapTiles.add(hmp1);
 
     HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
-        ImageLoader.load("GreenPlatform.png"),
+        ImageLoader.load("Resources/GreenPlatform.png"),
         getMapTile(160, 4).getLocation(),
         getMapTile(166, 4).getLocation(),
         TileType.JUMP_THROUGH_PLATFORM,
@@ -193,7 +192,7 @@ public class TestMap extends Map {
 
     // Vertical platform
     VerticalMovingPlatform vmp = new VerticalMovingPlatform(
-    ImageLoader.load("GreenPlatform.png"),
+    ImageLoader.load("Resources/GreenPlatform.png"),
     getMapTile(10, 5).getLocation(),  // Start location
     getMapTile(10, 10).getLocation(), // End location
     TileType.JUMP_THROUGH_PLATFORM,
@@ -268,7 +267,7 @@ enhancedMapTiles.add(vmp);
 
         // First set of PuzzlePlatform and PuzzleTile
 PuzzlePlatform pp = new PuzzlePlatform(
-    ImageLoader.load("PuzzlePlatform.png"),
+    ImageLoader.load("Resources/PuzzlePlatform.png"),
     getMapTile(553, 9).getLocation(),
     getMapTile(547, 9).getLocation(),
     TileType.JUMP_THROUGH_PLATFORM,
@@ -284,7 +283,7 @@ enhancedMapTiles.add(pt);
 
 // Second set of PuzzlePlatform and PuzzleTile
 PuzzlePlatform pp1 = new PuzzlePlatform(
-    ImageLoader.load("PuzzlePlatform.png"),
+    ImageLoader.load("Resources/PuzzlePlatform.png"),
     getMapTile(555, 9).getLocation(),
     getMapTile(550, 9).getLocation(),
     TileType.JUMP_THROUGH_PLATFORM,
@@ -299,7 +298,7 @@ pt1.setPuzzlePlatform(pp1); // Link the puzzle platform to the tile
 enhancedMapTiles.add(pt1);
 
 PuzzlePlatform pp2 = new PuzzlePlatform(
-    ImageLoader.load("PuzzlePlatform.png"),
+    ImageLoader.load("Resources/PuzzlePlatform.png"),
     getMapTile(661, 6).getLocation(),
     getMapTile(658, 6).getLocation(),
     TileType.JUMP_THROUGH_PLATFORM,

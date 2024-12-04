@@ -49,7 +49,7 @@ public class KeyBindsScreen extends Screen {
         pointerLocationY = 155;
 
         // Load background image for the screen
-        keyBindsImage = ImageLoader.load("KeyBinds.png");
+        keyBindsImage = ImageLoader.load("Resources/KeyBinds.png");
         keyLocker.lockKey(Key.SPACE);
     }
 

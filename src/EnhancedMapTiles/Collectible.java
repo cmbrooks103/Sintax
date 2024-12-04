@@ -18,7 +18,7 @@ import Utils.Point;
 public class Collectible extends EnhancedMapTile {
 
     public Collectible(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Collectible.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Collectible.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class PlayerFireball extends MapEntity {
     private boolean movingRight;
 
     public PlayerFireball(Point location, float speed, int damage, int lifespan, boolean movingRight) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Fireball.png"), 7, 7), "DEFAULT");
         this.speed = speed;
         this.damage = damage;
         this.lifespan = lifespan;

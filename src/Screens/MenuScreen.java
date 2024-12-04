@@ -58,7 +58,7 @@ public class MenuScreen extends Screen {
         keyLocker.lockKey(Key.SPACE);
 
         // Load the image from the resources folder using ImageLoader
-        overlayImage = ImageLoader.load("characterselect.png");
+        overlayImage = ImageLoader.load("Resources/characterselect.png");
         if (overlayImage == null) {
             System.out.println("Image not loaded correctly.");
         }

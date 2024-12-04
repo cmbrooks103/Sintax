@@ -17,7 +17,7 @@ public class PortalTile extends EnhancedMapTile {
 
     // Constructor that only takes a location point
     public PortalTile(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("portal.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/portal.png"), 16, 16), TileType.PASSABLE);
     }
 
     // Method to set the teleport destination

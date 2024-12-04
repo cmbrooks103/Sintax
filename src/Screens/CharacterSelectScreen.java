@@ -124,7 +124,7 @@ public class CharacterSelectScreen extends Screen {
         pointerLocationX = 60;
         pointerLocationY = 5;
 
-        characterSelectImage = ImageLoader.load("hellish.png");
+        characterSelectImage = ImageLoader.load("Resources/hellish.png");
         keyLocker.lockKey(Key.SPACE);
     }
 

@@ -17,7 +17,7 @@ public class LavaPerk extends EnhancedMapTile {
     private boolean collected = false; // Ensure collectible activates only once
 
     public LavaPerk(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("lavaperk.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/lavaperk.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override

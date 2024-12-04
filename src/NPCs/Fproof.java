@@ -15,7 +15,7 @@ import Utils.Point;
 public class Fproof extends NPC {
 
     public Fproof(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fproof.png"), 24, 24), "DORMANT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/Fproof.png"), 24, 24), "DORMANT");
         isInteractable = true;
         talkedToTime = 200;
         textbox.setText("You are now immune to heat damage");

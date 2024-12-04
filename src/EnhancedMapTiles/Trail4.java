@@ -17,7 +17,7 @@ public class Trail4 extends EnhancedMapTile {
     private boolean animationStopped = false; // Track if animation has stopped
 
     public Trail4(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("doomtrail.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/doomtrail.png"), 16, 16), TileType.PASSABLE);
         this.spawnTime = System.currentTimeMillis(); // Set creation time
     }
 

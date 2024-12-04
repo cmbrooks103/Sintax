@@ -18,7 +18,7 @@ public class Spirit extends Enemy {
 
     public Spirit(Point location) {
         // Use a sprite sheet for the Spirit enemy
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("spirit.png"), 14, 17), "IDLE");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Resources/spirit.png"), 14, 17), "IDLE");
         initialize();
     }
 

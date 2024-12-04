@@ -20,17 +20,17 @@ public class ImageLoader {
 
     // loads an image and allows the transparent color to be specified
     public static BufferedImage load(String imageFileName, Color transparentColor) {
-        Path filePath = Paths.get(Config.RESOURCES_PATH, imageFileName);  // Using Path to build the file path
-        if (!filePath.toFile().exists()) {
-            System.err.println("Error: The image file does not exist at " + filePath);
-            return null;  // Return null to handle it gracefully, or throw an exception if needed
-        }
+//        Path filePath = Paths.get(Config.RESOURCES_PATH, imageFileName);  // Using Path to build the file path
+//        if (!filePath.toFile().exists()) {
+//            System.err.println("Error: The image file does not exist at " + filePath);
+//            return null;  // Return null to handle it gracefully, or throw an exception if needed
+//        }
         
         try {
-            BufferedImage initialImage = ImageIO.read(filePath.toFile());
+            BufferedImage initialImage = ImageIO.read(ImageLoader.class.getClassLoader().getResource(Config.RESOURCES_PATH + imageFileName));
             return ImageUtils.transformColorToTransparency(initialImage, transparentColor);
         } catch (IOException e) {
-            System.err.println("Unable to load image from file: " + filePath);
+            System.err.println("Unable to load image from file: " + Config.RESOURCES_PATH + imageFileName);
             e.printStackTrace();
             return null;  // Return null on error instead of throwing an exception
         }
@@ -50,7 +50,7 @@ public class ImageLoader {
         }
 
         try {
-            BufferedImage initialImage = ImageIO.read(filePath.toFile());
+            BufferedImage initialImage = ImageIO.read(ImageLoader.class.getClassLoader().getResource(Config.RESOURCES_PATH + imageFileName));
             BufferedImage transparentImage = ImageUtils.transformColorToTransparency(initialImage, transparentColor);
             return transparentImage.getSubimage(x, y, width, height);
         } catch (IOException e) {
